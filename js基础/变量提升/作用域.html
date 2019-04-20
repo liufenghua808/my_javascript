@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        /*
+            //全局作用域 和局部（私有）作用域（函数形成的）
+            ES6多了块级作用域  
+            let const： 可识别块级作用域
+            var :是全局变量，不存在识别块级作用域
+
+
+            全局变量：全局作用域中声明的变量 var function
+            私有变量：在私有作用域中声明的变量
+        */
+    
+        console.log(a); //undefined
+        var a = 1; //全局变量
+        console.log(a); //1
+        function fn(b){  //所以形参都是私有变量
+            var a = 2; //私有变量
+            console.log(a); //2
+        }
+        fn();
+        console.log(a); //1
+
+
+        var n=12;
+        function fn(){
+            console.log(n);  //undefined  n进行了变量提升
+            var n = 13
+            console.log(n);  //13
+        }
+        fn();
+        console.log(n); //12
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        /*
+        函数内的参数或者变量默认是不能被外界所访问
+        函数内如果没有某个变量或者参数，会去函数外查找，直到window结束。
+ 
+        当一个函数被调用   函数名+() 的时候，做了两件事:
+         1、执行函数内的代码
+         2、返回函数结果（函数返回值）
+                 默认的返回值为undefined(不写return)
+                 通过return（在函数内层）去设置函数返回值，return后面是什么，函数返回的结果就是什么
+ 
+        */
+
+        let a = 2;
+        function fn(m,n){
+            let b = 4;
+            console.log(a);  //函数内可以调用函数外的变量
+            console.log(m+n);
+
+            return function(){};
+        }
+        //fn();
+        //fn(12,34);
+        console.log(fn());   //1、执行代码块  2、函数返回值，默认undefind
+        
+        //console.log(b);  //函数内的变量不能被函数外调用
+
+        let f = fn(12,34);  //函数返回值赋值给 变量f
+        console.log(f); //1、执行代码块  2、函数返回默认值undefined
+    </script>
+</body>
+
+</html>

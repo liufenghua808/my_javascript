@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        /*
+            数组写法：
+            let arr = new Array();
+            let arr = [];性能更高
+        
+        */
+
+
+        // var arr = [1, 2, 3, 4];
+        // // arr.splice(3,1);
+        // // console.log(arr);
+        // var arr2 = [5, 6, 7, 4];
+
+        // for (var i = 0; i < arr.length; i++) {
+        //     for (var j = 0; j < arr2.length; j++) {
+        //         var a = arr[i];
+        //         var b = arr2[j];
+        //         if (a == b) {
+        //             arr.splice(i,1);
+        //             arr2.splice(j,1);
+
+
+
+
+        //         }
+        //     }
+            
+        // }
+        //  console.log(arr);
+        //  console.log(arr2);
+
+
+
+        // let arr = [1, 2, 3, 4];
+        // // arr.splice(3,1);
+        // // console.log(arr);
+        // let arr2 = [5, 6, 7, 4];
+        // for (let i = 0; i < arr.length; i++) {
+        //     for (let j = 0; j < arr2.length; j++) {
+        //         if (arr[i] == arr2[j]) {
+        //             arr.splice(i,1);
+        //             arr2.splice(j,1);
+        //             // console.log(arr);
+        //             // console.log(arr2);
+        //         }
+        //     }
+            
+        // }
+        //  console.log(arr);
+        //  console.log(arr2);
+
+//如何判断一个对象是数组
+        let arr = [1,2,3,4];
+    //console.log(arr instanceof Array);  //true
+    console.log(Object.prototype.toString.call(['Object arr'])); //[object Array]
+    console.log(Array.isArray(arr));//true
+
+    </script>
+</body>
+
+</html>

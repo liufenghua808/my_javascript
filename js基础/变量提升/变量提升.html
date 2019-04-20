@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+          变量提升（提声）：在代码执行之前，把其中的var和function关键字先提前声明：
+              var : 只声明不定义；默认值：undefined
+              function:声明加定义
+        */
+
+        console.log(a, fn);
+        if (true) {
+            //var a=2;
+            function fn() {
+                console.log(100);
+            }
+        }
+        fn();
+
+        //函数内先形参赋值，再看var 和function
+        function fn1(a, b) {
+            console.log(a, b, c);//1 undefined undefined
+            var c = 3;
+            console.log(a, b, c);//1 undefined 3
+        }
+        fn1(1);
+
+        //全局中，var 可以重复声明，let不可以重复声明
+        //全局中，var 可以变量提升，let不具备变量提升
+        // var 可以成为window属性； let 不可以
+        //const 声明就是一个常量，不能重复赋值
+
+        console.log(a);  //let声明时 会报错
+        //let a = 6;  
+        var a = 6;
+        console.log(a);
+        //let a = 7;
+        var a = 7;
+        console.log(a);
+
+    </script>
+</body>
+
+</html>

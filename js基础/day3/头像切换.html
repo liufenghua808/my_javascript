@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <img src='girl.png' alt="" id='img' />
+
+    <script>
+        
+       
+
+        let img1 = true ;  
+
+        //let img = document.getElementById('img');
+        img.onclick = function(){    //全文中因没有相同的id名字，
+                                     //所以let img = document.getElementById('img');可以省略
+            if(img1){         //src、 href 不可以作为if里的条件 
+                img.src = 'boy.png';
+                img1 = false;
+            }else{
+                img.src = 'girl.png';
+                img1 = true;
+            }
+        }
+    </script>
+</body>
+</html>

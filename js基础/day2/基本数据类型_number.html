@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+</head>
+<body>
+  
+    <script>
+        //number 整数 小数 NaN(not a number)
+        var n = 1;
+        var n2 = '1' + 2; //字符串12
+        var n3 = 1 + 2;//number 3
+
+        console.log(n2,n3);  // 12（字符串的12）  3（number）
+
+        var n4 = '1' + 2 + 3; //只要+两边出现字符串都起拼接作用
+        var n5 = 1 + 2 + 3;
+        var n6 = '10' - 3 ;
+        var n7 = 10 - 3;
+        console.log(n4 ,n5,n6,n7); //字符串123  number6 number7 number7
+
+        //只有+号具有拼接作用，其他运算符都是起到运算效果
+        //除+号之外的运算符，内容需要先转成（Number） 数字；再进行运算
+        var n8 = Number('');// 0
+        var n9 = Number('12f');// NaN  Number转化的时候，字符串中有非数字（不含小数点），结果就是NaN
+        
+        //四则运算 + - * / %（除了+ ，其他的都会把符号两边内容转成数字再去运算）
+        var m1 = '12j' + 3;//12j3
+        var m2 = '12j' - 3;//NaN   * / % 一样
+
+        //一个 = 是赋值 ； == 相对比较  ===绝对比较
+
+        '1' == 1; //true
+        '1' === 1;//false
+        NaN == NaN  //false NaN和谁都不相等
+        'NaN' == NaN  //false NaN和谁都不相等
+        'NaN' == 'NaN' //ture
+        NaN+1+'2'  // 字符串 NaN2    NaN和任何数字做运算，结果都是NaN
+
+        console.log(m1,m2);
+    
+
+        //parseInt / parseFloat
+
+// 等同于Number，也是为了把其他类型的值转换为数字类型 
+// 和Number的区别在于字符串分析上 
+// Number：出现任意非有效数字字符，结果就是NaN 
+// parseInt：把一个字符串中的整数部分解析出来 
+// parseFloat是把一个字符串中小数（浮点数）部分解析出来
+// parseInt('13.5px') =>13
+// parseFloat('13.5px') =>13.5
+// parseInt('width:13.5px') =>NaN 从字符串最左边字符开始查找有效数字字符，并且转换为数字，但是一旦遇到一个非有效数字字符，查找结束
+        parseInt('12.3'); // 12
+        parseInt('12.3g');// 12
+        parseInt('1k3.3');// 1
+        parseInt('k12,3');// NaN
+        //从左向右查看，遇到非数字（包含小数点）即停，获取到的是前面的数字部分
+        //若第一个就是非数字，则结构是NaN
+
+        //Number(' ') ;// 0
+        //parseInt(' '); // NaN
+
+        0.1 + 0.2 == 0.3  //false   浏览器内部机制问题 0.30000000000000004
+    
+    </script>
+</body>
+</html>

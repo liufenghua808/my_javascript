@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            冒泡排序：
+                从小到大排序：当前项和后一项进行比较，如果当前项大于后一项，则交换位置
+                从大到小排序：当前项和后一项进行比较，如果当前项小于后一项，则交换位置
+        
+        */
+
+
+        let arr = [12,3,3,24,56,43,89,45];
+
+        function fn(arr){
+            for(let i=0;i<arr.length-1;i++){ //控制轮数
+            //console.log(arr[i]);
+            for(let j=0;j<arr.length-1-i;j++){ //每轮需要比较的次数会去掉上一轮产生的最大值
+                if(arr[j] > arr[j+1]){
+                    let s = arr[j+1];//声明一个变量参与位置交换
+                    arr[j+1] = arr[j];
+                    arr[j] = s;
+                }
+            }
+        }
+        }
+        fn(arr);
+        console.log(arr);
+
+        
+        //console.log(arr);
+
+        
+    </script>
+</body>
+</html>

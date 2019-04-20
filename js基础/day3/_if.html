@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    #txt{
+        display: none;
+    }
+    #box{
+        display: none;
+    }
+</style>
+<body>
+        <p id='p'>珠峰培训</p>
+        <input type="text" id='txt'/>
+        <button id='modify'>修改</button>
+        <div id='box'>
+            <button id='sure'>确定</button>
+            <button id='unsure'>取消</button>
+        </div>
+
+    <script>
+        let p = document.getElementById('p');
+        let txt = document.getElementById('txt');
+        let modify = document.getElementById('modify');
+        let box = document.getElementById('box');
+        let sure = document.getElementById('sure');
+        let unsure = document.getElementById('unsure');
+
+        //点击修改按钮 
+        modify.onclick = function(){
+            box.style.display='block';
+            txt.style.display='block';
+            modify.style.display='none';
+            txt.value = p.innerHTML;
+        }
+
+        unsure.onclick = function(){
+            box.style.display='none';
+            txt.style.display='none';
+            modify.style.display='block';
+            //p.innerHTML = p.innerHTML;
+        }
+
+        sure.onclick = function(){
+
+            if(txt.value != ''){
+                box.style.display='none';
+                txt.style.display='none';
+                modify.style.display='block';
+                p.innerHTML = txt.value;
+            }else{
+                alert('请输入内容！');
+            }
+        }
+
+        /*
+        1、if(){}
+            if(条件){
+                js语句
+            }
+
+        2、if() else{}
+            if(条件){
+                执行语句1
+            }else{
+                执行语句1
+            }
+
+        3、if(){} else if(){}  else{}
+            if(条件1){
+                执行语句1
+            }else if(条件2){
+                执行语句2
+            }else{
+                执行语句3
+            }
+
+        if括号中的判断条件，最后会转成布尔值
+        Nan -> not a number 非法的数字运算
+        什么是真？什么是假？
+        真：非空字符串、ture、非0数字是真的、对象
+        假：空字符串、false、0、NaN、undefined、null
+
+        */
+
+        
+    </script>
+</body>
+</html>

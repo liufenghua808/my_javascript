@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        /*
+            arguments 是一个在函数内的类数组（长的像数组，但不是一个真数组）
+            这个数组代表的是实参集合
+
+            通过下标去获取某个实参
+
+            一般实参有很多个情况，能用到grguments,arguments下标是和形参一一对应的
+        */
+        
+        // function fn(){
+        //     console.log(arguments);
+        //     console.log(arguments[3]);
+        //     for(var num = 0;num < arguments.length;num++){
+        //         num += arguments[num];
+        //     }
+        //     console.log(num);
+        // }
+        // fn( 1,2,3,32,23,45,67,78,89,22);//实参
+
+        function fn(a,b,c){
+            // console.log(arguments);
+            // console.log(arguments[3]);
+            // console.log(a+b+arguments[1]);
+
+            let m = 0
+            for(var num = 0;num < arguments.length;num++){
+                m += arguments[num];
+            }
+            console.log(m);
+        }
+        fn( 1,2,3,32,23,45,67,78,89,99);//实参
+    </script>
+</body>
+</html>

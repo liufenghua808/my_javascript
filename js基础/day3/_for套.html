@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        for循环中套for循环
+        */
+
+        /*
+        for(var i=0;i<3;i++){
+            alert('两个for循环中都使用var声明不同的变量名'+i);
+            for(var j=0;j<4;j++){
+                alert('小循环'+j);
+            }
+        }
+        */
+
+        //j建议使用let方式，let比var更严谨
+        for(let i=0;i<4;i++){
+            alert('两个for中都使用let声明同样的变量名，相互不影响'+i);
+            for(let i=0;i<2;i++){
+                alert('小循环'+i);
+            }
+        }
+
+        /*  不推荐使用下面方式
+        for(var i=0;i<4;i++){
+            alert('两个for中都使用var声明同样的变量名，则外层for循环会受内层for循环影响'+i);
+            for(var i=0;i<4;i++){
+                alert('小循环'+i);
+            }
+            console.log(i);
+        }
+        */
+
+    </script>
+</body>
+</html>

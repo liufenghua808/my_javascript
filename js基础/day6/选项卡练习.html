@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    section {
+        border: 1px solid #000;
+        height: 400px;
+    }
+
+    section.left {
+        width: 100px;
+        float: left;
+    }
+
+    section.left button {
+        margin: 10px;
+    }
+
+    .active {
+        background: red;
+    }
+
+    section div {
+        display: none;
+    }
+
+    section div.show {
+        display: block;
+    }
+</style>
+
+<body>
+    <section class="left">
+        <button class="active">选项一</button>
+        <button>选项二</button>
+        <button>选项三</button>
+        <button>选项四</button>
+        <button>选项五</button>
+        <button>选项六</button>
+        <button>选项七</button>
+        <button>选项八</button>
+    </section>
+    <section class="right">
+        <div class="show">内容一</div>
+        <div>内容二</div>
+        <div>内容三</div>
+        <div>内容四</div>
+        <div>内容五</div>
+        <div>内容六</div>
+        <div>内容七</div>
+        <div>内容八</div>
+    </section>
+
+    <script>
+        const sct = document.querySelectorAll('section');
+        const btns = sct[0].querySelectorAll('button');
+        const divs = sct[1].querySelectorAll('div');
+        //console.log(sct,btns,divs);
+
+        for (var i = 0, len = btns.length; i < len; i++) {
+            //console.log(i);
+            btns[i].num = i;
+            btns[i].onclick = function () {
+                //console.log(i);
+                for(var j = 0, len = btns.length; j < len; j++){
+                    btns[j].className = '';
+                    divs[j].className = '';
+                }
+
+                this.className = 'active';
+                divs[this.num].className = 'show';
+
+                
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>

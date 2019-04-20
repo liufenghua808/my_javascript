@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function fn() {
+        //     var i = 5;
+        //     return function (n) {
+        //         console.log(n * (--i))
+        //     }
+        // }
+        // var f = fn();
+        // f(10);   //40
+        // fn()(10); //40
+        // fn()(20); //80
+        // f(20); //60
+        //1、
+
+        var i = 2;
+        function fn() {
+            i += 2;
+            return function (n) {
+                console.log(n + (--i));
+            }
+        }
+
+        var f = fn();
+        f(2); //5    2+(--4)
+        f(3); //5
+        fn()(2);//5
+        fn()(3);//7
+        f(4);// 5    
+    </script>
+</body>
+
+</html>

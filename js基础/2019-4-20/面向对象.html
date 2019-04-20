@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+            
+        面向对象：
+            把相同的事务抽象出来归为一类，把描述它具体特征的属性或者方法挂在这个类的原型上的一种编程方式
+
+
+            实例上如果没有某个属性或者方法，还会到构造函数的原型下去查找，
+           
+
+        原型：prototype
+            只要是个函数，函数下都有一个prototype的属性值为对象，这个原型下的方法或者属性只有2种方式可以获取
+            1、obj.prototype.xx();
+            2、new Obj().xx();
+
+
+        原型链： _proto_
+            实例化对象一定有原型链
+
+
+        实例化对象上的原型链  对象._proto_ === 函数.prototype 构造函数的原型
+        对象上有原型链 => 指向构造函数的原型（原型也是个对象）
+                                                    =>原型链
+                                                        => 构造函数的原型（对象）
+                                                            =>直到找不到 undefined
+        */
+
+        function Tortoise(name){
+            this.name = name;
+            this.foot='4只脚';
+        }
+        Tortoise.prototype.ke = function(){
+            console.log('黑壳');
+        }
+        Object.prototype.zui = function(){
+            console.log('嘴巴');
+        }
+        Function.prototype.ke=function(){
+            console.log('Func');
+        }
+
+        let t1 = new Tortoise('草龟');
+        let t2 = new Tortoise('海龟');
+
+        
+
+        //t1.ke();
+        console.dir(t1);
+        t1.zui();
+        console.dir(Tortoise.ke);
+        Tortoise.ke();
+
+
+
+    </script>
+</body>
+
+</html>

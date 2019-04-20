@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>Document</title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            background-color: red;
+            display: none;
+
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">点击</button>
+    <div id="box"></div>
+   
+    <script>
+        /*
+            变量（let-常用、更严谨  var）：
+                把JS中的数据存储到一个自定义的名字中
+                常量的值允许改变
+                目的：为了多次复用
+
+            常量（const）：
+                把JS中的数据存储到常量中
+                常量的值不允许改变
+                一般在获取元素的时候使用
+
+            let box = document.getElementById('box');
+
+            let 变量名不能重复  
+                变量名不能以数字开头 
+                变量名不能用关键字（是JS中使用的名字）
+                可以使用中文命名，但不建议使用
+            
+            一般变量取名字用小驼峰命名法：
+                开头小写，字母与字母之间开头大写 例如：getElementById
+        
+        */
+
+        // 注意：使用js设置的样式都是行内样式，级别高于内嵌的样式
+        let box = document.getElementById('box');//把一个box元素赋值给box这个变量
+        let btn = document.getElementById('btn');
+        btn.onclick = function(){
+            box.style.display = 'block';
+            box.style.border = '2px solid #000';
+            box.style.backgroundColor = "green" //复合样式
+
+        }
+    </script>
+</body>
+</html>

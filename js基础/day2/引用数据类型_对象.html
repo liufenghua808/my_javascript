@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+</head>
+<body>
+   
+    <script>
+
+    //普通对象 {}
+    //键值对 -->属性名：属性值
+    //属性值 可以是 任意数据类型
+    //属性名都是字符串类型
+        var obj = {
+            name:"tom",
+            age:9,
+            1:56,
+            _:3,
+            $:4
+        };
+        console.log(obj['name']);
+        console.log(obj.name);
+        
+        console.log(obj[name]); //=> undefined [name]中的name是一个变量，对应的值是tom, obj["tom"] 
+
+    // //获取属性值 有两种方式 
+    // 一种是打点  另一种是[]方式
+    //若对象属性名是数字，那么我们只能使用[]的方式 obj.1 错误
+    // 打点的当时 完全等价于[字符串]
+    </script>
+</body>
+</html>

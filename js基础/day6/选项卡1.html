@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 300px;
+            height: 100px;
+            border: 1px solid #000;
+        }
+
+        .active {
+            background: red;
+        }
+
+        #box div {
+            display: none;
+        }
+
+        #box div.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <button class='active'>选项一</button>
+    <button>选项二</button>
+    <button>选项三</button>
+    <button>选项四</button>
+    <section id='box'>
+        <div class='show'>新闻</div>
+        <div>体育</div>
+        <div>娱乐</div>
+        <div>少儿</div>
+    </section>
+
+    <script>
+
+        //获取元素
+        const btns = document.querySelectorAll('button');
+        const box = document.getElementById('box');
+        const divs = box.querySelectorAll('div');
+
+        for (var i = 0, len = btns.length; i < len; i++) {
+            //console.log(i);   //进入onclick事件之前 i已经循环完毕 0，1，2，3
+            btns[i].num = i; //自定义属性名num作为元素btn[i]的索引
+           // console.log(btns[i].num); //0，1，2，3
+            btns[i].onclick = function () { //循环清除所有btn的样式，所有div的样式
+                for(var j = 0, len = btns.length; j < len; j++){
+                    btns[j].className = '';
+                    divs[j].className = '';
+                }
+                this.className='active';  //给当前点击的按钮添加样式
+                divs[this.num].className ='show'; //给当前点击的按钮对应的添加样式
+                
+            }
+        }
+       // console.log(i);//i=4  循环完毕之后，此时i++后 i=4
+
+
+    </script>
+
+</body>
+
+</html>

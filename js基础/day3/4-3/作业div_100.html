@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .oDiv1 {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            position: absolute
+        }
+    </style>
+</head>
+
+<body>
+    <div id='oDiv'>
+    </div>
+    <script>
+        /*
+            1.循环生成10个div
+            2.这10个div动态一行显示（定位的top，left是计算出来）
+            3.每个方块的颜色都不一样
+    
+            扩展:
+                生成100个div
+                每10个一行，共10行
+                
+        */
+        console.time('计时器开始');
+        let oDiv = document.getElementById('oDiv');
+        let oDiv1 = '';  //默认0个div
+        // 外层循环10次，每次插入10个div
+        for (let i = 0; i < 10; i++) {
+
+            //内层循环插入10个拼接的div
+            for (let j = 0; j < 10; j++) {
+                oDiv1 += `<div class='oDiv1' style='left:${j * 50}px;top:${i * 50}px;'></div>`;
+            }
+
+        }
+        oDiv.innerHTML = oDiv1;
+        //console.log(oDiv1);
+        console.timeEnd('计时器开始');
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        .b0 {
+            background-color: aqua;
+        }
+
+        .b1 {
+            background-color: burlywood;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id='box'>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+        <li>item</li>
+    </ul>
+    <script>
+        var list = document.querySelectorAll('#box>li');
+        for (var i = 0; i < list.length; i++) {
+            list[i].className = 'b' + (i % 2);
+
+            list[i].onmouseover = function(){
+                this.style.backgroundColor='red';
+            }
+            list[i].onmouseout = function(){
+                this.style.backgroundColor='';
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

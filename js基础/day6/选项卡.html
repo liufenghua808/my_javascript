@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    .active {
+        background: red;
+    }
+
+    section {
+        width: 200px;
+        height: 100px;
+        border: 1px solid #000;
+    }
+
+    section div {
+        display: none;
+    }
+
+    section div.show {
+        display: block;
+    }
+</style>
+
+<body>
+    <button class='active'>选项一</button>
+    <button>选项二</button>
+    <button>选项三</button>
+    <section>
+        <div class='show'>选项一</div>
+        <div>选项二</div>
+        <div>选项三</div>
+    </section>
+
+    <script>
+        const btns = document.querySelectorAll('button');
+        const section = document.getElementsByTagName('section')[0];
+        const divs = section.querySelectorAll('div');
+
+        for (var i = 0, len = btns.length; i < len; i++) {
+            btns[i].num = i;
+            btns[i].onclick = function () {
+                for (var j = 0, len = btns.length; j < len; j++) {
+                    btns[j].className = '';
+                    divs[j].className = '';
+                }
+                this.className = 'active';
+                divs[this.num].className ='show';
+                
+              
+
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

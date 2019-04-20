@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <span>12</span>
+            <input type="button" value="-" />
+            <span>0</span>
+            <input type="button" value="+" />
+            <span></span>
+        </li>
+        <li>
+            <span>12</span>
+            <input type="button" value="-" />
+            <span>0</span>
+            <input type="button" value="+" />
+            <span></span>
+        </li>
+        <li>
+            <span>12</span>
+            <input type="button" value="-" />
+            <span>0</span>
+            <input type="button" value="+" />
+            <span></span>
+        </li>
+    </ul>
+
+    <script>
+
+        let lis = document.querySelectorAll('li');
+        let spans = lis[0].querySelectorAll('span');
+        let btns = lis[0].querySelectorAll('input');
+
+        // console.log(lis);
+        // console.log(spans);
+        // console.log(btns);
+
+        let num = 0;
+        btns[1].onclick = function () {
+            num++;
+            fn();
+        }
+        btns[0].onclick = function () {
+            num--;
+            if(num < 0){
+                num = 0;
+            }
+            fn();
+
+        }
+
+        function fn(){
+            spans[1].innerHTML = num;
+            spans[2].innerHTML = spans[0].innerHTML * num;
+        }
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>

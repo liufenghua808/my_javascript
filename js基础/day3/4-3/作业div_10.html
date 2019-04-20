@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .oDiv1 {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+            position: absolute
+        }
+    </style>
+</head>
+
+<body>
+    <div id='oDiv'></div>
+    <script>
+        /*
+            1.循环生成10个div
+            2.这10个div动态一行显示（定位的top，left是计算出来）
+            3.每个方块的颜色都不一样
+    
+            扩展:
+                生成100个div
+                每10个一行，共10行
+                
+        */
+
+        let oDiv = document.getElementById('oDiv');
+        let oDiv1 = '';  //默认0个div
+        let arr = ['red', 'yellow', 'skyblue', 'green', 'pink'];
+
+        //循环插入10次<div></div>,每个div距离左边距离依次增加50px,背景色从arr[0]依次取到arr[9]  
+        for (let i = 0; i < 10; i++) {
+            oDiv1 += `<div class='oDiv1' style='left:${i * 60}px;top:0px;background:${arr[i%arr.length]}'></div>`;
+        }
+        oDiv.innerHTML = oDiv1;
+       // console.log(oDiv1);
+
+
+    </script>
+</body>
+
+</html>

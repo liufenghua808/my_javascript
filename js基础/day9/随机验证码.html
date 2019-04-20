@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id='btn'>验证码</button>
+    <script>
+
+        let btn = document.getElementById('btn');
+
+        /*
+           从已给的字符串中获取字符，随机生成验证码
+        */
+        function strCode(len) {  //形参设置为len  表示随机生成验证码的长度
+            let str = '0123456789abcdefghijklmnopqistuvwxyzABCDEFGHIJKLMNOPQISTUVWXYZ'
+            let code = ''; //空字符串，用于放随机生成的字符串
+            len = len || 4;  //如果len 不是undefined,执行len=len(不是undef其实代表strCode函数传了有效实参)；len是undefined,执行len=4
+
+            // for (let i = 0; i < len; i++) {
+            //     let ind = Math.round(Math.random() * (str.length - 1)); //获取str的0到str.length-1 随机整数索引
+            //     let str1 = str[ind];
+            //     if (code.indexOf(str1) === -1) { //随机验证码去重
+            //         code += str1; //获取str的ind索引对应的字符给到code
+            //     }
+            // }
+            //while循环实现
+            while (code.length < len) {
+                let ind = Math.round(Math.random() * (str.length - 1)); //获取str的0到str.length-1 随机整数索引
+                let str1 = str[ind];
+                // if (code.indexOf(str1) === -1) { //随机验证码去重
+                //     code += str1; //获取str的ind索引对应的字符给到code
+                // }
+                code.indexOf(str1) === -1?code += str1:null;
+
+            }
+            return code;
+        }
+        // console.log(strCode());
+
+        btn.onclick = function () {
+            this.innerHTML = strCode(); //把随机生成的字符获取到给btn
+            console.log(strCode(6));
+        }
+
+
+    </script>
+</body>
+
+</html>

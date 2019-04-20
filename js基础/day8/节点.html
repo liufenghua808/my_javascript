@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id='box'>
+        <div></div>
+    </div>
+
+
+    <script>
+        /*
+        
+            标签：元素节点    数字1
+
+            属性节点：数字2
+
+            文本节点：数字3     文本、换行
+
+            注释节点：数字8
+
+            document节点:数字9
+
+            整个html中全是节点
+
+            属性：nodeType ->值是一个数字  
+                去查看节点类型
+
+            childNodes：子节点
+
+            nodeValue:查看节点内容
+
+            attributes:属性节点
+        */
+
+        console.log(box.nodeType);  //1
+        console.log(document.nodeType);  //9
+        console.log(box.childNodes);  //NodeList(3) [text, div, text]
+
+
+
+    </script>
+</body>
+</html>

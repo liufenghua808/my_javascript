@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            在定义函数的时候，自定义的参数名叫形参（形式）
+            **形参当作变量来看
+
+            在调用函数的时候，括号中传的数据叫实参（实在的数据）
+            实参可以存任何的数据类型
+
+            参数与参数之间用逗号分隔，参数是可以为多个
+
+            注意：形参是对应实参的，他们的顺序也是要一一对应的
+            如果中间没有实参，必须占位
+        */
+
+        function fn(a){ //形参
+           // console.log(a);  //1、
+            a(function(c){
+                console.log(11);
+            });
+        }
+        fn(function(b){
+           // console.log(b); //2、
+            b(function(){
+           // console.log(c);
+            c();
+            });             //3、
+        });//实参 可以为任何数据类型
+
+
+        
+
+       /*1、 
+        a =>  function(b){
+            console.log(b);
+            b();
+        }
+
+       2、
+        b => function(c){
+                console.log(11);
+            }
+
+        3、 
+        b() =>  console.log(11)
+
+        */
+
+
+    </script>
+</body>
+</html>

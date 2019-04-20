@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            函数：
+                函数在js中属于代码块，函数内写功能的，目的为了复用。
+
+            函数主要由函数声明和函数调用两个部分组成。
+                三种声明方式：
+                函数声明：
+                    function 自定义函数名（）{}
+                    调用的时候可以在声明之前
+                函数表达式：
+                    let ff = function(){}
+                    调用必须在声明之后，不然报错
+                类声明：
+                    let f = new Function();
+                    （）内部要为字符串
+            调用：(只有函数才能够被调用)
+                函数名 + 括号调用
+                时间调用
+                定时器调用
+
+
+        定义函数的原理：
+            当定义一个函数的时候开辟一个新的堆内存
+            然后把函数中的代码转成字符串存到堆内存中
+            最后把堆内存的地址赋值给函数名或者变量
+        函数调用：
+            在函数调用的时候，函数内形成一个执行栈
+            把函数内的字符串代码拷贝一份放到执行栈中执行
+            参数赋值
+            执行上下文
+            预解析的机制
+            函数内的变量销毁
+        
+        
+        
+        */
+
+        // fn();
+        // function fn(){
+        //     console.log('hahha');
+        // }
+        
+        //ff();  //函数.html:41 Uncaught ReferenceError: ff is not defined
+        // let ff = function(){
+        //     console.log('hahha');
+        // }
+        // ff();
+        
+        //f();//Uncaught ReferenceError: f is not defined
+        let f = new Function('',console.log('fsadfafa'));
+        f();
+
+        //fn(); 函数声明调用可以放在声明前
+        function fn(){console.log('函数声明');} //函数声明方式
+        fn();
+        
+        let fn1 = function(){console.log('函数表达式声明方式');} //函数表达式
+        fn1();
+
+        let fn2 = new Function(console.log('sad','err','类声明方式'));  //类函数
+        fn2();
+
+    </script>
+</body>
+</html>

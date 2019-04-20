@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+           // 1、生成随机验证码（验证码不重复），如果没有指定验证码长度，默认是4
+        
+
+        function fn(len) {
+            len = len || 4;
+            let str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            while (code.length < len) {
+
+                let ind = Math.round(Math.random() * (str.length - 1));
+                let char = str[ind];
+                if (code.indexOf(char) === -1) {
+                    code += char;
+                }
+
+            }
+            return code;
+        }
+        console.log(fn());
+    */
+
+        /*
+           // 2、任意数求和     
+        function sum() {
+          let sum =0;
+          for(let i=0;i<arguments.length;i++){
+              let n = Number(arguments[i]);
+              if(!isNaN(n)){
+                sum +=n;
+              }  
+            
+          }
+          return sum;
+        }
+        console.log(sum(1,2,3,4,'12',5,6,7,8));
+    */
+
+        //2、1-100的和
+        function fn(n) {
+            if (n <=1) { return n }
+            return n += fn(--n);
+        }
+        console.log(fn(100));
+
+    </script>
+</body>
+
+</html>

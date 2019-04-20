@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <div id='box'></div>
+    <script>
+
+        /*
+            this
+                事件触发的时候，this就是触发的元素
+            
+            onclick:点击
+            onmouseover：移入
+        
+        */
+        let arr = ['语文', '数学', '英语'];
+        const btns = document.querySelectorAll('button');
+        const box = document.querySelector('div');
+
+        for (var i = 0; i < btns.length; i++) {
+            console.log(i);
+            btns[i].num = i; //自定义属性 num  (使用 var的时候用)
+            console.log(btns[i].num);  //0,1,2  btn[0].num='0',btn[1].num='1',btn[2].num='2',
+            btns[i].onclick = function () {
+                box.innerHTML = arr[this.num];
+                console.log(this.num);
+            }
+
+        }
+        console.log(i);  //i=3  3 打印结果时已经循环完毕
+
+
+        // //使用let 好解决，但是不能突出技术点
+
+        // for (let i = 0; i < btns.length; i++) {
+        //     console.log(i);
+        //     btns[i].onclick = function () {
+        //         box.innerHTML = arr[i];
+        //         console.log(i);
+        //     }
+
+        // }
+        // // console.log(i);  // i没有被定义，let定义的i只适用于for循环内
+
+
+
+        // for (var i = 0; i < btns.length; i++) {
+        //     console.log(i);
+
+        //     //下面的i是已经循环完毕的值，i=3
+        //     btns[i].onclick = function () {
+        //         box.innerHTML = arr[i];  //arr[3] 是undefined ,因为只有arr[0]\arr[1]\arr[2]
+        //         console.log(i);
+        //     }
+
+        // }
+        // console.log(i);  // i=3   var定义的变量可以全局使用
+
+
+
+
+    </script>
+</body>
+
+</html>

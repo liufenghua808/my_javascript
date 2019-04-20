@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <!-- <div id="oDiv"></div>
+    <div id="oDiv1"></div>
+    <script>
+    //字符串 用单引号或者双引号或者反引号包含的部分
+        var str = 'qwer';//单引号不能包含单引号
+        var str2 = "as\"df"; //双引号不能包含双引号 或者 "as\"df" 把双引号转译成双引号字符串本身
+        var str3 = `珠峰`;
+
+        var oDiv = document.getElementsByTagName('div')[0];
+        var oDiv1 = document.getElementsByTagName('div')[1]; 
+        
+        // oDiv.innerHTML = str3; //给 oDiv设置内容为str3
+        // oDiv.innerHTML = str+str2+str3; //字符串拼接
+
+        //内容换行、空格使用单引号需要用拼接符
+        oDiv.innerHTML = '<h1>'+
+            '<div>'+
+                '珠峰'+
+            '</div>'+
+        '</h1>'
+        
+        // //内容换行、空格使用反单引号可直接实现（ES6标准）
+       
+        oDiv1.innerHTML = `<h1>
+            <div>
+                str3
+                ${str3+str}   
+            </div>
+        </h1>`
+         //``反单引号中内所有的都是字符串，增加变量的值需要使用${变量名}
+
+         //1、写法 引号（单双反）包含 有"\"代表转义
+         //2、字符串拼接 一种是直接 + ；若是反引号可以通过${}
+         
+    </script> -->
+
+    <input id="inp" type="text" />
+    <button id="btn">点击</button>
+    <div id="oDiv"></div>
+
+    <script>
+        var inp = document.getElementById('inp'),
+            btn = document.getElementById('btn'),
+            oDiv = document.getElementById('oDiv');
+        //可省略var
+        btn.onclick = function(){
+            //oDiv.innerText = '我是'+inp.value;
+            oDiv.innerText = `我是${inp.value}`;
+            inp.value = ''; //情况inp
+        }
+    </script>
+</body>
+</html>

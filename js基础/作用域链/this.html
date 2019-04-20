@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // let age = 10; //let 声明的变量不会存在window中
+        // let obj = {
+        //     age: '珠峰',
+        //     fn: function () {
+        //         console.log(this.age) //undefined
+        //     }
+        // };
+        // let obj2 = {
+        //     f2: obj.fn,
+        //     age: 100
+        // }
+        // let f = obj.fn;
+        // f();  
+        // obj.fn();  //'珠峰'
+        // obj2.f2(); //100
+
+
+
+
+        // var age1 = 3000;
+        // var f2 = (a, b) => {
+        //     console.log(this.age1) //window.age1 = 3000 箭头函数没有this属性，下面的this属性是上级作用域的this，普通函数的this和作用域没什么关系
+        //     return a + b;
+        // };
+        // var f3 = function () {
+        //     console.log(this.age1) //obj3.age1 = 300  普通函数this的指向看点的指向
+        // }
+        // var obj3 = {
+        //     age1: 300,
+        //     f: f2,
+        //     f3: f3
+        // };
+        // obj3.f(1, 2);
+        // obj3.f3()
+
+        //箭头函数就是高阶函数
+        // var f4 = ()=>{
+        //    // console.log(arguments); //报错：arguments is not defined 因为window里面没有arguments
+        //     console.log(this); //window.this
+        // }
+        // f4();//箭头函数没有arguments
+
+        // [1,2,3,4,5].forEach(function(item,i){
+        //     console.log(arguments);
+        // })
+
+        // var f6 = a=>a+b;
+        // //相当于：
+        // var f6 = function(a){return a+b}
+
+        // var f6 = a =>b=>a+b;
+        // //相当于
+        // var f7 = (a)=>{
+        //     return (b)=>{
+        //         return a+b;
+        //     }
+        // }
+
+        // console.log(f7());//b=>a+b
+        // console.log(f7(1)(2)); //3  1传给a  2传给b
+
+        function  fn(){
+            var i =5; 
+            return function(n){
+                console.log(n*(--i))
+            }
+        }
+        var f = fn(); //fn()的返回值赋值给 f
+        f(10); // 10*(--5) =40
+        fn()(10);//10*(--5)=40 //开辟新的私有作用域
+        fn()(20); //20*(--5)=80 //开辟新的私有作用域
+        f(20);//20*(--4)=60
+
+        //f 、fn上级作用域为window
+        //fn()(10)、fn()(20)上级作用域是 fn,函数每次执行时候会产生新的私有作用域，两个不同的地址
+        //f(10)、f(20)在同一作用域，使用的同一个地址
+
+    
+
+    </script>
+</body>
+
+</html>

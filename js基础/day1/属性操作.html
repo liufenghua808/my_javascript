@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>Document</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+   <input type="text" id="txt" value="haha" />
+   
+    <script>
+        const txt = document.getElementById('txt');
+        console.log(txt.value);
+        txt.value = "study";
+        console.log(txt.value);
+        console.log(typeof txt.value);
+
+       /*
+            属性操作：
+            一种是读：
+                obj.属性名 就能获取到值
+            一种是写：
+                obj.属性名 = 属性值
+
+            带有 "" 或者 ''叫字符串:
+                在html中获取的文本都是字符串；
+                检测数据类型（最基本）：typeof
+
+            ECMAscript中规定了6种数据类型
+
+            数据类型他们的功能不一样，运算的结果就不一样。
+
+            字符串、数字、布尔值（true或者false）、null、undefined、object
+       
+            innerText 元素文本  读操作只能获得文本
+            innerHtml 元素结构  读操作不但能获得文本也可以获得结构（获取到某个元素下的所有内容，包括文本和标签）
+       */
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box{
+            width:150px;
+            height:200px;
+            border: 1px solid #000;
+        }
+        #txt{
+            width:150px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <input type="text" id="txt" />
+    <button id="btn">发送</button>
+
+    <script>
+        const box = document.getElementById("box");
+        const txt = document.getElementById("txt");
+        const btn = document.getElementById("btn");
+
+        btn.onclick = function(){
+            console.log(txt.value);
+            box.innerText = txt.value;
+        }
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // this 是函数的执行主体
+    let age = 10;
+    let obj = {
+        age:'珠峰',
+        fn:function(){
+            console.log(this.age)
+        }
+    };
+    let obj2 = {
+        f2:obj.fn,
+        age:100
+    }
+    let f = obj.fn;
+    // f === obj.fn
+    // 函数中的this指向； 看函数前边有没有点；
+    // 有点，点前边是谁， this就是谁；
+    // 没点 this就是 window;
+    f();// this window  window.age
+    obj.fn(); // obj    obj.age
+    obj2.f2(); // obj2  obj2.age 
+
+
+    // 箭头函数
+    var age1 = 3000;
+    var f2 = (a,b) => {
+        //箭头函数的this 是上级作用域的this；
+        console.log(this.age1)
+        return a + b;
+    };
+    var f3 = function(){
+        console.log(this.age1)
+    }
+    var obj3 = {
+        age1:300,
+        f:f2,
+        f3:f3
+    };
+    obj3.f(1,2); //3000   this=>window
+    obj3.f3(); //this =>obj3
+
+
+
+    var f4 = ()=>{
+        console.log(arguments);
+    };
+     //f4();   //报错
+
+    // 普通函数this指向， 看点的指向
+    // 箭头函数的this指向， 看上级作用域的this
+    // 箭头函数中 没有 arguments;
+
+
+    [1,2,3,4].forEach((item,index)=>{
+        console.log(this)  //this=>window
+    },obj3)
+
+
+    var f5 = a => a+10;
+    var f5 = (a) => {
+        return a + 10;
+    }
+
+    var f6 = a => b =>  a + b;
+    var q = f6(1);
+    q(2);
+    f6(1)(2)
+    var f6 = (a)=>{
+        return (b)=>{
+            return a + b;
+        }
+    }
+
+    var f6 = function () {
+        return ()=>arguments[0]
+    }
+    var f7 = f6(100);
+    console.log(f7);// f7 = ()=>{return arguments[0]}
+    console.log(f7());//100
+
+
+
+
+    function fa() {
+        let a = [1];
+        return a
+    }
+    q = fa()
+    w = fa();
+
+
+    // 作用域销毁 ： 
+    //      函数执行 返回值是一个引用数据类型，并且该应用数据类型被外界占用
+    //      那么 该函数执行形成的作用域就不会被销毁；
+
+    // 不销毁
+    // 不立即销毁
+    // 销毁
+
+
+    // 闭包： 
+    // 变量的保护机制；函数执行形成一个不销毁的作用域；我们把这个作用域称为闭包
+    // 闭包用的多了 就会引起浏览器的 栈内存溢出
+
+
+
+    function sum(a,b){return a+b}
+    sum(1,2)
+
+    function sum2() {
+        var name = '珠峰';
+        return {
+            name:name
+        }
+    }
+    var q = sum2();
+</script>

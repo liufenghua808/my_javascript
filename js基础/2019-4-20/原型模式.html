@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+            使用原型的目的：
+            当构造函数中写上方法的时候，每new一次就生成一个方法
+            同一个类生成的一个实例与多个同一个类生成的其他实例，他们的相同方法是不相等的，这就导致如果new若干次，那么就会生成若干个一摸一样的方法，这样对性能不友好的
+            所以我们要使用原型的方式去把方法挂在原型上
+
+            原型:
+                当定义一个函数的时候，这个函数自身有一些属性和方法，其中有一个属性叫做prototype，这个属性就叫原型
+
+                ****prototype它是一个对象
+                它的用处是如果实例化对象上没有某个属性或者方法
+                还会去这个实例化对象的构造函数中的原型（prototype）下去找该属性或者方法
+
+                如果构造函数的原型上没有这个方法，那么还会去原型下的原型链（_proto_）进行查找，找到Object.prototype
+
+
+
+                {
+                    prototype:{
+
+                    }
+                }
+
+
+            原型和原型链的区别：
+        
+        */
+
+        function Fn(name, age) {
+            this.name = name;
+            this.age = age;
+            this.say = function () {
+                console.log(this.name);
+            }
+
+        }
+
+        
+        let one = new Fn('001', '18');
+        let one1 = new Fn('002', '20');
+
+        one.say(); //001
+        one1.say();//002
+        console.log(one.say==one1.say);//false
+
+
+
+    </script>
+</body>
+
+</html>

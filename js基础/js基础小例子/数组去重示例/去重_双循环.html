@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            数组去重：双循环去重
+            数组塌陷：数组前一项删除后，后一项会自动往前移一位
+        
+        */
+        let arr = [1,2,1,3,4,2,5,6,3,4];
+
+        for(let i=0;i<arr.length;i++){
+            let ind1 = arr[i]; //获取出arr每一项
+            //从获取的每项arr[i]分别与后边所有项进行比较，去重         
+            for(let j=i+1;j<arr.length;){
+                let ind2 = arr[j];
+                //如果arr数组里有连续相同的项，arr.splice(j,1)会出现数组塌陷，所以只要ind1 == ind2，仍然从开始找
+                (ind1 == ind2) ?arr.splice(j,1):j++; 
+            }
+        }
+        console.log(arr); // [1, 2, 3, 4, 5, 6]
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /*
+            split():分割；字符串转成数组
+            reverse()：置返
+            join():数组转字符串
+        */
+        let str = '98765432';
+        console.log(str.split());  // ["98765432"] 字符串转换成数组
+        console.log(str.split(''));//["9", "8", "7", "6", "5", "4", "3", "2"]
+        console.log((str.split('')).reverse('')); // ["2", "3", "4", "5", "6", "7", "8", "9"] 
+        console.log(((str.split('')).reverse('')).join('')); //23456789
+        
+    </script>
+</body>
+</html>

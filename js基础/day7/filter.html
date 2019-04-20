@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            filter过滤条件成立的值
+
+            参数：
+            function(item.i,all){
+                return   条件成立的某项
+            }
+        */
+
+        //过滤大于28的数字
+        let arr = [12, 34, 56, 23, 45, 25];
+
+        let arr2 = arr.filter(function (item, i) {
+            return item <= 28 && item >= 20;
+        })
+        console.log(arr2);  //[23,25]
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>Document</title>
+</head>
+<body>
+    <div id="oDiv" class="qqq"><h1>珠峰培训</h1></div>
+    <div class="qqq">1</div>
+    <div class="qqq">2</div>
+
+    <script>
+        var oDiv1 = document.getElementById('oDiv');
+
+        //通过类名获取元素
+        var oDiv2 = document.getElementsByClassName('qqq')[0];
+        var oDiv3 = document.getElementsByClassName('qqq');
+
+         console.log(oDiv1,oDiv2,oDiv3[1]);
+
+        var oDiv4 = document.getElementsByTagName('div')[0]; //通过标签获取元素
+         console.log(oDiv4);
+
+        var str = oDiv4.innerHTML;
+        var str2 = oDiv4.innerText;
+
+        console.log(str,str2);
+        
+        oDiv1.innerHTML = '<h1>12345</h1>'; //更换内容
+
+        oDiv1.className = 'WWWW'; //更换类名
+
+        oDiv1.id = 'oDivv'; //更换ID名
+        
+
+    </script>
+    
+</body>
+</html>

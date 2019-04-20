@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+
+    </head>
+    <body>
+        <div>
+            <!-- <button onclick="alert('hello!')">点击</button> -->
+            <button id="btn">点击</button><br />
+            HTML + CSS 超文本标记语言<br />
+            js组成：<br />
+                javascript 编程语言 <br />
+                    ECMAScript 标准（语法） <br />
+                    DOM Document Object Model   文档对象模型  <br />
+                    BOM Browser Object Model    浏览器对象模型 <br />
+                常见框架：Vue， React， Jquery ，angular 
+        </div>
+
+        <!-- <script src="1.js">
+            /* 获取ID document
+                document.getElementById("btn")
+                get Element By Id
+                获取 元素 用Id 的方式
+            */
+
+            //引入方法1、行间行为：onclick="alert('hello!')"
+            /* 引入方法2、 document.getElementById('btn').onclick=function(){
+                alert('hello');
+            }
+            */
+        </script-->
+
+        <script>
+            alert('hello'); //调取浏览器弹出框
+            console.log(document.getElementById('btn'));//打印日志
+            console.dir(document.getElementById('btn'));//打印内部细节
+        </script>
+    </body>
+</html>

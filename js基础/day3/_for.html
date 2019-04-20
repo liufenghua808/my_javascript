@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button id='btn'>点击设置</button>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+    </ul>
+
+    <script>
+        const lis = document.getElementsByTagName('li');
+        btn.onclick = function(){
+            // for(var i=0;i<lis.length;i++){
+            //     //alert(1);
+            //     //console.log(i);
+            //     lis[i].style.backgroundColor='red';
+
+            // }
+                
+            //隔行变色
+           for(var i =0;i<lis.length;i++){
+                if(i%2){
+                    lis[i].style.backgroundColor='red'; 
+                }else{
+                    lis[i].style.backgroundColor='green';
+                }
+           }
+
+            console.log(i);
+        }
+  
+        /*
+            循环：批量生产某些事情
+
+            for(;条件 ; ){
+
+            }
+            1、变量初始化  let i = 0;只需要初始化一次
+            2、进行条件判断，如果条件成立进循环体，否则结束循环
+            3、进循环体
+            4、设置下次循环条件
+            5、再继续重复2、3、4步骤，直到判断条件不成立
+        
+        */
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">点击</button>
+    <div id="oDiv">珠峰</div>
+    
+    <script>
+        var oDiv = document.getElementById('oDiv');
+        var oDiv2 = document['getElementById']('oDiv');
+        //debugger; 执行断点
+        var btn = document.getElementById('btn');
+        btn.onclick = function(){
+        oDiv.style.color = '#fff';
+        oDiv.style.width = '200px';
+        oDiv.style.height = '200px';
+        oDiv['style']['backgroundColor'] = '#000';  //点是的 意思，可用[]替代，但[]中的都是字符串
+        }
+        
+
+    </script>
+</body>
+</html>

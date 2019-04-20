@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+        构造函数：
+            把属性和方法挂在this上，然后去new这个函数；
+
+
+
+            new 是一元运算符 -> *专门* 运算*函数*的
+
+            1、执行函数，不适用（）调用也是可以执行函数的额，此时的括号（）只是为了传参
+
+            2、构造函数（fn）中的this指向了当前实例（Fn{}）
+                function Fn(){}构造函数
+                Fn{}实例化对象
+            3、return的结果默认指向当前实例this,
+            如果有return，return后面是基本类型，结果仍然是实例
+            return 后面是引用类型，结果是return后面的值
+
+            面向对象编程：
+                把描述相同的事务抽象出来，归为一类，把描述这个类的属性和方法挂在这个类的原型上的一种编程方式
+
+                抽象：抽离出相像的部分
+
+                js面向对象特征：抽象、封装、继承、多态（传不同的参数）
+
+
+                类->构造函数->把相同的代码抽离出来归纳在一个函数中
+
+        
+        */
+
+
+        // function Fn() {
+        //     console.log(this);
+        // }
+        // new Fn();  //不加new  是普通对象,this指window  加new this指向Fn{}
+
+        // // =============================
+        // function Fn1(name, age) {
+        //     this.name = name; //this就是当前的实例对象
+        //     this.age = age;
+        // }
+
+        // //批量生产
+        // let one = new Fn1('001', '1');
+        // let one1 = new Fn1('002', '2');
+        // let one2 = new Fn1('003', '3');
+        // let one3 = new Fn1('004', '4');
+
+        // console.log(one, one1, one2, one3);
+
+
+
+        function Polices(id, name, sex) {
+            this.id = id;
+            this.name = name;
+            this.work = '警察';
+            this.sex = sex;
+        }
+        Polices.prototype.cloth = function () {   
+            console.log('制服');
+        }
+        Polices.prototype.daiqiang = '配枪';
+
+        let p1 = new Polices('001', '黑猫警长', 'man');
+
+        p1.cloth();
+        console.log(p1.daiqiang);
+        console.dir(p1);
+  
+
+
+
+    </script>
+</body>
+
+</html>

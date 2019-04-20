@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+
+
+<body>
+    <input id='inp' type="text" value="" />
+    <button id='btn'>添加</button>
+    </br>
+    <table id="box" border='1px' cellspacing="0" width="600px">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>上移</th>
+                <th>下移</th>
+                <th>删除</th>
+            </tr>
+        </thead>
+        <tbody id='content'>
+
+        </tbody>
+    </table>
+    <script>
+
+        let inp = document.querySelector('#inp');
+        let btn1 = document.querySelector('#btn');
+        let arr = [
+            {
+                id: 1111111111,
+                txt: 'TOM'
+
+            },
+            {
+                id: 2222222222,
+                txt: 'TOM2'
+
+            },
+            {
+                id: 3333333333,
+                txt: 'TOM3'
+
+            },
+            {
+                id: 444444444444,
+                txt: 'TOM4'
+
+            }
+        ]
+
+
+        //渲染页面
+        function fn(ary) {
+            let html = '';
+            ary.forEach(function (item) {
+                html += `  <tr>
+                <td>${item.id}</td>
+                <td>${item.txt}</td>
+                <td><button id='btn_shang' class='btn_shang'>上移</button></td>
+                <td><button id='btn_xia'>下移</button></td>
+                <td><button id='btn_rm'>删除</button></td>
+        
+            </tr>`;
+            })
+            content.innerHTML = html;
+
+
+
+            //删除,通过每个删除按钮对应找到一个对象的编号ID，从而删除此行
+            let rem = document.querySelectorAll('#btn_rm');
+            for (let i = 0; i < rem.length; i++) {
+
+                rem[i].index = arr[i].id;//给每个删除按钮添加自定义属性，且自定义属性的值=数组中每个对象的id
+
+                rem[i].onclick = function () {
+                    // alert(this.index);
+                    for (let i = 0; i < arr.length; i++) {
+
+                        if (arr[i].id === this.index) {
+                            arr.splice(i, 1); //如果数组编号id和当前删除按钮自定义属性值相等，则删除数组中一个元素
+                            //console.log(arr)
+                            fn(arr);//然后被删除之后的数组里的元素再被页面重新渲染出来
+                        }
+
+                    }
+
+                }
+
+
+
+            }
+
+            //上移 
+            //通过找到上移按钮元素的自定义属性值和数组的索引一一对应进行删除
+            //再把删除返回的素组元素添加到删除前的索引前一位
+            //然后重新再渲染当前页面
+            // let shang = document.querySelectorAll('#btn_shang');
+            // for (let i = 0; i < shang.length; i++) {
+            //     shang[i].zdy = i;
+            //     shang[i].onclick = function () {
+            //         if (this.zdy === 0) {
+            //             alert('目前已经在第一行了，不能再上移了！');
+            //         } else {
+            //             let rem_arr = arr.splice(this.zdy, 1);
+            //             // console.log(arr.splice(rem_arr))
+            //             // console.log(arr);
+
+            //             arr.splice(this.zdy - 1, 0, rem_arr[0]);
+            //             console.log(arr);
+            //             fn(arr);
+            //         }
+
+
+            //     }
+            // }
+
+            //上移 通过交换数组两个索引位置的对象元素实现
+            //先找到所有上移按钮，给上移按钮添加自定义属性，且自定义属性值与当前行数组索引一一对应
+            //新增一个变量，用于处理数组当前索引对应元素与（索引-1）对应元素交换位置
+            //交换位置后页面重新渲染即可
+            let shang1 = document.querySelectorAll('.btn_shang');
+            for (let i = 0; i < shang1.length; i++) {
+                shang1[i].zdy = i;
+                //console.log(shang1[i].zdy);//0,1,2,3
+                shang1[i].onclick = function () {
+                    if (this.zdy === 0) {
+                        alert('目前已经在第一行了，不能再上移了！');
+                    } else {
+                        let obj1 = arr[this.zdy]; //新增一个变量存储当前上移按钮下对应数组索引元素
+                        arr[this.zdy] = arr[this.zdy - 1];
+                        arr[this.zdy - 1] = obj1;
+                        console.log(arr);
+                        fn(arr);
+                    }
+
+
+
+                }
+            }
+
+
+
+
+
+            //下移
+            let xia = document.querySelectorAll('#btn_xia');
+            for (let i = 0; i < xia.length; i++) {
+                xia[i].zdy = i;
+                xia[i].onclick = function () {
+                    if (this.zdy === (xia.length - 1)) {
+                        alert('目前已经在最后一行了，不能再下移了！');
+                    } else {
+                        let rem_arr = arr.splice(this.zdy, 1);
+                        arr.splice(this.zdy + 1, 0, rem_arr[0]);
+                        console.log(arr);
+                        fn(arr);
+                    }
+
+
+                }
+            }
+
+
+        }
+        fn(arr);
+
+        //添加
+        btn.onclick = function () {
+            if (!(inp.value === '')) {
+                arr.splice(arr.length, 0, {
+                    id: +new Date, //时间戳  自动获取随机生成的时间戳对象，并转成数字类型 作为id
+                    txt: inp.value  //输入的内容获取到作为数组元素的姓名
+                });
+                fn(arr);
+            } else {
+                alert('您没有添加任何内容！');
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

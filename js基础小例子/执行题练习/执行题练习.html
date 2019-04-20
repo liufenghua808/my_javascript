@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // 函数执行的过程
+    // 形成一个私有作用域，形参赋值，变量提升，代码执行
+
+    // var ary = [1, 2, 3];
+
+    // function sum(arr) {
+    //     // arr 私有变量，值是 ary 的地址； arr和ary是同一个地址
+    //     arr[0] = 10; // ary [10,2,3]
+    //     console.log(arr); // 10 2 3 
+    //     arr = [2, 2, 3]; // 给 arr 了 一个新的地址；ary 还是原来的地址
+    //     return arr // 返出去的是一个新的地址
+    // }
+    // console.log(sum(ary)); // [2,2,3]
+    // console.log(ary); // [10,2,3];
+
+
+
+
+    // var a = {
+    //     x: 1
+    // };
+    // var b = a; //此时 a和b用同一个地址 {x:1}
+    // // 点的优先级 比 赋值 要高
+    // b.c = a = {
+    //     y: 1
+    // };
+    // console.log(a.c, b.c); // undefined  {y:1}
+    // //1、b.c代表 b新增一个c属性，此时b为{x:1;c:null},a也是{x:1;c:null} 然后再进行赋值操作
+    // //2、再给开辟一个新地址 a = {y:1}并且赋值给b.c,此时 b.c={y:1}   此时a和b.c公用一个地址
+    // //3、所以a和b.c {y:1} ,a.c没有声明 为undefined
+
+
+    // // 第三题
+    // var foo = 0;
+
+    // function bar() {
+    //     if (!foo) {
+    //         //var foo = 10; //私有变量（对应if(!foo)中foo=undedined）
+    //         //foo = 10;  //全局变量  （对应if(!foo)中foo=0）
+    //         let foo = 10; //块级私有变量，不识别变量提升，外部不可访问
+    //         console.log(foo); // 1、10   2、10   3、10
+    //     }
+    //     console.log(foo); //1、10  2、10  3、0
+    // }
+    // bar();
+    // console.log(foo); //1、0  2、10   3、0
+
+
+
+    // var n = 13;
+
+    // function fn(n) { //函数形参先赋值 再提升变量
+    //     console.log(n); //13
+    //     var n = 14; //私有变量
+    //     console.log(n); //14
+    // }
+    // fn(n);
+    // console.log(n); //13
+
+
+    // //第四题；
+    // var n = 10;
+
+    // function outer() {
+    //     let n = 15;
+
+    //     function inner() {
+    //         function center() {
+    //             alert(n);  //alert(15);
+    //         }
+    //         center();
+    //     }
+    //     inner();
+    //     console.log(n);//15
+    // }
+    // outer()
+    // console.log(n); //10
+
+
+
+    // //第五题；
+    // var n = 0;
+
+    // function b() {
+    //     // n++;
+    //     // alert(n)
+    //     console.log(++n); //1 获取的是全局变量 n=0
+    // }
+
+    // function a() {
+    //     var n = 10;
+    //     b();
+    // }
+    // a();
+    // console.log(n); //1
+
+
+    // //第六题；
+    // var n = 0;
+
+    // function b() {
+    //     n++; //1  获取的是全局变量 n=0
+    //     alert(n) // 1
+    //     console.log(++n); //2 
+
+    //     function a() {
+    //         var n = 10; //私有变量
+    //         console.log(n);//10
+
+    //     }
+    //     a();
+    //     console.log(n);//2  全局的n
+    // }
+    // b();
+
+    // console.log(n); //2 全局的n
+
+
+    // //第七题
+    // console.log(num, str); //undefined undefined 提升变量 
+    // var num = 18;
+    // var str = "lily";
+
+    // function fn2() {
+    //     console.log(str, num); //str='lily'全局变量  num=undefined 变量提升
+    //     num = 19;
+    //     str = "candy";
+    //     var num = 14;
+    //     console.log(str, num); //str='candy'全局变量改变  num=14私有变量赋值14
+    // }
+    // fn2();
+    // console.log(str, num); //str='candy' 全局变量  num=18全局变量
+
+
+
+    // //第八题
+    // alert(a); // undefined  提升变量
+    // console.log("a" in window); // true  undefined默认属于window
+    // if ("a" in window) {
+    //     var a = 10; //全局变量，在函数里才会形参私有作用域
+    //     console.log(a); //10
+    // }
+    // alert(a); // 10
+
+
+    // alert(a); // undefined
+    // console.log("a" in window); // true
+    // if (!("a" in window)) {
+    //     var a = 10;
+    //     console.log(a);
+    // }
+    // alert(a); // undefined
+    // console.log(a); //undefined
+
+
+
+
+    // var obj = {
+    //     name: 1,
+    //     age: 2
+    // };
+    // 'age' in obj // 返回值是个 布尔 
+
+    // //第九题
+    // //情况一
+    // console.log(n)
+    // f = function () {
+    //     return true;
+    // };
+    // g = function () {
+    //     return false;
+    // };
+
+    // (function () {
+    //     console.log(fn4); //undefined
+    //     {
+    //         function fn4() { return false }
+    //     }
+    //     // Uncaught TypeError: g is not a function 报错不再往下执行
+    //     if (g() && [] == ![]) {
+    //         f = function f() {
+    //             return false;
+    //         };
+    //         var g = function g() {  //
+    //             return true;
+    //         };
+    //     }
+    // })();
+    // console.log(f());//f
+    // console.log(g());//f
+
+    // //情况二
+    // f = function () {
+    //     return 1;
+    // };
+    // g = function () {
+    //     return 2;
+    // };
+    // (function () {
+    //     console.log(g); // function () {return 2;}  全局
+    //     if (g() && [] == ![]) {
+    //         f = function f() {
+    //             return 3;
+    //         };
+    //         g = function g() {
+    //             return 4;
+    //         };   //g声明没有定义，会提示不是一个函数
+    //     }
+    // })();
+    // console.log(f()); //3
+    // console.log(g()); //4
+
+
+    // 扩展题
+
+    //1、
+    // var str = "我是MT";
+    // test();
+    // function test() {
+    //     console.log(str);  //私有变量提升 undefined
+    //     var str = "哈哈哈";
+    //     console.log(str); //'哈哈哈'
+    // }
+    // console.log(str); //全局变量 '我是MT'
+
+
+    // //2、
+    // console.log(a); //变量提升 undefined
+    // a = 12;
+    // function fn(a) {
+    //     console.log(a); //私有作用域变量提升 undefined   形参没赋值
+    //     a = 13
+    // }
+    // fn();
+    // var a;
+    // console.log(a);//12 全局变量
+
+    //3、
+    //var a=1 ;  a在函数上一层作用域才代表window里有a
+    // function test() { 
+
+    //     if ("a" in window) {    //false  
+    //         var a = 10;
+    //     }
+    //     console.log(a);  //undefined
+    // }
+    // test();
+
+    // //4、
+    // var a = 1;
+    // function fn() {
+    //     console.log(a); // 私有作用域变量提升 undefined
+    //     var a = 5;
+    //     console.log(a); //5
+    //     a++; //a=6
+    //     var a;
+    //     fn3();
+    //     fn2();
+    //     console.log(a); //20
+    //     function fn2() {
+    //         console.log(a); //私有作用域是上级的a=6
+    //         a = 20; //私有作用域a=20
+    //         console.log(a); //20
+    //     }
+    // }
+    // function fn3() {
+    //     console.log(a); //没有私有变量 1
+    //     a = 200;
+    // };
+    // fn();
+    // console.log(a); //200
+
+
+    // //5、
+    // var n = 10;
+    // function outer() {
+    //     var n = 15;
+    //     function inner(n) {
+    //         console.log(n)// inner 私有 n  15
+    //         function center() {
+    //             n++; // inner  的 n 变成了  16
+    //             console.log(n); //16
+    //         }
+    //         center();
+    //     }
+    //     inner(n);
+    //     console.log(n);//15
+    // }
+    // outer();
+
+    // //6、
+    // var n = 10;
+    // function outer() {
+    //     n = 15;
+    //     function inner() {
+    //         console.log(n++); //15  打印完之后进行++
+    //         function center() {
+    //             n += 2;
+    //             console.log(n); //18
+    //         }
+    //         center();
+    //     }
+    //     inner();
+    // };
+    // outer();
+    // console.log(n) ;//18
+
+
+
+
+
+    // var ary = [1, 2, 3];
+
+    // function sum(arr) {
+    //     arr[0] = 10;
+    //     console.log(arr); //[10,2,3]
+    //     arr = [2, 2, 3];
+    //     return arr
+    // }
+
+    // console.log(sum(ary));//[2,2,3]
+    // console.log(ary);//[10,2,3]
+
+
+    // //=======================================
+
+    // var a = {
+    //     x: 1
+    // };
+    // var b = a;
+    // b.c = a = {
+    //     y: 1
+    // };
+
+    // //----------------
+    // var foo = 1;
+
+    // function bar() {
+    //     if (!foo) {
+    //         var foo = 10;
+    //     }
+    //     console.log(foo); //10  var 不识别块级作用域中
+    // }
+    // bar();
+
+    // //----------------------------
+
+    // var n = 13;
+    // function fn(n) {
+    //     alert(n); // 13 形参是私有变量
+    //     var n = 14;
+    //     alert(n); //14
+    // }
+    // fn(n);
+    // //----------------------------
+    // var n = 10;
+    // function outer() {
+    //     var n = 15;
+    //     function inner() {
+    //         function center() {
+    //             alert(n); //15
+    //         }
+    //         center();
+    //     }
+    //     inner();
+    // }
+    // outer()
+    // //-----------------------------
+    // var n = 0;
+    // function a() {
+    //     var n = 10;
+    //     function b() {
+    //         n++;
+    //         alert(n); //11
+    //     }
+    //     b();
+    // }
+    // a();
+    // alert(n); //0
+    // //--------------------------
+    // console.log(num, str); //undefined undefined
+    // var num = 18;
+    // var str = "lily";
+
+    // function fn2() {
+    //     console.log(str, num); //lily undefined  (num变量提升)
+    //     num = 19;
+    //     console.log(str, num); // lily 19
+    //     str = "candy";
+    //     var num = 14;
+    //     console.log(str, num); //candy  14
+    // }
+    // fn2();
+    // console.log(str, num); //candy 18
+    // //----------------------------------------------------
+    // alert(a); //undefined
+    // console.log("a" in window); //true
+    // if (!("a" in window)) {
+    //     var a = 10;
+    // }
+    // alert(a); // undefined
+
+    // console.log(fn); //undefined
+    // if (9 == 8) {
+    //     function fn() {
+    //         alert(2);
+    //     }
+    // }
+    // //    ---------------------------------
+    f = function () { return true };
+    g = function () { return false };
+    (function () {
+        console.log(g); //undefined
+        if (g() && [] == ![]) {  //g不是一个函数，if(false) 不再执行
+            f = function f() {
+                return false
+            };
+
+            function g() {
+                return true
+            };
+        }
+    })();
+    alert(f());
+    alert(g()); 
+
+
+
+
+    // // 扩展题
+
+    // //1、
+    // var str = "我是MT";
+    // test();
+    // function test() {
+    //     console.log(str);
+    //     var str = "哈哈哈";
+    //     console.log(str);
+    // }
+    // console.log(str);
+
+
+    // //2、
+    // console.log(a);
+    // a = 12;
+    // function fn(a) {
+    //     console.log(a);
+    //     a = 13
+    // }
+    // fn();
+    // var a;
+    // console.log(a);
+
+    // //3、
+    // function test() {
+    //     if ("a" in window) {
+    //         var a = 10;
+    //     }
+    //     console.log(a);
+    // }
+    // test();
+
+    // //4、
+    // var a = 1;
+    // function fn() {
+    //     console.log(a);
+    //     var a = 5;
+    //     console.log(a);
+    //     a++;
+    //     var a;
+    //     fn3();
+    //     fn2();
+    //     console.log(a);
+    //     function fn2() {
+    //         console.log(a);
+    //         a = 20;
+    //     }
+    // }
+    // function fn3() {
+    //     console.log(a);
+    //     a = 200;
+    // };
+    // fn();
+    // console.log(a);
+
+
+    // //5、
+    // var n = 10;
+    // function outer() {
+    //     var n = 15;
+    //     function inner(n) {
+    //         console.log(n)// inner 私有 n  15
+    //         function center() {
+    //             n++; // inner  的 n 变成了  16
+    //             console.log(n); //16
+    //         }
+    //         center();
+    //     }
+    //     inner(n);
+    //     console.log(n);//15
+    // }
+    // outer();
+
+    // //6、
+    // var n = 10;
+    // function outer() {
+    //     n = 15;
+    //     function inner() {
+    //         console.log(n++); //15 先打印
+    //         console.log(n); //16 打印后自增
+    //         function center() {
+    //             n += 2;
+    //             console.log(n); //18
+    //         }
+    //         center();
+    //     }
+    //     inner();
+    // };
+    // outer();
+    // console.log(n) //18
+
+    // var a = 1
+    // function fn() {
+    //     a = 2
+    //     function fn2() {
+    //         alert(a); // 2
+    //     }
+    //     return fn2
+    // }
+    // console.log(a)// 1
+    // console.log(fn())// function fn2(){alert(a)}
+    // console.log(fn()())//弹出2
+
+    // var a = 2
+    // function fn(a) {
+    //     console.log(a);//2
+    //     a = 3;
+    //     console.log(a);//3
+    //     var obj = {
+    //         a: a
+    //     }
+    //     console.log(obj.a) //3
+    //     return function (a) {  //2
+    //         a++
+    //         console.log(a)//3
+    //     }
+    // }
+    // fn(a)(2)
+
+
+
+    
+
+// //2、
+// var n = 10;
+// function fn() {
+//     var n = 20;
+//     function f() {
+//         n++;
+//         console.log(n);
+//     }
+//     f();
+//     return f;
+// }
+// var x = fn();
+// x();
+// x();
+// console.log(n);
+// //3、
+// let i = 1;
+// let fn = function (n) {
+//     i *= 2;
+//     return function (m) {
+//         i += n + m;
+//         console.log(i);
+//     }
+// };
+// let f = fn(2);
+// f(3);
+// fn(2)(3);
+// f(4);
+// f(5);
+
+
+// //this
+// //1、
+// var num =1;//3 5 6 8
+// var obj = {
+//     num : 10,//11
+//     fn : (function () {
+//         this.num *=3;
+//         return function () {
+//             num +=2;
+//             this.num ++;
+//         }
+//     })()
+// };
+// var f = obj.fn;
+// f();
+// obj.fn();
+// console.log(num, obj.num);
+// //2
+// var name = '珠峰';
+// var age = 9;
+// age = (function (name,age) {
+//     name = '珠峰';
+//     age = age || this.age;
+//     this.age = arguments[0];
+//     console.log(name,age)
+//     return this.age;
+// })(name,age);
+// console.log(name,age);
+// //3
+// var obj = {name:'珠峰',age:9};
+// (function (obj) {
+//     obj.name = '中国';
+//     obj = {};
+//     obj.age = 5000;
+//     console.log(obj.age);
+// })(obj);
+// console.log(obj.name);
+// //4
+// var num = 1;
+// var obj = {num:2};
+// obj.fn = (function (num) {
+//     this.num = num*2;
+//     num++;
+//     return function (n) {
+//         this.num += n;
+//         num++;
+//         console.log(num)
+//     }
+// })(obj.num)
+// var fn = obj.fn;
+// fn(10);
+// obj.fn(20);
+// console.log(num, obj.num);
+</script>

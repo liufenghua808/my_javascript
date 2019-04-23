@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        /*
+        原型：
+            prototype 每个函数天生自带的属性，它的值是对象
+
+            为了优化性能的，prototype只给它的实例化对象使用
+
+            如果在相同的类中去new 多个实例，它们的方法是相等的
+
+        原型链：
+            一种是—_proto_:
+                实例上才有_proto_
+
+                实例对象._proto_ === 构造函数下的原型
+                构造函数的原型只给它的实例化对象使用
+
+
+            
+            另一种是查找规律：
+                实例化对象上有或者没有怎么看（某个属性或者方法）
+
+                如果它是构造函数：
+                    function Fn(name){
+                        this.name = name
+                    }
+                    Fn{name:1}
+
+                如果它是对象：
+                    {name,1}
+
+                    f = new Fn
+                    f.say = function(){};
+
+                如果实例化对象上没有怎么办？
+                    构造函数.原型
+
+                如果说构造函数.原型下没有怎么办？
+                    构造函数.原型._proto_
+
+            
+
+
+        
+        function的三种形态：
+            普通函数：function fn(){}
+            构造函数（类） 构造对象的函数，得使用new:
+                function Fn(name){
+                    this.name=name
+                }
+            以实例化对象 new Function的实例化对象
+                let fn = new Function();
+
+        
+        */
+
+        // function Fn(name) {
+        //     this.name = name;
+        //     // let name = 20;
+        // }
+        // Fn.prototype.say = function () {
+        //     console.log(5);
+        // }
+
+        // //Function 的方法必须它的实例化对象Fn.say才对
+        // Function.prototype.say = function () {
+        //     alert(8);
+        // }
+        // Function.say = function () {
+        //     alert(9);
+        // }
+        // Function._proto_.say = function () {
+        //     alert(10);
+        // }
+
+        // let f1 = new Fn;
+
+        // f1._proto_.say = function () {
+        //     console.log(6);
+        // }
+        // f1._proto_._proto_.say = function () {
+        //     console.log(7);
+        // }
+
+        // f1.say();
+
+        function Fn(name) {
+            this.name = name;
+           // let name = 20;
+        }
+        Fn.prototype.say = function () {
+            console.log(5);
+        }
+        Function.prototype.say = function () {
+            alert(8);
+        }
+        Function.say = function () {
+            alert(9);
+        }
+        Function.__proto__.say = function () {
+            alert(10);
+        }
+        let oo = new Fn;
+        oo.__proto__.say = function () {
+            console.log(6);
+        }
+        oo.__proto__.__proto__.say = function () {
+            console.log(7);
+        }
+        oo.say();   //6
+
+        // console.log(oo.__proto__);
+        // console.log(oo.__proto__.__proto__);
+        // console.log(Fn.prototype.__proto__);
+
+
+
+
+    </script>
+</body>
+
+</html>

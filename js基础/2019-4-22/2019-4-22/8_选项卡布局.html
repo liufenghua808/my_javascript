@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 50px;
+            border: 1px solid #000;
+        }
+
+        #box div {
+            display: none;
+        }
+
+        #box div.show {
+            display: block;
+        }
+
+        .active {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <button class="active">按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+
+    <section id="box">
+        <div class="show">头条</div>
+        <div>体育</div>
+        <div>新闻</div>
+    </section>
+
+
+    <script>
+        function Fn() {
+            this.btns = document.querySelectorAll('button');
+            this.box = document.getElementById('box');
+            this.divs = box.querySelectorAll('div');
+        }
+
+        Fn.prototype.events = function () {
+           // console.log(this);//this 为实例化对象 Fn{}
+            let opt_this = this;
+            for (let i = 0; i < this.btns.length; i++) {
+                //console.log(this); //Fn{}
+                this.btns[i].onclick = function () {
+                   // console.log(this);//this指向当前按钮
+                    opt_this.changes(i);
+                }
+            }
+        }
+
+        Fn.prototype.changes = function (index) {
+            for (let j = 0; j < this.btns.length; j++) {
+                this.btns[j].className = '';
+                this.divs[j].className = '';
+            }
+            this.btns[index].className = 'active';
+            this.divs[index].className = 'show';
+        }
+
+        Fn.prototype.play = function () {
+            let opt_this = this;
+            let num = 0;
+            setInterval(function(){
+                num++;
+                if (num > opt_this.btns.length - 1) {
+                    num = 0;
+                } 
+                opt_this.changes(num);
+            }, 1000)
+        }
+
+        // Fn.prototype.play = function () {
+        //     let num = 0;
+        //     setInterval(()=>{
+        //         num++;
+        //         if (num > this.btns.length - 1) {
+        //             num = 0;
+        //         } 
+        //         opt_this.changes(num);
+        //     }, 1000)
+        // }
+
+        let opt1 = new Fn;
+        opt1.events();
+       // opt1.play();
+
+    </script>
+</body>
+
+</html>

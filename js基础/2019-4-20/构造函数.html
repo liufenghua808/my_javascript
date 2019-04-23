@@ -24,9 +24,12 @@
             2、构造函数（fn）中的this指向了当前实例（Fn{}）
                 function Fn(){}构造函数
                 Fn{}实例化对象
+
             3、return的结果默认指向当前实例this,
+
             如果有return，return后面是基本类型，结果仍然是实例
-            return 后面是引用类型，结果是return后面的值
+
+                        return 后面是引用类型，结果是return后面的值
 
             面向对象编程：
                 把描述相同的事务抽象出来，归为一类，把描述这个类的属性和方法挂在这个类的原型上的一种编程方式
@@ -77,6 +80,7 @@
         let p1 = new Polices('001', '黑猫警长', 'man');
 
         p1.cloth();//制服
+        console.log(p1.cloth()); //制服
         console.log(p1.daiqiang);//配枪
         console.dir(p1);/*Polices
                                 id: "001"
@@ -84,6 +88,7 @@
                                 sex: "man"
                                 work: "警察"
                                 __proto__: Object*/
+
   
 
 

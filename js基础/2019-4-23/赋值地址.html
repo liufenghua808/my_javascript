@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [1, 2, 3, 4, [5, { ary: [{ name: '小强' }] }]];
+
+
+        function deepClone(obj) {
+            let o = obj.push ? [] : {};//判断obj是数组还是对象
+            //console.log(o);
+            for (let attr in obj) {
+                if (obj.hasOwnProperty(attr)) {
+                    if (typeof obj[attr] === 'object') {
+                        o[attr] = deepClone(obj[attr])
+                    } else {
+                        o[attr] = obj[attr]
+                    }
+
+                }
+            }
+            return o;
+
+        }
+        let arr2 = deepClone(arr);
+        //console.log(arr2)
+
+        arr2[4][1].ary[0].name = 'tom';
+        //console.log(arr2);//name: "tom"
+        arr2[4].push(6);
+        console.log(arr2);//[1, 2, 3, 4, [5, { ary: [{ name: 'tom' }] }],6];
+        console.log(arr);//[1, 2, 3, 4, [5, { ary: [{ name: '小强' }] }]];
+
+
+
+
+
+    </script>
+</body>
+
+</html>

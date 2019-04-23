@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 50px;
+            border: 1px solid #000;
+        }
+
+        .box div {
+            display: none;
+        }
+
+        .box div.show {
+            display: block;
+        }
+
+        .active {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class='warp1'>
+        <button class="active">按钮1</button>
+        <button>按钮2</button>
+        <button>按钮3</button>
+
+        <section class="box">
+            <div class="show">头条</div>
+            <div>体育</div>
+            <div>新闻</div>
+        </section>
+    </div>
+
+    <div class='warp2'>
+        <button class="active">按钮1</button>
+        <button>按钮2</button>
+        <button>按钮3</button>
+
+        <section class="box">
+            <div class="show">头条</div>
+            <div>体育</div>
+            <div>新闻</div>
+        </section>
+    </div>
+
+
+    <body>
+        <script>
+            /*
+                面向对象：
+    
+                面向过程：
+            
+            */
+
+            function Fn(id) {
+                this.warp = document.getElementsByClassName(id);
+                this.btns = this.warp.getElementsByTagName('button');
+                this.divs = this.warp.getElementsByTagName('div');
+            }
+
+            Fn.prototype.events = function () {
+                for (let i = 0; i < this.btns.length; i++) {
+                    this.btns[i].onclick = () => {
+                        this.change(i);
+                    }
+                }
+            }
+
+            Fn.prototype.play = function () { }
+
+            Fn.prototype.stop = function () { }
+
+            Fn.prototype.revese_play = function () { }
+
+            Fn.prototype.change = function (index) {
+                for(let j=0;j<this.btns.length;j++){
+                    this.btns[j].className='';
+                    this.divs[j].className='';
+                }
+                this.btns[index].className='active';
+                this.divs[index].className='show';
+             }
+
+
+            let f1 = new Fn('.warp1');
+            let f2 = new Fn('.warp2');
+
+            f1.events();
+            f2.events();
+
+        </script>
+    </body>
+
+</html>

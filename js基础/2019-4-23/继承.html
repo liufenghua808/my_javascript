@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            继承：字类继承了父类的一些特征，然后自己还有一套自己的特征
+
+            为什么要继承：
+                为了代码更好复用，组合生成一个新的类别
+
+
+            类式继承：
+                把父类看作一个函数，调用这个父类并且通过call去改变this指向，把指向改为子类
+            原型继承:
+                扩展式继承
+                    {...父类原型}
+
+            寄生式组合继承
+            对象继承
+        
+        */
+
+
+        function Person(name,age) {
+            this.name = name;
+            this.age = age;
+           // console.log(this);
+        }
+        Person.prototype.say = function () {
+            alert('我叫' + this.name);
+        }
+
+        function Coder(name,age,job) {
+            Person.call(this, name, age);
+            this.job = job
+        }
+
+        let p = new Person('xiaoming', 10);
+        let p1 = new Coder('hong', 12, 'coding');
+        p.say();
+
+    </script>
+</body>
+
+</html>

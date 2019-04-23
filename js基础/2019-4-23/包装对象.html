@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        /*
+        
+            **只有引用类型下才能添加属性和方法**
+            包装对象：
+                当简单类型去使用某个属性或者方法的时候，内部会偷偷转成对象（new 内置类）
+                把属性或者方法提供使用者，然后再悄悄地销毁，这个过程就叫包装对象。
+                简单类型使用内置类提供的属性或者方法，可以添加属性和方法，但是length只能读不能写。
+        */
+
+        let str = '';
+        str.num = 0;
+        str.num++;
+        console.log(str.num);//undefined
+    </script>
+</body>
+
+</html>

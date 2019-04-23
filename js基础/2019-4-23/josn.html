@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+    
+<body>
+        <input type="text" value="" />
+        <button id="btn">按钮</button>
+    
+    <script>
+        /*
+            JSON-> [] | {}
+
+            JSON.parse():
+                能够把标准格式的json字符串转换成对象和数组
+                    标准格式：'{"name":1,"age":12}'
+                             '["name":1,"age":12]'
+
+            JSON.stringify():
+                把对象或者数组转成json
+                对象中不能放函数、undefined
+
+            低版本解决字符串转对象使用json2版本
+
+            eval:
+
+            new Function()
+
+
+        
+        */
+
+        //json字符串转对象
+        let json = '{"name":1,"age":12}';
+        console.dir(JSON);
+        console.log(JSON.parse(json));//{name: 1, age: 12}
+
+
+        //json字符串转数组
+        let json1 = '["name","age"]';
+        console.log(JSON.parse(json1));//["name", "age"]
+
+        let json2 = '[1,2]';
+        console.log(JSON.parse(json2));//[1,2]
+
+        console.dir(json);
+
+    </script>
+</body>
+
+</html>

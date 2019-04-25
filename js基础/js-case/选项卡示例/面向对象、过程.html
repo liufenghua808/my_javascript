@@ -56,12 +56,7 @@
 
     <body>
         <script>
-            /*
-                面向对象：
-    
-                面向过程：
-            
-            */
+
 
             function Fn(id) {
                 this.warp = document.getElementsByClassName(id)[0];
@@ -69,12 +64,14 @@
                 this.divs = this.warp.getElementsByTagName('div');
                 this.num = 0;
                 this.timer = null;
+
             }
-            //点击事件
+            //点击/移入事件
             Fn.prototype.events = function (action) {
+                let that = this;////如果使用普通函数，事件中的this需要改成实例化对象的this
                 for (let i = 0; i < this.btns.length; i++) {
-                    this.btns[i][action] = () => {
-                        this.change(i);
+                    this.btns[i][action] = function () {////事件中this默认指向当前事件
+                        that.change(i);
                     }
                 }
             }
@@ -89,29 +86,30 @@
             }
             //正向自动切换
             Fn.prototype.play = function () {
-                this.timer = setInterval(() => {
-                    this.num++;
+                let that = this; //如果使用普通函数，事件中的this需要改成实例化对象的this
+                that.timer = setInterval(function () { //定时器中this默认的window
+                    that.num++;
                     // if (this.num > this.btns.length - 1) {
                     //     this.num = 0;
                     // }
-                    this.num %= this.btns.length ;
-                    console.log(this.num)
-                    this.change(this.num);
-                
+                    that.num %= that.btns.length;
+                    //console.log(this.num)
+                    that.change(that.num);
+
 
                 }, 1000);
             }
-               //反向自动切换
-               Fn.prototype.unplay = function () {
-                this.timer = setInterval(() => {
+            //反向自动切换
+            Fn.prototype.unplay = function () {
+                this.timer = setInterval( ()=> {//如果使用箭头，定时器中的this指向它所在作用域的this
                     this.num--;
                     if (this.num < 0) {
-                        this.num = this.btns.length-1;
+                        this.num = this.btns.length - 1;
                     }
-                   // this.num %= this.btns.length ;
+                    // this.num %= this.btns.length ;
                     console.log(this.num)
                     this.change(this.num);
-                
+
 
                 }, 1000);
             }
@@ -132,12 +130,12 @@
             let start = document.querySelector('.start');
             let stop = document.querySelector('.stop');
 
-            start.onclick = () => {
+            start.onclick = function () {
                 f1.play();
                 f2.unplay();
             }
 
-            stop.onclick = () => {
+            stop.onclick = function () {
                 f1.stop_play();
                 f2.stop_play();
             }

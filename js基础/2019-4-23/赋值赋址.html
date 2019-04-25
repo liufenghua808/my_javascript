@@ -17,9 +17,9 @@
             let o = obj.push ? [] : {};//判断obj是数组还是对象
             //console.log(o);
             for (let attr in obj) {
-                if (obj.hasOwnProperty(attr)) {
+                if (obj.hasOwnProperty(attr)) { //只查找obj有的属性
                     if (typeof obj[attr] === 'object') {
-                        o[attr] = deepClone(obj[attr])
+                        o[attr] = deepClone(obj[attr]);
                     } else {
                         o[attr] = obj[attr]
                     }

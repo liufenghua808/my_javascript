@@ -29,23 +29,34 @@
         */
 
 
-        function Person(name,age) {
+        function Person(name, age) {
             this.name = name;
             this.age = age;
-           // console.log(this);
         }
         Person.prototype.say = function () {
-            alert('我叫' + this.name);
+            console.log('我叫' + this.name);
         }
 
-        function Coder(name,age,job) {
-            Person.call(this, name, age);
-            this.job = job
+        function Coder(name, age, job) {
+            Person.call(this, name, age); //继承父类属性
+            this.job = job;
         }
+        // Coder.prototype.say = function () {
+        //     console.log('我的工作是敲代码！');
+        // }
 
-        let p = new Person('xiaoming', 10);
-        let p1 = new Coder('hong', 12, 'coding');
+       // Coder.prototype=Person.prototype;//赋址  会相互影响
+        Coder.prototype = {...Person.prototype};//赋值 扩展式继承  
+
+        let p = new Person('父类', 10);
+        let p1 = new Coder('子类', 12, 'coding');
+
+
+        console.log(p);
         p.say();
+
+        console.log(p1); //Coder {name: "子类", age: 12, job: "coding"}  //继承了Person的name\age属性
+        p1.say(); //我叫子类    继承了Person.say()方法。
 
     </script>
 </body>

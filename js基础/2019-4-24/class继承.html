@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Animal{
+            constructor(name){
+                this.name=name;
+            }
+
+           static sleep(){ //设置静态方法
+                console.log(this.name+'正在睡觉');
+           }
+
+            eat(){ //动态方法
+                console.log(this.name+'都喜欢吃！');
+            }
+        }
+
+
+        class Cats extends Animal{
+            constructor(name){
+                super(name);//继承父类 不写super(),下面的this找不到
+                this.cry = '喵喵';
+                this.life = '九条命';
+            }
+            skill(){
+                console.log(this.name+'抓Jerry');
+            }
+            eat(){
+                console.log(this.name+'吃鱼');
+            }
+        }
+
+        class ColorCat extends Cats{
+            constructor(...arg){ //剩余运算符
+                super(...arg); //扩展运算符
+                this.color = '有颜色的猫！';
+            }
+        }
+
+
+        let tom = new Cats('汤姆');
+        console.log(tom);
+        tom.eat(); //这种实例执行方法的方式为动态方式    //Array from()这类属于静态方法
+        tom.skill();
+
+
+        let animal1 = new Animal('动物');
+        console.log(animal1);
+        animal1.eat();
+        Animal.sleep();
+       // animal1.sleep();//静态方法高级对象（实例化）对象无法调用，也继承不了
+
+       let color1 = new ColorCat('花猫');
+       console.log(color1);
+
+   
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Fruit(name, juice) {
+            this.name = name;
+
+        }
+
+        Fruit.prototype.eat = function () {
+            console.log(this.name + '真好吃!');
+        }
+        Fruit.prototype.cost = function () {
+            console.log(this.name + '能卖钱');
+        }
+
+
+
+
+        //椰汁  属性用类继承
+        function CoconutJuice(name, pack) {
+            Fruit.call(this, name);//属性继承
+            this.pack = '包装加工';
+        }
+
+        //方法用原型继承
+        function Ph() {}
+            Ph.prototype = Fruit.prototype; //赋址
+            //1、直接=>new Fruit 需要先运算Fruit函数进行执行 ，再查找Fruit.prototype，会更耗性能
+            //2、直接new Ph之后，是先运算一个空对象，然后去prototype上去查找，相对能减少消耗性能
+            CoconutJuice.prototype = new Ph;
+            //CoconutJuice.prototype = Object.create(Fruit.prototype);//寄生式继承  方法继承
+        
+
+
+
+        CoconutJuice.prototype.he = function () {
+            console.log('椰汁水好喝');
+        }
+        let apple = new Fruit('苹果');
+        let cj = new CoconutJuice('椰子');
+
+        apple.eat();//苹果真好吃!
+        apple.cost();//苹果能卖钱
+
+        console.log(cj);
+        cj.he();//椰汁水好喝
+        cj.eat();//椰子真好吃!
+        cj.cost();//椰子能卖钱
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        /*
+            ()小括号：
+            1、提权 （1+1）*1
+            2、子项
+                能够在一个规则中提取某些（指定）字符
+
+                注意：
+                    子项如果包了一个规则，在规则之后又量词，那么结构会发生改变
+                    比如：
+                        let str = '2019'
+                        /(\d)+/  括号里匹配的是9，而不是指定的数字
+
+            \d：0-9的数字
+            \D：非0-9的任意数字
+
+            子项的顺序是从左往右数的，每有一个（）就是一个子项
+            子项的个数 与第二个形参开始往后的形参个数一一对应
+        
+        */
+
+        let str = '2019----4-/-/-//26';//2016年4月26日
+        let str1=str.replace(/(\d+)\D+(\d+)\D+(\d+)/,function($0,$1,$2,$3){
+            console.log($0,$1,$2,$3);//2019----4-/-/-//26 2019 4 26
+            return $1+'年'+$2+'月'+$3+'日'
+        })
+        console.log(str1);
+
+        // str.replace(/(\d)+\D+(\d+)\D+(\d+)/,function($0,$1,$2,$3){
+        //     console.log($0,$1,$2,$3);//2019----4-/-/-//26 9 4 26
+        // })
+
+
+        let str2 = '123-ewr--456//78/d/9/jk/00/--/=';
+        let str3 = str2.replace(/(\d+)\D+(\d+)\D+(\d+)\D+(\d+)\D+(\d+)\D+/,function($0,$1,$2,$3,$4,$5){
+            console.log($0,$1,$2,$3,$4,$5);
+            return $1+$2+$3+$4+$5;
+        })
+        console.log(str3);
+
+        let str4 = '123-ewr--456//78/d/9/jk/00/--/=';
+        let str5 = str4.replace(/((\d+)\D)+(\d+)(\D+(\d+)\D)+((\d+)\D)+((\d+)\D+)/,function($0,$1,$2,$3,$4,$5,$6,$7,$8,$9){
+            console.log($0,$1,$2,$3,$4,$5,$6,$7,$8,$9);
+            return $1+$2+$3+$4+$5+$6+$7+$8+$9;
+        })
+        console.log(str5);
+
+
+    </script>
+</body>
+</html>

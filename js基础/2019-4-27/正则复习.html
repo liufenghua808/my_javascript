@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+
+<body>
+
+    <script>
+        /*
+            1、专门用来检索模糊范围字符串的一种规则叫正则
+                /不带引号的字符串/ ->/a/ 找字符串'a'
+                new RegExp('字符串'|//,'修饰符')->new RegExp('a','i')  /a/
+            2、正则的方法
+                reg.exec(str)捕获一项
+                reg.test(str)验证字符串是否匹配正则  返回正则
+
+            3、字符串能正则的方法
+                string.match() 捕获一项或者多项
+                string replace(''|//, ''|fn($0,$1..))  fn要有返回值
+
+                有子项 ，从第二个参数起就一一对象
+
+            4、()提权、子项
+                (/d)+ ->最后一个  2019-9
+                (\d)\1(\D)\2  \1重复第一个子项  \2重复第二个子项
+
+            5、[]
+                数字[0-9]
+                英文[A-Za-z]
+                中文[\u4e00 \u9fa5]
+
+            6、^ $ 开头和结尾
+                /^(\d)$/
+            7、修饰符
+                i   忽略大小写
+                g   全局
+                m   多行
+
+            8、量词
+                +   1-无限
+                {}  {n,m}范围 最小n次，最多m次
+                ?   {0,1}最小0次，最多1次
+                *   {0，}最小0次，最多无限次
+                +   最小1次，最多无限次
+           
+            9、转义字符
+                \d  一个数字
+                \D  一个非数字
+                \n  换行
+                \s  一个空格
+                \S  一个非空格
+                \w 一个数字、字母、下划线
+                \W 一个非数字、字母、下划线之外的任意字符
+                \b 一个边界符
+                \B 一个非边界符
+
+                \r\n    回车换行
+                .   除回车\r之外的任意字符
+
+            10、正则的特征
+                    懒惰性：
+                        如：\d  直接会找到9
+                    贪婪性：
+                        如：\d+ 有多少会匹配多少数字
+
+
+
+        */
+
+        //清除空格  \s
+        // var  str1 = '       a bc       ';
+        // var  reg1 = /^\s+|\s+$/g;
+        // console.log(str1.replace(reg1,''));
+
+      
+
+
+    </script>
+</body>
+
+</html>

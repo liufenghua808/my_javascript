@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        /*
+        1、==================构造函数继承
+        优点：对于基本属性而言，非常棒，每个实例之间不共享属性，立刻拥有自己的私有属性了。 
+        缺点：对于方法属性而言，实现了属性的私有，没有实现方法的共享。
+        */
+        /*
+        // 父类
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        //父类原型对象属性
+        Person.prototype.say = function () {
+            console.log(this.name + '我是父类！');
+        }
+
+        //子类
+        function Child(name, age, sex) {
+            Person.call(this, name, age); //使用call,apply方法把父类Person构造函数绑定到子类上
+            this.sex = sex;
+        }
+
+        let child1 = new Child('小明', 20, '男');
+        console.log(child1);//{name: "小明", age: 20, sex: "男"}
+        alert(child1.say);//undefined  没有继承父类原型的方法say属性
+        */
+
+
+        //========================2、原型继承（含扩展式继承）
+
+        //=======1）prototype模式 子类原型为父类的一个实例（比较耗费性能，需要先执行父类，再去查找）
+        // 父类
+        /*function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        //父类原型对象属性
+        Person.prototype.say = function () {
+            console.log(this.name + '是父类！');
+        }
+
+        //子类
+        function Child(name, age, sex) {
+            Person.call(this, name, age); //使用call,apply方法把父类Person构造函数绑定到子类上
+            this.sex = sex;
+        }
+        //它相当于完全删除了prototype 对象原先的值，然后赋予一个新值。
+        Child.prototype=new Person;
+        //任何一个prototype对象都有一个constructor属性，指向它的构造函数.
+        alert(Child.prototype.constructor==Person);//true 
+        Child.prototype.constructor =Child; //需要手动修改子类原型的构造函数为自己
+        alert(Child.prototype.constructor==Person);//false
+        
+
+        let child1 = new Child('小明', 20, '男');
+        console.log(child1);//{name: "小明", age: 20, sex: "男"}
+        child1.say();//输出：小明是父类   //继承了父类的say属性
+       
+        Child.prototype.say=function(){
+            console.log(this.name + '是子类！');
+        }
+       
+        child1.say(); //输出：小明是子类！
+        let p1 = new Person('大明',50,'男');
+        p1.say(); //输出：大明是父类！ */
+
+
+        //=======2）直接继承prototype  
+        //这样做的优点是效率比较高（不用执行和建立Person的实例了），比较省内存。
+        //缺点是 Child.prototype和Person.prototype现在指向了同一个对象
+        //那么任何对Child.prototype的修改，都会反映到Person.prototype。
+        // 父类
+        /* function Person(name, age) {
+             this.name = name;
+             this.age = age;
+         }
+         //父类原型对象属性
+         Person.prototype.say = function () {
+             console.log(this.name + '是父类！');
+         }
+ 
+         //子类
+         function Child(name, age, sex) {
+             Person.call(this, name, age); //使用call,apply方法把父类Person构造函数绑定到子类上
+             this.sex = sex;
+         }
+         //父类原型地址复制给子类
+         Child.prototype = Person.prototype;
+         Child.prototype = { ...Person.prototype }; //扩展式继承 不会共享一个地址
+         Child.prototype.constructor = Child; //需要手动修改子类原型的构造函数为自己
+ 
+ 
+ 
+         let child1 = new Child('小明', 20, '男');
+         console.log(child1);//{name: "小明", age: 20, sex: "男"}
+         child1.say();//输出：小明是父类   //继承了父类的say属性
+ 
+         Child.prototype.say = function () {
+             console.log(this.name + '是子类！');
+         }
+ 
+         child1.say(); //输出：小明是子类！
+         let p1 = new Person('大明', 50, '男');
+         p1.say(); //输出：大明是子类！  子类原型属性修改后父类跟着发生了变化
+         */
+
+
+
+        //=======3）利用空对象作为中介   
+        //这样做的优点是节省内存，不会改变父类的原型属性
+
+        // ============================3、下面也可称为组合式继承
+        //组合式继承采用了原型链式继承和构造函数式继承结合的办法。
+        // 我们把（我们希望子类有一份拷贝的）基本属性放在父类的构造函数里。 
+        // 我们把希望共享的函数方法放在父类的原型上。
+        // 实现了函数的共享，也实现了属性的私有。
+        // 父类
+        /*  function Person(name, age) {
+              this.name = name;
+              this.age = age;
+          }
+          //父类原型对象属性
+          Person.prototype.say = function () {
+              console.log(this.name + '是父类！');
+          }
+  
+          //子类
+          function Child(name, age, sex) {
+              Person.call(this, name, age); //使用call,apply方法把父类Person构造函数绑定到子类上
+              this.sex = sex;
+          }
+  
+          function extend(Child, Parent) {
+              //F是空对象，所以几乎不占内存。这时，修改Child的prototype对象，就不会影响到Person的prototype对象。
+              var F = function () { };
+              F.prototype = Parent.prototype;
+              Child.prototype = new F();
+              Child.prototype.constructor = Child;
+              Child.uber = Parent.prototype;//意思是为子对象设一个uber属性，这个属性直接指向父对象的prototype属性。只是为了实现继承的完备性，纯属备用性质
+  
+          }
+          extend(Child, Person);
+  
+          let child1 = new Child('小明', 20, '男');
+          console.log(child1);//{name: "小明", age: 20, sex: "男"}
+          child1.say();//输出：小明是父类   //继承了父类的say属性
+  
+          Child.prototype.say = function () {
+              console.log(this.name + '是子类！');
+          }
+  
+          child1.say(); //输出：小明是子类！
+  
+          let p1 = new Person('大明', 50, '男');
+          p1.say(); //输出：大明是父类！  */
+
+
+
+        //=============================4、拷贝继承方式
+        // 父类
+        /* function Person(name, age) {
+             this.name = name;
+             this.age = age;
+         }
+         //父类原型对象属性
+         Person.prototype.say = function () {
+             console.log(this.name + '我是父类！');
+         }
+ 
+         //子类
+         function Child(name, age, sex) {
+             Person.call(this, name, age); //使用call,apply方法把父类Person构造函数绑定到子类上
+             this.sex = sex;
+         }
+ 
+ 
+         //这个函数的作用，就是将父对象的prototype对象中的属性，一一拷贝给Child对象的prototype对象。
+         function extend(Child, Parent) {
+             let p = Parent.prototype;
+             let c = Child.prototype;
+             for (let i in p) {
+                 c[i] = p[i];
+             }
+             c.uber = p;
+         }
+         extend(Child, Person);
+ 
+         let child1 = new Child('小明', 20, '男');
+         console.log(child1);//{name: "小明", age: 20, sex: "男"}
+         child1.say();//输出：小明是父类   //继承了父类的say属性
+ 
+         Child.prototype.say = function () {
+             console.log(this.name + '是子类！');
+         }
+ 
+         child1.say(); //输出：小明是子类！
+ 
+         let p1 = new Person('大明', 50, '男');
+         p1.say(); //输出：大明是父类！
+         */
+
+        //=========================深度拷贝继承
+        /*
+                 function Person(name,age){
+                    this.name = name;
+                    this.age = age;
+                }
+                Person.prototype.say = function(){
+                    alert('我叫'+this.name);
+                }
+
+                function Coder(name,age,job){
+                    Person.call(this,name,age); //Coder继承Person的属性
+                    this.job = job;
+                }
+
+
+                Coder.prototype = deepClone(Person.prototype);  //深度拷贝
+
+                Coder.prototype.say = function(){
+                    alert('我叫'+this.name+'是一个代码传说');
+                }
+                
+                Coder.prototype.coding = function(){
+                    console.log('会敲代码');
+                }
+
+                let p = new Person('001','好几千年');//Person{}
+                let c = new Coder('002',20,'码农');
+
+                p.say();
+                c.say(); 
+                c.coding();
+            
+
+                function deepClone(obj){
+                    //先声明一个数组，去存克隆出来的内容
+                    //判断obj是否为数组，是数组就o就为[],否则为{}
+                    let o = obj.push?[]:{};
+                    //循环传进来的对象
+                    for(let attr in obj){
+                    // for(let i=0;i<arr.length;i++){
+                        //判断对象中的某个值是否为引用类型
+                        //如果是，就继续调用deepClone把引用值传到函数中
+                        if(typeof obj[attr] === 'object'){
+                            o[attr] = deepClone(obj[attr])
+                        }else{
+                            //如果是简单类型就直接赋值
+                            o[attr] = obj[attr];
+                        }
+                    }
+                    return o;
+                }
+
+        
+        
+        
+        
+        */
+
+        //=============================5、寄生式组合（混合式）
+        // 父类
+       /* function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        //父类原型对象属性
+        Person.prototype.say = function () {
+            console.log(this.name + '我是父类！');
+        }
+
+        //子类
+        function Child(name, age, sex) {
+            Person.call(this, name, age); //使用call,apply方法把父类Person构造函数绑定到子类上
+            this.sex = sex;
+        }
+
+        //  Object.create({})   必须传入一个对象
+
+        //       返回值为一个新的对象，这个对象的原型链指向传入的参数
+
+        Child.prototype = Object.create(Person.prototype);
+
+
+        let child1 = new Child('小明', 20, '男');
+        console.log(child1);//{name: "小明", age: 20, sex: "男"}
+        child1.say();//输出：小明是父类   //继承了父类的say属性
+
+        Child.prototype.say = function () {
+            console.log(this.name + '是子类！');
+        }
+
+        child1.say(); //输出：小明是子类！
+
+        let p1 = new Person('大明', 50, '男');
+        p1.say(); //输出：大明是父类！*/
+
+
+        /*
+        ====================6、class类继承
+        class Animal{
+            constructor(name){
+                this.name=name;
+            }
+
+           static sleep(){ //设置静态方法
+                console.log(this.name+'正在睡觉');
+           }
+            eat(){ //动态方法
+                console.log(this.name+'都喜欢吃！');
+            }
+        }
+
+        class Cats extends Animal{
+            constructor(name){
+                super(name);//继承父类 不写super(),下面的this找不到
+                this.cry = '喵喵';
+                this.life = '九条命';
+            }
+            skill(){
+                console.log(this.name+'抓Jerry');
+            }
+            eat(){
+                console.log(this.name+'吃鱼');
+            }
+        }
+        class ColorCat extends Cats{
+            constructor(...arg){ //剩余运算符
+                super(...arg); //扩展运算符
+                this.color = '有颜色的猫！';
+            }
+        }
+
+        let tom = new Cats('汤姆');
+        console.log(tom);
+        tom.eat(); //这种实例执行方法的方式为动态方式    //Array from()这类属于静态方法
+        tom.skill();
+
+        let animal1 = new Animal('动物');
+        console.log(animal1);
+        animal1.eat();
+        Animal.sleep();
+       // animal1.sleep();//静态方法高级对象（实例化）对象无法调用，也继承不了
+
+       let color1 = new ColorCat('花猫');
+       console.log(color1);
+
+        
+        
+        
+        */
+
+
+
+    </script>
+</body>
+
+</html>

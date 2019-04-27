@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+                    /*
+                        replace 替换 字符串的方法
+                
+                        string.repalce(oldstr||正则,newstr||函数)
+                        当第二个参数是函数的时候，函数的第一个参数是每次匹配的结果
+                    默认情况：
+                        函数的第二个参数index
+                        函数的第三个参数input
+                        函数的第四个（及以后）个参数undefined    
+                        返回值为新的字符串
+                    
+                    */
+                     let str = 'asdf1234';
+                      // console.log(str.replace('a','A'));//Asdf1234
+              
+                      //console.log(str.replace(/d|1/g,'*'));//as*f*234
+                      //$0->结果  $1->index   $2->input $3->groups
+                     
+                      let s = str.replace(/f|1/g, function ($0, $1, $2, $3) {
+                          console.log($0, $1, $2, $3);
+                          let temp = '';
+                          for (let i = 0; i < $0.length; i++) {
+                              temp += '*';
+              
+                          }
+                          return temp;
+              
+                      });
+                      console.log(s); //asd**234 
+
+                 
+
+    </script>
+</body>
+
+</html>

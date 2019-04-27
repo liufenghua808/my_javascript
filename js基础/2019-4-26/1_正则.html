@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        /*
+        /\d+/g
+        正则：专门用来检索**模糊范围**字符串的一种规则
+            火星文，难点在于找规律
+        创建正则的两种方式：
+            简写：/^\d+$/   字面量方式创建
+            实例化：new RegExp('字符串'，'修饰符')   构造函数方式
+
+
+            \转义符:
+                1、把普通字符转义成转义字符
+                2、把转义字符转成普通字符
+
+                **注意写 / 记得转义
+
+            当\ + 字母的时候会有特殊含义，这种带有特殊含义的，我们叫元字符
+
+            特殊元字符：
+            \n  换行
+            \d   0-9之间的一个数字
+            \D  非0-9之间的任意字符
+
+            exec:
+                /规则/.exec(字符串)
+                找到正则中第一个匹配的字符且放到数组中
+                    [字符、index、input、groups]
+
+            test:
+                /规则/.test(字符串)
+                检测正则是否匹配字符串,如果匹配，返回true
+
+        */
+
+        // console.log(/a/);
+        // //console.dir(/a/);
+
+        // console.log(new RegExp('a','g')); // /a/g
+        // console.log(new RegExp('/a/','g')); //   /\/a\//g
+        // console.log(new RegExp('\/a\/','g'));//   /\/a\//g
+
+
+        let str = 'skja4ff';
+        console.log(/\d/.exec(str));//["4", index: 4, input: "skja4ff", groups: undefined]
+        console.log(/\d/.test(str)); //true
+        
+        var reg =new RegExp('4','igm');
+        console.log(reg.exec(str));
+
+
+
+
+
+    </script>
+</body>
+</html>

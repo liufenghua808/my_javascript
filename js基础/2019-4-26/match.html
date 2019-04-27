@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            match:字符串的方法
+                字符串.match(/规则/)  str.match(/规则/);
+                    找到字符中所有匹配的字符且放到数组中
+                修饰符：
+                g ->global  全局    str.match(/规则/g);  
+                i ->ignore  忽略大小写
+
+                量词： str.match(/规则+/)
+                    + 最少1个最多无限
+
+                    str.match(/规则+/g) 查找全局符合按规则连续的字符
+        
+        */
+
+        let  str='fjDdFfaks34jkh56h4j7kd8jd1k32lk';
+        console.log(str.match(/\d/));//找一个数字 ["3", index: 10, input: "fjdaskfaks34jkh56h4j7k8j1k32lk", groups: undefined]
+       
+        console.log(str.match(/\d/g)); //查找字符串中全局的数字放到数组中 ["3", "4", "5", "6", "4", "7", "8", "1", "3", "2"]
+      
+        console.log(str.match(/\d+/));
+       
+        console.log(str.match(/\d+/g));//["34", "56", "4", "7", "8", "1", "32"]
+       
+        console.log(str.match(/d/gi));//["D", "d", "d"]
+
+        console.log(str.match(/d+/gi));//["Dd", "d", "d"]
+ 
+        console.log(str.match(/y/gi));//null   没有匹配到为null
+    </script>
+</body>
+</html>

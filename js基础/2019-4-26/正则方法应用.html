@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            1.创建正则表达式对象
+                方式一：使用关键字new创建
+                var reg = new RegExp('pattern','modifiers');
+                pattern：正则表达式的匹配模式。(字符串形式)
+                modifiers：匹配模式修饰器
+                    3种模式修饰符分别是：
+                        g：表示全局。匹配全部，如果不写g则匹配成功一个就结束。
+                        i：表示忽略大小写。在匹配的时候不区分大小写
+                        m：表示可以多行匹配。
+
+                方式二：使用正则表达式字面量创建
+                var reg = /pattern/modifiers;
+                说明：pattern表示正则表达式的模式，最后一个/的后面是模式修饰符。
+
+
+            2.正则表达式常用方法
+                test()方法:
+                用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。
+                 var isMatch = 正则表达式对象.test(字符串);
+                参数：要匹配的字符串
+                返回值：匹配成功返回true，失败返回false。
+
+                exec()方法:
+                用于检索字符串中的正则表达式的匹配
+                var values = 正则表达式对象.exec(字符串);
+                参数：要匹配的字符串
+                返回值：返回的是一个Array，且将匹配成功的值存放在数组下标0的位置。如果没有匹配则返回null。
+
+            3.正则表达式操作的字符串方法常用方法:
+                search(regex) 方法
+                 用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串，并返回子串的起始位置。
+                 
+                replace(regex,replaceValue)方法 
+                 用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串，返回替换后的字符串（注：替换所有）。
+
+                match(regex)方法 找到一个或多个正则表达式的匹配结果，返回数组。
+
+                split(regex,limit)方法把字符串分割为字符串数组。
+
+        
+        */
+        function testTest() {
+            let s = "Hello wrld!world";
+            //i 表示忽略字母大小写，g表示匹配全局，匹配全部，如果不写g则匹配成功一个就结束，m表示可以多行匹配
+            //方法一：创建正则表达式对象
+            // var regExp = new RegExp("world","igm");
+            //方法二：使用正则表达式字面量创建
+            let regExp = /^world$/igm;
+            // test()方法：匹配的字符串，匹配成功返回true，失败返回false
+            let isExit = regExp.test(s);
+            console.log(isExit);  //false
+        }
+        //exec() 方法 ：匹配的字符串，返回的是一个Array，且将匹配成功的值存放在数组下标0的位置。如果没有匹配则返回null。
+        function testExec() {
+            let str = "abc1234ABC";
+            let regExp = /[a-z]+/gim;
+            //console.log(regExp.exec(str));
+            //匹配字母输出
+            while (true) {
+                let exec = regExp.exec(str);
+                //console.log(exec)
+                if (exec) {
+                    console.log(exec[0]); //abc  ABC
+
+                } else {
+                    break;
+                }
+
+            }
+
+        }
+        //search(regex)方法：    检索与正则表达式相匹配的第一个匹配项的索引。
+        function testSearch() {
+            var str = "bb3:n:";
+            // 返回第一个 : 的出现位置
+            var number = str.search(/:/);
+            console.log(":出现的第一个位置：" + number); //:出现的第一个位置：3
+        }
+
+        //match(regex)方法 ：找到一个或多个正则表达式的匹配结果，返回数组。
+        function testMatch() {
+            var str = "a2bb3:n:5";
+            // 匹配所有的数字
+            var match = str.match(/\d+$/g); //["5"]
+            console.log(match.toString()); //5
+        }
+
+        // replace(regex,replaceValue)方法 :替换所有与正则表达式匹配的子字符串，返回替换后的字符串。
+        function testReplace() {
+            var str = "a2bb3:n:5";
+            //将数字替换为+
+            var replace = str.replace(/\d+/g, "+");
+            console.log(replace); //a+bb+:n:+
+        }
+
+        // split(regex,limit)方法 把字符串分割为字符串数组。limit表示只取匹配成功的limit个
+        function testSplit() {
+            var str = "a2:bb3:n:5";
+            //第二个参数表示只取几个值
+            //使用: 分割字符串，并只取2个
+            var split = str.split(/:+/g, 3);
+            console.log(split.toString()); //a2,bb3,n
+        }
+        testTest();
+        testExec();
+        testSearch();
+        testMatch();
+        testReplace();
+        testSplit();
+
+    </script>
+</body>
+
+</html>

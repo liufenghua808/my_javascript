@@ -107,7 +107,7 @@
         let ary = [];
         let img = document.querySelector('#img1');
         btn1.onclick = function () {
-            if (ary.length <= 5) {
+            if (ary.length < arr.length) {
                 ary.push(`<li zdy="${arr[ary.length]}">这是第${ary.length + 1}张图片</li>`);
                 innerhtmlmy();
             }

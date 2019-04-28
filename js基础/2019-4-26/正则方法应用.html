@@ -94,8 +94,8 @@
         function testMatch() {
             var str = "a2bb3:n:5";
             // 匹配所有的数字
-            var match = str.match(/\d+$/g); //["5"]
-            console.log(match.toString()); //5
+            var match = str.match(/^a\d[a-z][a-z]\d[:][a-z][:]\d$/g); 
+            console.log(match.toString()); //a2bb3:n:5
         }
 
         // replace(regex,replaceValue)方法 :替换所有与正则表达式匹配的子字符串，返回替换后的字符串。

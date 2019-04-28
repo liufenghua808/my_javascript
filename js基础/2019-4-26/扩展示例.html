@@ -1,38 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    <h3>维护页</h3>
-    <input type="text" id="txt" value=""/>
+    <h3>运营维护内容</h3>
+    <input type="text" id="txt" value="" />
     <button id="btn">添加</button>
     <ul></ul>
 
     <br />
-    <h3>用户展示页</h3>
-    <input type="text" id="txt1" value=""/>
+    <h3>用户输入内容</h3>
+    <input type="text" id="txt1" value="" />
     <button id="btn1">提交</button>
     <p></p>
 
-   
+
 
 </body>
-    <script>
-        let arr=['红色','橙色','黄色','绿色','蓝色']
+<script>
+    let arr = ['靠', '操', '垃圾', '草泥马', '要死啦', '滚']
+    let ul = document.querySelector('ul');
+    let p = document.querySelector('p');
 
-        btn.onclick=function(){
-            let html='';
-            let v1 = txt.value;
-            arr.forEach
-            if(!v1===''){
-                html+='<li>'+v1+'</li>'
-            }
-            ul.innerHTML=html;
+    //把数组里面的内容渲染到页面
+    function mainInner(sql) {
+        let html = '';
+        for (let i = 0; i < sql.length; i++) {
+            html += '<li>' + sql[i] + '</li>';
+            //console.log(ul.innerHTML);
         }
-       
-    </script>
+        ul.innerHTML = html;
+    }
+    mainInner(arr);
+
+    //运营维护输入的内容判断是否已经输入过，如果没有需要添加进行，有的话则进行提醒
+    btn.onclick = function () {
+        let v1 = txt.value;
+        //如果输入了内容，需要判断输入的内容是否已经被过滤过，如果没有，把内容添加到过滤组中
+        if (v1) {
+            if (!arr.some(item => item === v1)) {
+                arr.push(v1);
+                mainInner(arr);
+
+            }
+            else {
+                alert('添加的内容过滤组内已有，无需重复添加');
+            }
+            txt.value = '';
+        }
+
+    }
+
+    //用户端输入内容，如果用户输入内容包含过滤组中的内容，则把敏感内容替换掉
+    btn1.onclick = function () {
+        let v2 = txt1.value;
+        let str = arr.join('|');
+        let re = new RegExp(str, 'g'); 
+        let rand = '@#$%^&*()_+';
+       // console.log(re);  
+       console.log(v2);
+        let str1 = v2.replace(re, function ($0) {
+            //console.log(arguments);
+           
+            let temp = '';//用于放过滤内容被替换后的内容
+            let s = Math.floor(Math.random() * rand.length); //随机获取替换符号
+        
+            for (let i = 0; i < $0.length; i++) {
+               
+                temp += rand[s];
+                console.log(temp);
+            }
+            return temp;
+        });
+        p.innerHTML = str1;
+    }
+
+
+</script>
+
 </html>

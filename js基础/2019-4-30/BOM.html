@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            height: 2000px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        /*
+            BOM:
+                Browser Object Model 浏览器对象模型
+
+            获取浏览器的尺寸
+                window.innerWidth/window.innerHeight
+
+                注意：
+                    window.innerWidth||window.innerHeight 如果有滚动条，忽略滚动条的尺寸
+                
+                document.body.clientWidth(浏览器的尺寸，会计算滚动条)
+                    使用的时候把默认样式清除
+
+                window.open(url)
+                    打开新的窗口
+                    注意：需要用户主动触发才不会被拦截
+
+                window.close()
+                    关闭当前窗口
+
+                    最好也是用户主动触发才体验好
+
+
+        */
+
+        console.log(window.innerHeight);
+        console.log(document.body.clientHeight);
+
+        console.log(window.navigator.userAgent);
+
+        console.log(window.location);
+
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            padding: 100px;
+        }
+
+        #box1 {
+
+            background: rebeccapurple;
+            position: relative;
+            margin-top: 100px;
+        }
+
+        #box2 {
+
+            background: goldenrod;
+            position: relative;
+            border: 10px solid #000000;
+            margin-top: 100px;
+        }
+
+        #box3 {
+
+            background: green;
+            position: absolute;
+            border: 10px solid #000000;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1">
+        <div id="box2">
+            <div id="box3"></div>
+        </div>
+    </div>
+    <script>
+        /*
+            绝对位置：
+                当前元素到页面顶端的距离
+
+            clientLeft/clientTop  边框尺寸
+
+            getComputedStyle(obj).borderTopWidth 边框尺寸  拿到样式表里的边框
+       
+            getBoundingClientReck()当前元素到页面可视区的尺寸，跟滚动条走
+        */
+        let obj = box3;
+        let t = 0;
+        let b = box3.clientTop;
+        console.log(box3.clientTop);
+        while (obj) {
+            t += obj.offsetTop + obj.clientTop;
+            //
+            obj = obj.offsetParent;
+        }
+        console.log(t - b);
+    </script>
+</body>
+
+</html>

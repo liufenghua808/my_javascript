@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="prev">上一张</button>
+    <button id="next">下一张</button>
+    <img src="" id="img" />
+
+    <script>
+        let arr = ['img/1.jpg', 'img/2.jpg', 'img/3.jpg', 'img/4.jpg'];
+        let hash = window.location.hash;
+        //console.log(window.location.hash);
+        let num = 0;
+
+        //判断是否有hash,有的话把h当前hash对应的数字赋给num
+        if (hash) {
+            num = hash.split('=')[1] * 1;
+        } else {
+            //没有hash的话默认设置page=0
+            window.location.hash = 'page=0';
+        }
+        img.src = arr[num];
+
+
+        //hash发生变化的时候图片显示发生变化
+        window.onhashchange = function () {
+            img.src = arr[num];
+        }
+
+
+        //每点击下一张 hash重新设置 
+        next.onclick = function () {
+            num++;
+            num %= arr.length;
+            window.location.hash = 'page=' + num;
+        }
+        //每点击上一张 hash重新设置 
+        prev.onclick = function () {
+            num--;
+            if (num < 0) { num = arr.length - 1 }
+            window.location.hash = 'page=' + num;
+        }
+    </script>
+</body>
+
+</html>

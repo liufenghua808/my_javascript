@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		body,
+		ul,
+		li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="price.css" />
+</head>
+
+<body onselectstart="return false;">
+	<div class="wrap">
+		<div class="box">
+			<ul class="list" id="list">
+				<!-- <li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：<strong>12.5元 </strong> 小计：<strong>0元</strong>
+					</span>
+				</li>
+				<li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：<strong>10.5元 </strong> 小计：<strong>0元</strong>
+					</span>
+				</li>
+				<li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：<strong>8.5元 </strong> 小计：<strong>0元</strong>
+					</span>
+				</li>
+				<li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：<strong>8元 </strong> 小计：<strong>0元</strong>
+					</span>
+				</li>
+				<li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：<strong>14.5元 </strong> 小计：<strong>0元</strong>
+					</span>
+				</li> -->
+			</ul>
+			<div class="info">
+				<span>商品公合计：<em>0</em>件</span>
+				<span>共花费了：<em>0</em>元</span>
+				<br />
+				<br />
+				<span>其中最贵的商品单价是：<em>0</em>元</span>
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+		class Tools {
+			//商品件数/花费总合计
+			sumNum(ary, attr) {
+				let sums = 0;
+				ary.forEach(e => {
+					sums += e[attr];
+				});
+				return sums;
+			}
+			//选中商品最贵单价
+			zuigui(ary) {
+				let arry = ary.filter(item => {
+					return item.num > 0;
+				}).map(e => e.price);
+				// Math.max()
+				if (arry.length) {
+					return Math.max(...arry);
+				} else {
+					return 0;
+				}
+
+			}
+		}
+
+
+		class Counter {
+			constructor(obj) {
+				this.li = document.createElement('li');
+				this.prev = document.createElement('i');
+				this.count = document.createElement('em');
+				this.next = document.createElement('i');
+				this.span = document.createElement('span');
+				this.price = document.createElement('strong');
+				this.xj = document.createElement('strong');
+				this.obj = obj;
+			}
+
+			//++公共方法
+			increment() {
+				this.obj.num += 1;
+			}
+			//--公共方法
+			decrement() {
+				this.obj.num -= 1;
+				if (this.obj.num < 0) { return 0; }
+			}
+
+			//小计公共方法
+			xjsum() {
+				this.obj.xj = this.obj.num * this.obj.price;
+			}
+
+			//每行 商品件数、单价、小计内容渲染
+			counterInner() {
+				this.count.innerHTML = this.obj.num;
+				this.price.innerHTML = '单价：' + this.obj.price + '元';
+				this.xj.innerHTML = '小计：' + this.obj.xj + '元';
+			}
+		}
+
+
+
+		//引入方式1、使用数组，动态插入li。（动态数据可以单放在一个js文件(data.js)，通过外链方式引入)
+		//引入方式2、通过请求 fetch('url') url->文件路径  
+		fetch('./data.js') //注意 此时data.js中的数据不需要let 或者 var 只放纯数据
+			.then(e => e.text())
+			.then((arr) => {
+				//console.log(typeof arr);//string 需要转成对象
+				arr = eval('(' + arr + ')');//json转成对象  此时arr就是对象 
+				//console.log(arr);
+				arr.forEach(item => {
+
+
+
+				})
+			})
+
+
+
+	</script>
+</body>
+
+</html>

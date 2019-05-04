@@ -136,7 +136,8 @@
 		</div>
 		<div id="title">
 			<p>前端开发工程师</p>
-			<div class="simple">18k-25k<span>/</span>北京<span>/</span>经验3-5年<span>/</span>本科及以上<span>/</span>2名 <time>2014-04-10</time></div>
+			<div class="simple">18k-25k<span>/</span>北京<span>/</span>经验3-5年<span>/</span>本科及以上<span>/</span>2名
+				<time>2014-04-10</time></div>
 		</div>
 		<div id="bottom">
 			<!-- <dl>
@@ -158,7 +159,53 @@
 		/*
 		通过search值去获取对应的数据
 		*/
-	
+
+
+
+		function gianHash() {
+			//获取hash值（字符串），字符串分割成数组
+			let arr1 = (window.location.hash).substring(1).split('&');
+			//console.log(arr1);
+			let obj = {};
+			arr1.forEach(item => {
+				let ary = item.split('='); //循环获取arr1每一项字符串，分割成数组
+				console.log(ary);
+				obj[ary[0]] = item.split('=')[1];
+			});
+			//console.log(obj);
+
+		}
+		gianHash();
+		//渲染返回
+		document.querySelector("#a").href = `list.html#type=${obj.type}&page=${obj.page}`;
+
+		let shlist = data[obj.type].text[obj.name];//获取需要插入的数据
+		//console.log(shlist);
+
+
+
+		//渲染title
+		let title = document.getElementById('title');
+		title.innerHTML = `<p>${shlist.zw}</p>
+				<div class="simple">${shlist.dy}<span>/</span>${shlist.dd}<span>/</span>${shlist.jy}<span>/</span>${shlist.xl}<span>/</span>${shlist.rs}
+				<time>2014-04-10</time></div>`;
+		let bottom = document.getElementById('bottom');
+
+		//渲染bottom
+		let llist = '';
+		//动态添加岗位要求
+		shlist.info[0].l.forEach(function (item) {
+			llist += `<dd>${item}</dd>`;
+		})
+		//console.log(llist);
+		bottom.innerHTML = `<dl>
+							<dt>${shlist.info[0].t}</dt>
+							${llist}
+						</dl>`
+
+
+
+
 	</script>
 </body>
 

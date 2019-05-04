@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body style='height:3000px'>
+    <div></div>
+    <script>
+        let time=500;
+        let oldtime = new Date();
+        window.onscroll=function(){
+            let newtime = new Date();
+            if((newtime-oldtime)>time){
+                console.log('执行');
+            }
+            oldtime=newtime;
+        }
+    </script>
+</body>
+</html>

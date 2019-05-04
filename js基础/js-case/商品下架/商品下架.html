@@ -238,7 +238,7 @@
             <li>
                 <div class="bg"></div>
                 <div>
-                    <input class="inputdate" type="text" value="2019/05/02 16:22:00">
+                    <input class="inputdate" type="text" value="2019/05/03 20:22:00">
                     <input type="button" value="确认">
                 </div>
                 <p class="times">剩余
@@ -276,7 +276,7 @@
             <li>
                 <div class="bg"></div>
                 <div>
-                    <input class="inputdate" type="text" value="2019/05/02 16:22:00">
+                    <input class="inputdate" type="text" value="2019/05/03 20:22:00">
                     <input type="button" value="确认">
                 </div>
                 <p class="times">剩余
@@ -313,7 +313,7 @@
             <li>
                 <div class="bg"></div>
                 <div>
-                    <input class="inputdate" type="text" value="2019/05/02 16:22:00">
+                    <input class="inputdate" type="text" value="2019/05/03 20:22:00">
                     <input type="button" value="确认">
                 </div>
                 <p class="times">剩余
@@ -350,7 +350,7 @@
             <li>
                 <div class="bg"></div>
                 <div>
-                    <input class="inputdate" type="text" value="2019/05/02 16:22:00">
+                    <input class="inputdate" type="text" value="2019/05/03 20:22:00">
                     <input type="button" value="确认">
                 </div>
                 <p class="times">剩余
@@ -409,8 +409,9 @@
         */
 
         let lists = document.querySelectorAll('#main li');
+        let num = 0; //用于商品价格总合计使用
 
-        //循环每个商品详情盒子
+        //循环每个未下架商品
         for (let i = 0; i < lists.length; i++) {
             fn(i);
         }
@@ -420,68 +421,75 @@
             let timer = 0;
             let inps = lists[i].querySelectorAll('input');
             let inputdate = inps[0]; //动态输入未来时间
-            let newtime = new Date(inputdate.value);//获取未来时间
+            let newtime = new Date(inputdate.value);//获取输入时间
 
-
-            //获取剩余时间方法
+            //获取倒计时
             function syTime() {
                 let oldtime = new Date();//获取当前时间
                 let s = Math.floor((newtime - oldtime) / 1000);
-                //console.log(s);
                 let h = Math.floor(s / 3600);
                 s %= 3600;
                 let m = Math.floor(s / 60);
                 s %= 60;
-                sytime = toDou(h) + ':' + toDou(m) + ':' + toDou(s); //剩余时间
+                //如果不满两位，前位需要加0
+                function toDou(t) {
+                    return t < 10 ? '0' + t : t;
+                }
+                sytime = toDou(h) + ':' + toDou(m) + ':' + toDou(s); //获得剩余时间（字符串）
 
-                //倒计时
+                console.log(sytime);
+                //倒计时页面进行渲染
+                let times = document.querySelectorAll('.times');
+                let spans = times[i].children;
                 if (s > 0) {
-                    let times = document.querySelectorAll('.times');
-                    let spans = times[i].querySelectorAll('span');
-                    spans[0].innerHTML = sytime[0];
-                    spans[1].innerHTML = sytime[1];
-                    spans[2].innerHTML = sytime[3];
-                    spans[3].innerHTML = sytime[4];
-                    spans[4].innerHTML = sytime[6];
-                    spans[5].innerHTML = sytime[7];
+                    for (let j = 0; j < sytime.length; j++) {
+                        if (j !== 2 && j !== 5) {
+                            spans[j].innerHTML = sytime[j];
+                        }
+                    }
+
+                    // spans[0].innerHTML = sytime[0];
+                    // spans[1].innerHTML = sytime[1];
+                    // spans[2].innerHTML = sytime[3];
+                    // spans[3].innerHTML = sytime[4];
+                    // spans[4].innerHTML = sytime[6];
+                    // spans[5].innerHTML = sytime[7];
                     clearTimeout(timer);
-                    timer = window.setTimeout(syTime, 1000);//通过递归自己掉自己实现倒计时
-
-
-                    //商品下架
-                } else {
-                    //倒计时停止，剩余时间为0
+                    timer = window.setTimeout(syTime, 1000);//延迟1s的过程先进行了页面渲染，防止出现给用户需要等1s的感觉)
+                } else {  //倒计时停止，页面时间均渲染为0
+                    sytime = '00:00:00';
                     clearInterval(timer);
-                    let times = document.querySelectorAll('.times');
-                    let spans = times[i].querySelectorAll('span');
-                    spans[0].innerHTML = 0;
-                    spans[1].innerHTML = 0;
-                    spans[2].innerHTML = 0;
-                    spans[3].innerHTML = 0;
-                    spans[4].innerHTML = 0;
-                    spans[5].innerHTML = 0;
-                    //console.log(seal[0]);
+                    for (let j = 0; j < sytime.length; j++) {
+                        if (j !== 2 && j !== 5) {
+                            spans[j].innerHTML = sytime[j];
+                        }
+                    }
+                    // spans[0].innerHTML = 0;
+                    // spans[1].innerHTML = 0;
+                    // spans[2].innerHTML = 0;
+                    // spans[3].innerHTML = 0;
+                    // spans[4].innerHTML = 0;
+                    // spans[5].innerHTML = 0;
 
-                    //商品下架章显示
+                    //倒计时结束，黑色背景显示，下架商品章显示（进行缩放）
                     let seal = document.querySelectorAll('.big-c');
                     let bg = document.querySelectorAll('.bg');
                     bg[i].style.display = 'block';
                     seal[i].style.visibility = 'visible';
                     seal[i].style.transform = 'scale(1)';
 
-                    //商品章抖动
+                    //商品章抖动（过度时间完成后进行抖动）
                     setTimeout(function () {
-                        seal[i].style.transition = '0s';
-                        let ary = [10, -10, 8, -8, 6, -6, 4, -4, 2, -2, 0];
+                        seal[i].style.transition = '0s';//去除过渡效果
+                        let ary = [12, -12, 10, -10, 8, -8, 6, -6, 4, -4, 2, -2, 0];
                         let num = 0;
                         let timer2 = null;
-                        let l = seal[i].offsetLeft;
+                        let left = seal[i].offsetLeft;
                         timer2 = setInterval(() => {
                             num++;
-                            seal[i].style.left = l + ary[num] + 'px';
+                            seal[i].style.left = left + ary[num] + 'px';
                             if (num == ary.length) {
                                 clearInterval(timer2);
-
                                 num = 0;
                             };
 
@@ -494,24 +502,27 @@
                     let img = document.getElementsByTagName('img');
                     let footer = document.getElementById('footer');
                     footer.innerHTML += `<ul class="style2">
-                                        <li class="li1">${com[i].innerHTML}</li>
-                                        <li class="li2">${price[i].innerHTML}</li>
-                                        <li class="li3"><img src="img/${i + 1}.jpg"></li>
-                                    </ul>`;
+                                            <li class="li1">${com[i].innerHTML}</li>
+                                            <li class="li2">${price[i].innerHTML}</li>
+                                            <li class="li3"><img src="img/${i + 1}.jpg"></li>
+                                        </ul>`;
 
+                    //下架商品价格总合计
+                    let list = footer.querySelector('.list');
+                    let list_li3 = list.querySelector('.li3');
+                    let sum = Number((price[i].innerHTML).substr(1));//截取价格中的数字部分
+                    num += sum;
+                    //console.log(num);
+                    list_li3.innerText = '¥' + num;
 
                 }
-                //如果不满两位，前位需要加0
-                function toDou(t) {
-                    return t < 10 ? '0' + t : t;
-                }
+
             }
 
-            //点击确认按钮，倒计时开始
+            //点击确认按钮
             inps[1].onclick = function () {
-                clearInterval(timer);//清除确认前的定时器
-                //获取新的未来时间
-                newtime = new Date(inputdate.value);
+                clearInterval(timer);//清除上一轮定时器            
+                newtime = new Date(inputdate.value);//再次获取新的输入时间
                 syTime();
 
             }

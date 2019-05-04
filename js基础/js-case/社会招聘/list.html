@@ -233,56 +233,128 @@
 	</div>
 	<script src="js/data.js"></script>
 	<script>
+
 		let leftList = document.getElementById('leftList');
 		let list1 = leftList.querySelectorAll('li');
-
 		let rightList = document.getElementById('rightList');
-		
 
+
+		let start = 0; //首页初始条数
+		let stop = 4; //首页结束条数
+		let currentpage = 1;
+
+		function gianHash() {
+			//获取hash值（字符串），字符串分割成数组		
+			let arr1 = (window.location.hash).substring(1).split('&');
+			//console.log(arr1);
+			let obj = {};
+			arr1.forEach(item => {
+				let ary = item.split('='); //循环获取arr1每一项字符串，分割成数组
+				console.log(ary);
+				obj[ary[0]] = ary[1];
+			});
+			//console.log(obj);
+		}
+
+		function change() {
+			gianHash(); //获取hash的元素
+			if (obj.page) {
+				currentpage = obj.page;
+				start = 4 * obj.page - 4;
+				stop = 4 * obj.page > data.sh.text.length ? data.sh.text.length : 4 * obj.page;
+
+			}
+			if (obj.type == 'sh') {
+				rendersh(start, stop)
+			} else {
+				renderxy(start, stop);
+			}
+
+		}
+		change()
+		//hash值改变时对应当前页面数据发生变化
+		window.onhashchange = change;
 
 		//社会招聘数据渲染
-		function rendersh() {
-			data.sh.text.forEach(function (item, i) {
-				rightList.innerHTML += `<li>
-										<span class="num">${i + 1}</span>
-										<div class="list">
-											<a href=""><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
-											<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="javascript:;">查看详情>></a></p>
-										</div>
-									</li>
-									`
-			});
+		function rendersh(start, stop) {
+			let str = ''
+			for (let i = start; i < stop; i++) {
+				let item = data.sh.text[i];
+				str += `<li>
+							<span class="num">${i + 1}</span>
+							<div class="list">
+								<a href="content.html#type=sh&name=${i}&page=${currentpage}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
+								<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="content.html">查看详情>></a></p>
+							</div>
+						</li>`
+			}
+			rightList.innerHTML = str;
+
 		}
-		rendersh();
 
 		//校园招聘数据渲染
-		function renderxy() {
-			data.xy.text.forEach(function (item, i) {
-				rightList.innerHTML += `<li>
-										<span class="num">${i + 1}</span>
-										<div class="list">
-											<a href=""><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
-											<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="javascript:;">查看详情>></a></p>
-										</div>
-									</li>
-									`
-			});
+		function renderxy(start, stop) {
+			let str = '';
+			for (let i = start; i < stop; i++) {
+				let item = data.xy.text[i];
+				str += `<li>
+							<span class="num">${i + 1}</span>
+							<div class="list">
+								<a href="content.html#type=xy&name=${i}&page=${currentpage}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
+								<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="content.html">查看详情>></a></p>
+							</div>
+						</li>`
+			}
+			rightList.innerHTML = str;
+			window.location.hash = 'type=xy';
 		}
-	
-	
-list1.forEach(function(item,i){
-	item.onclick= function () {
-			list1[0].className='';
-			list1[1].className='';
-			this.className='active';
-			rightList.innerHTML='';
-			i===0?rendersh():renderxy();
-	
+
+		//切换
+		list1.forEach(function (item, i) {
+			item.onclick = function () {
+				//清除样式
+				list1[0].className = '';
+				list1[1].className = '';
+				//给当前点击元素增加样式
+				this.className = 'active';
+				//rightList.innerHTML = '';
+				i === 0 ? window.location.hash = 'type=sh' : window.location.hash = 'type=xy';;
+
+			}
+		})
+
+
+		//分页
+		function Page() {
+			let nav = document.getElementById('nav');
+			let page = Math.ceil(data.sh.text.length / 4);//根据总条数获得总页数
+			let page_con = '';
+			//console.log(page);
+			for (let i = 0; i < page; i++) {
+				//动态添加页码标签（不含翻页箭头）
+				page_con += `<a class="active" href="javascript:;">${i + 1}</a>`;
+			}
+
+			//动态添加页码
+			nav.innerHTML = `<a href="javascript:;">&lt;</a>
+							${page_con}
+							 <a href="javascript:;">&gt;</a>`;
+
+			let pagenum = nav.querySelectorAll('a');
+			for (let i = 1; i < pagenum.length - 1; i++) {
+
+				pagenum[i].onclick = function () {
+					pagenum[1].className = '';
+					pagenum[2].className = '';
+					this.className = 'active';
+					window.location.hash = `type=sh&page=${i}`;
+				}
+			}
 
 		}
-})
-	
-	
+		Page();
+
+
 
 
 	</script>

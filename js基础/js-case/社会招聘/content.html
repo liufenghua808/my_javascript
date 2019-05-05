@@ -156,42 +156,35 @@
 	</div>
 	<script src="js/data.js"></script>
 	<script>
-		/*
-		通过search值去获取对应的数据
-		*/
 
-
-
-		function gianHash() {
+		//获取hash,进行分割，存储
+		function getHash() {
 			//获取hash值（字符串），字符串分割成数组
 			let arr1 = (window.location.hash).substring(1).split('&');
 			//console.log(arr1);
 			let obj = {};
 			arr1.forEach(item => {
 				let ary = item.split('='); //循环获取arr1每一项字符串，分割成数组
-				console.log(ary);
+				//console.log(ary);
 				obj[ary[0]] = item.split('=')[1];
 			});
-			//console.log(obj);
-
+			return obj;
 		}
-		gianHash();
-		//渲染返回
-		document.querySelector("#a").href = `list.html#type=${obj.type}&page=${obj.page}`;
+		let obj = getHash();
+		//console.log(obj);
 
-		let shlist = data[obj.type].text[obj.name];//获取需要插入的数据
+		let shlist = data[obj.type].text[obj.name];//获取对应的一条数据
 		//console.log(shlist);
-
-
 
 		//渲染title
 		let title = document.getElementById('title');
 		title.innerHTML = `<p>${shlist.zw}</p>
-				<div class="simple">${shlist.dy}<span>/</span>${shlist.dd}<span>/</span>${shlist.jy}<span>/</span>${shlist.xl}<span>/</span>${shlist.rs}
-				<time>2014-04-10</time></div>`;
-		let bottom = document.getElementById('bottom');
+							<div class="simple">薪资：${shlist.dy}<span>/</span>地点：${shlist.dd}<span>/</span>经验：${shlist.jy}<span>/</span>学历：${shlist.xl}<span>/</span>人数：${shlist.rs}名
+							<time>${shlist.sj.join('-')}</time></div>`;
+
 
 		//渲染bottom
+		let bottom = document.getElementById('bottom');
 		let llist = '';
 		//动态添加岗位要求
 		shlist.info[0].l.forEach(function (item) {
@@ -199,9 +192,9 @@
 		})
 		//console.log(llist);
 		bottom.innerHTML = `<dl>
-							<dt>${shlist.info[0].t}</dt>
-							${llist}
-						</dl>`
+								<dt>${shlist.info[0].t}</dt>
+								${llist}
+							</dl>`
 
 
 

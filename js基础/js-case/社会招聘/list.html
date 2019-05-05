@@ -239,41 +239,30 @@
 		let rightList = document.getElementById('rightList');
 
 
-		let start = 0; //首页初始条数
-		let stop = 4; //首页结束条数
-		let currentpage = 1;
+		let start = 0; //初始首页开始条数
+		let stop = 4; //初始化首页结束条数
+		let hash = window.location.hash; //打开页面的时候获取hash值
+		//看看有没有hash值，如果没有默认设置为type=sh
+		if (!hash) {
+			window.location.hash = 'type=sh&page=1';
+		}
 
-		function gianHash() {
+		//获取hash,进行分割，存储
+		function getHash() {
 			//获取hash值（字符串），字符串分割成数组		
 			let arr1 = (window.location.hash).substring(1).split('&');
-			//console.log(arr1);
 			let obj = {};
 			arr1.forEach(item => {
-				let ary = item.split('='); //循环获取arr1每一项字符串，分割成数组
-				console.log(ary);
+				let ary = item.split('='); //循环获取arr1每一项字符串，每一项用‘=’分割成数组
 				obj[ary[0]] = ary[1];
+				//console.log(obj);
+
 			});
-			//console.log(obj);
+			return obj;
 		}
+		let obj = getHash();
+		console.log(obj);
 
-		function change() {
-			gianHash(); //获取hash的元素
-			if (obj.page) {
-				currentpage = obj.page;
-				start = 4 * obj.page - 4;
-				stop = 4 * obj.page > data.sh.text.length ? data.sh.text.length : 4 * obj.page;
-
-			}
-			if (obj.type == 'sh') {
-				rendersh(start, stop)
-			} else {
-				renderxy(start, stop);
-			}
-
-		}
-		change()
-		//hash值改变时对应当前页面数据发生变化
-		window.onhashchange = change;
 
 		//社会招聘数据渲染
 		function rendersh(start, stop) {
@@ -283,13 +272,13 @@
 				str += `<li>
 							<span class="num">${i + 1}</span>
 							<div class="list">
-								<a href="content.html#type=sh&name=${i}&page=${currentpage}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
+								<a href="content.html#type=sh&name=${i}&page=${obj.page}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
 								<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="content.html">查看详情>></a></p>
 							</div>
 						</li>`
+
 			}
 			rightList.innerHTML = str;
-
 		}
 
 		//校园招聘数据渲染
@@ -300,34 +289,19 @@
 				str += `<li>
 							<span class="num">${i + 1}</span>
 							<div class="list">
-								<a href="content.html#type=xy&name=${i}&page=${currentpage}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
+								<a href="content.html#type=xy&name=${i}&page=${obj.page}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
 								<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="content.html">查看详情>></a></p>
 							</div>
 						</li>`
+
 			}
 			rightList.innerHTML = str;
-			window.location.hash = 'type=xy';
 		}
 
-		//切换
-		list1.forEach(function (item, i) {
-			item.onclick = function () {
-				//清除样式
-				list1[0].className = '';
-				list1[1].className = '';
-				//给当前点击元素增加样式
-				this.className = 'active';
-				//rightList.innerHTML = '';
-				i === 0 ? window.location.hash = 'type=sh' : window.location.hash = 'type=xy';;
-
-			}
-		})
-
-
 		//分页
-		function Page() {
+		function Page(type) {
 			let nav = document.getElementById('nav');
-			let page = Math.ceil(data.sh.text.length / 4);//根据总条数获得总页数
+			let page = Math.ceil(data[type].text.length / 4);//根据总条数获得总页数
 			let page_con = '';
 			//console.log(page);
 			for (let i = 0; i < page; i++) {
@@ -341,18 +315,75 @@
 							 <a href="javascript:;">&gt;</a>`;
 
 			let pagenum = nav.querySelectorAll('a');
-			for (let i = 1; i < pagenum.length - 1; i++) {
 
+			//点击页码事件
+			for (let i = 1; i < pagenum.length - 1; i++) {
+				i == obj.page ? pagenum[i].className = 'active' : pagenum[i].className = '';
 				pagenum[i].onclick = function () {
-					pagenum[1].className = '';
-					pagenum[2].className = '';
+					pagenum.forEach(item => {
+						item.className = '';
+					})
 					this.className = 'active';
-					window.location.hash = `type=sh&page=${i}`;
+					let page = this.innerHTML;
+					window.location.hash = `type=${type}&page=${page}`;
+
 				}
 			}
 
+			//点击上一页
+			pagenum[0].onclick = function () {
+				obj = getHash();
+				window.location.hash = `type=${type}&page=${obj.page - 1 < 1 ? 1 : obj.page - 1}`;
+			}
+			//点击下一页
+			pagenum[pagenum.length - 1].onclick = function () {
+				obj = getHash();
+				window.location.hash = `type=${type}&page=${obj.page * 1 + 1 > page ? page : obj.page * 1 + 1}`;
+			}
+
+
 		}
-		Page();
+		//hash发生变化触发事件
+		function change() {
+			obj = getHash();
+			if (obj.page) {
+				start = 4 * obj.page - 4;//当前页条数开始索引
+				stop = (4 * obj.page) > data[obj.type].text.length ? data[obj.type].text.length : (4 * obj.page);
+			}
+			if (obj.type == 'sh') {
+				//当前页条数结束索引
+				rendersh(start, stop);
+				Page(obj.type);
+			} else {
+				renderxy(start, stop);
+				Page(obj.type);
+			}
+
+
+		}
+		change()
+		//切换
+		list1.forEach(function (item, i) {
+			item.onclick = function () {
+				//清除样式
+				list1[0].className = '';
+				list1[1].className = '';
+				this.className = 'active';//给当前点击元素增加样式
+
+				if (i === 0) {
+					window.location.hash = 'type=sh&page=1';
+				} else {
+					window.location.hash = 'type=xy&page=1';
+				}
+			}
+		})
+		//hash值改变时对应当前页面数据发生变化
+		window.onhashchange = change;
+
+
+
+
+
 
 
 

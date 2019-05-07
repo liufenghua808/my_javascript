@@ -34,7 +34,7 @@
             let arr = [];
             //循环每一个标签元素
             for (let i = 0; i < eLem.length; i++) {
-                let re = new RegExp('\b' + sClass + '\b');  //    /\b[li]\b/
+                let re = new RegExp('\\b' + sClass + '\\b');  
                 //判断循环出的元素标签是否匹配正则
                 if (re.test(eLem[i].className)) {
                     arr.push(eLem[i]);

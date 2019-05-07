@@ -29,8 +29,8 @@
 
         let ary = [];
         let arr = s.replace(/(\d+)([\u4e00-\u9fa5])/g, ($0, $1, $2) => {
-            console.log($1);
-            ary.push($1 * 1);;
+            console.log($1+$2);
+            ary.push($1 * 1);
         });
         //把匹配出来的数字获取到放到一个数组中
         console.log(ary);

@@ -39,16 +39,17 @@ let tools = (function(){
         '2019-5-4 10:51:30'
         '2019-05-04 10:51:30'
     */
-    function countDown(str,callback){
+    function countDown(obj,str,callback,cb2){
         let newTime = new Date(str);
-        let timer = null;
-
-        timer = setInterval(() => {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(() => {
             let oldTime = new Date;
             let s = Math.floor((newTime - oldTime)/1000);
             //已经过了未来时间
             if(s < 0){
-                clearInterval(timer);
+                clearInterval(obj.timer);
+                //清除定时器的时候调用
+                cb2 &&  cb2();
             }else{
                 let day = Math.floor(s/86400);
                 day %= 86400;

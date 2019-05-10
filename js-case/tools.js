@@ -181,6 +181,30 @@ let tools = (function(){
     }
 
 
+    function addWheel(obj,fn){
+        //let w = window.navigator.userAgent.toLowerCase();
+        // if(w.includes('chrome')){
+        if(obj.onmousewheel === null){
+        // if('onmousewheel' in window){
+            obj.onmousewheel = whell;
+        }else{
+            obj.addEventListener('DOMMouseScroll',whell);
+        }
+
+        function whell(ev){
+            let o = true;
+            // console.log(ev.wheelDelta);
+            if(ev.wheelDelta){ //是chrome
+                o = ev.wheelDelta > 0?true:false;
+            }else{
+                o = ev.detail < 0?true:false;
+            }
+
+            //回调函数
+            fn && fn(o);
+        }
+    }
+
 
 
 
@@ -192,6 +216,7 @@ let tools = (function(){
         getCss,
         setCss,
         po,
-        shake
+        shake,
+        addWheel
     }
 })();

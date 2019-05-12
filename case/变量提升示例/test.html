@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //练习1
+        /*
+        var ary = [1,2,3];
+        function sum(arr){
+            //arr私有变量，值是ary的地址；arr和ary是同一地址
+            arr[0] =10;
+            console.log(arr); //[10,2,3] 此时arr和ary都是[10,2,3]
+            arr = [2,2,3];  //给arr一个新的地址，ary还是原来的地址
+            return arr; // [2,2,3]
+        }
+
+        console.log(sum(ary));
+        console.log(ary);  //  [10,2,3]
+        */
+
+        //练习2
+        /* var a = {
+             x: 1
+         }
+         var b = a;  //此时 a和b用同一个地址 {x:1}
+
+         //点的优先级比赋值要高
+         //执行步骤：
+         //1、b.c代表 b新增一个c属性，此时b为{x:1;c:null},a也是{x:1;c:null} 然后再进行赋值操作
+         //2、再给开辟一个新地址 a = {y:1}并且赋值给b.c,此时 b.c={y:1}   此时a和b.c公用一个地址
+         //3、所以a和b.c {y:1} ,a.c没有声明 为undefined
+
+         b.c = a = {
+             y: 1
+         }
+         console.log(a.c, b.c);  //undefined  {y:1}
+         */
+
+        //练习3
+        /* var foo = 1;
+         function bar() {
+             if (!foo) {  //（!foo）=>(!undefined) undefined是因为foo进行了变量提升
+                 var foo = 10;
+                 fo1 = 5;
+                 let fo2 = 12;
+             }
+             console.log(foo); //10
+             console.log(fo1); //5
+             //console.log(fo2); //fo2 is not defined"  fo2为私有作用域中变量，外层调用不了
+         }
+         bar();
+         console.log(foo); //1
+         */
+
+        //练习4
+        /* var m = 0;
+         function a(){
+             var m = 10;
+             function b(){
+                 m++;  //10
+                 alert(m);  //11
+             }
+             b();
+         }
+         a();
+         alert(m);  //0
+         */
+
+        //练习5
+        /*var m = 0;
+        function b() {
+            m++;  //0
+            alert(m);  //1
+        }
+        function a() {
+            var m = 10;
+
+            b();
+        }
+        a();
+        alert(m);  //1
+        */
+
+        //练习6
+        /*
+        console.log(num,str); //undefined  undefined
+        var num = 18;
+        var str = 'lily';
+        function fn2(){
+            console.log(str,num); //lily undefined  str是全局变量，num是私有变量做提升
+            num = 19;
+            str = 'candy'; //全局变量地址改变
+            var num = 14; //私有变量由19=>14
+            console.log(str,num); // candy 14
+        }
+        fn2();
+        console.log(num,str); // 18,candy
+        */
+
+        //练习7
+        /* alert(a); // undefined
+         console.log('a' in window); //true
+         if (!('a' in window)) {
+             var a = 10; //没有执行
+         }
+         alert(a); //undefined
+         */
+
+        //练习8
+        // 在条件句中， 带var 也是会提前声明；
+        // 但是对于 function  高版本浏览器 是 只声明不定义
+        //                    IE低版本 是 声明+定义
+
+        /* f = function () { return true };
+         g = function () { return false };
+         (function () {
+             //console.log(g); //因为私有作用域中的g只声明没有定义，所以undefined
+             console.log(f);
+             if (f() && [] == ![]) {
+                 f = function f() {
+                     return false
+                 };
+ 
+                  function g() {
+                     return true
+                 };
+             }
+         })();
+         alert(f()); //false 全局变量进行了地址改变
+         alert(g());//false 全局变量
+ 
+         */
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

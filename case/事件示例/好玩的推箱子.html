@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #zd {
+            width: 10px;
+            height: 30px;
+            background-color: dimgray;
+        }
+
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: olive;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id='zd'></div> -->
+    <div id="box"></div>
+
+    <script>
+        let onoff = false; //默认定时器开着
+        let timer = null;
+        let obj = {};
+
+        //按下
+        document.onkeydown = function (ev) {
+            if (onoff) {
+                onoff = false;
+                timer = setInterval(t, 16.7);
+            }
+            obj[ev.keyCode] = true;
+            console.log(obj);
+        }
+
+        document.onkeyup = function (ev) {
+            obj[ev.keyCode] = false;
+            if (Object.values(obj).every(item => !item)) {
+                clearInterval(timer);
+                onoff = true;
+            }
+            console.log(obj);
+        }
+
+
+        let t = () => {
+            console.log(obj);
+            if (obj[37]) {
+                box.style.left = box.offsetLeft - 10 + 'px';
+            }
+            if (obj[38]) {
+                box.style.top = box.offsetTop - 10 + 'px';
+            }
+            if (obj[39]) {
+                box.style.left = box.offsetLeft + 10 + 'px';
+            }
+            if (obj[40]) {
+                box.style.top = box.offsetTop + 10 + 'px';
+            }
+        }
+        timer = setInterval(t, 16.7);
+
+
+
+
+    </script>
+</body>
+
+</html>

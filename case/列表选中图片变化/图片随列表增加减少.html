@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <style>
+        body {
+            background: #f1f1f1;
+            font-family: "微软雅黑";
+        }
+
+        ul {
+            margin: 5px 0 0 0;
+            padding: 0;
+            list-style: none;
+            width: 300px;
+            background: #f1f1f1;
+        }
+
+        li {
+            border-left: 1px solid #fff;
+            border-bottom: 1px solid #999;
+            border-top: 1px solid #fff;
+            border-right: 1px solid #ccc;
+            line-height: 28px;
+            text-indent: 20px;
+            font-family: arial;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 3px;
+            color: #6f6f7a;
+            transition: 0.3s;
+        }
+
+        li:hover {
+            border-right: 1px solid #fff;
+            border-top: 1px solid #999;
+            border-bottom: 1px solid #fff;
+            border-left: 1px solid #999;
+            background: #6e697a;
+            color: #fff;
+        }
+
+        img {
+            width: 400px;
+            position: absolute;
+            top: 33px;
+            left: 309px;
+            display: none;
+            border-radius: 8px;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input id="btn1" type="button" value="添加" />
+    <input id="btn2" type="button" value="减少" />
+    不需要使用DOM创建、删除方法，不需要使用索引值，完成练习。
+    <ul id="ul1">
+        <!-- <li>第一个图片</li>
+        <li>第一个图片</li>
+        <li>第一个图片</li>
+        <li>第一个图片</li>
+        <li>第一个图片</li>
+        <li>第一个图片</li> -->
+    </ul>
+    <img id="img1" src="img/mm1.jpg" />
+
+    <script type="text/javascript">
+
+        let arr = ['img/mm1.jpg', 'img/mm2.jpg', 'img/zs1.jpg', 'img/zs2.jpg', 'img/zs3.jpg', 'img/zs4.jpg']
+
+
+        let ul1 = document.querySelector('#ul1');
+        let img = document.getElementById('img1');
+        let btn1 = document.getElementById('btn1');
+        let btn2 = document.getElementById('btn2');
+        let lis = ul1.getElementsByTagName('li');
+
+        /* //方法1，通过数组方式
+         //li渲染页面
+         function innerhtmlmy() {
+             let html = ary.join('');
+             ul1.innerHTML = html;
+         }
+         //点击li对应图片修改
+         function imgmy(){
+             let lis = ul1.querySelectorAll('li');
+             for (let i = 0; i < lis.length; i++) {
+                 lis[i].onclick = function () {
+                     img.src = this.getAttribute('zdy')
+                     img.style.display = "block"
+                 }
+             }
+         }
+         //添加
+         // 1、新建个空数组，用于放每个li,给li设置行间属性名：对应的属性值为arr[]每一项地址即图片地址
+         // 2、点击每个li,把li的行间属性值赋值给img的src,根据点击li的不同，出现不同的图片，且图片显示出来
+         let ary = [];
+         let img = document.querySelector('#img1');
+         btn1.onclick = function () {
+             if (ary.length < arr.length) {
+                 ary.push(`<li zdy="${arr[ary.length]}">这是第${ary.length + 1}张图片</li>`);
+                 innerhtmlmy();
+             }
+             imgmy();
+         }
+ 
+         //减少
+         // 1、每点击一次减少，从ary元素中末尾减少一个li
+         // 2、重新渲染下页面
+         // 3、对应img的src相应变化
+         
+         let btn2 = document.querySelector('#btn2');
+         btn2.onclick = function () {
+             ary.pop();
+             innerhtmlmy();
+             img.src = arr[ary.length - 1];
+             imgmy();
+ 
+         }
+ 
+         */
+
+        //方法2
+        //添加
+
+        let num = 0;
+        let html = '';
+        //添加
+        btn1.onclick = function () {
+            if (num < arr.length) {
+                html += '<li>' + arr[num] + '</li>';//点击添加，进行页面渲染li，且每个li的内容对应数组每项索引对应的内容
+                ul1.innerHTML = html;
+                num++;
+                //循环li,且点击每项li对应图片显示
+                for (let i = 0; i < lis.length; i++) {
+                    lis[i].onclick = function () {
+                        img.style.display = 'block';
+                        img.src = this.innerHTML;
+                    }
+                }
+
+            }
+        }
+
+        //减少
+
+        btn2.onclick = function () {
+            //console.log(num);
+            num--;
+            html = ''; //点击减少，先进行全部清空
+            if (num >0) { //再把剩余的进行页面渲染
+                for (let i = 0; i < num; i++) {
+                    html += '<li>' + arr[i] + '</li>';
+
+                }
+                ul1.innerHTML = html;
+                img.src = arr[num - 1];
+
+                //循环li,且点击每项li对应图片显示
+                for (let i = 0; i < lis.length; i++) {
+                    lis[i].onclick = function () {
+                        img.style.display = 'block';
+                        img.src = this.innerHTML;
+
+                    }
+                }
+
+            }else{//减少剩一个li时候，清空页面，并且当前图片隐藏
+                //console.log(num);
+                ul1.innerHTML = '';
+                img.style.display = 'none';
+                num=0;
+                //console.log(num);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

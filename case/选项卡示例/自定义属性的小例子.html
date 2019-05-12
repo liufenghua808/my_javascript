@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">按钮(0)</button>
+    <button id="btn2">按钮(0)</button>
+    <button id="btn3">按钮(0)</button>
+    <button id="btn4">按钮(0)</button>
+    <script>
+        //disabled 就是阻止按钮点击
+        // let num = 0;
+        // btn.onclick = function(){
+        //     // this.disabled = true;
+        //     num ++;
+        //     if(num > 1){
+        //         this.disabled = true;
+        //         num = 2;
+        //     }
+        //     this.innerText = '按钮('+ num +')';
+        // }
+
+        const btns = document.querySelectorAll('button');
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].num = 0;//在循环的时候，给每个按钮添加一个自定义属性num，设置属性值为0
+            btns[i].onclick = function () {
+                if (this.num < 2) {
+                    this.num++;
+                    this.innerText = '按钮(' + this.num + ')';
+                    console.log(this.num);
+                    console.dir(this);
+                    if (this.num === 2) {
+                        this.disabled = true;
+
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

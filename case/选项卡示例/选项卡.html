@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 50px;
+            border: 1px solid #000;
+        }
+
+        #box div {
+            display: none;
+        }
+
+        #box div.show {
+            display: block;
+        }
+
+        .active {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="active">按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+
+    <section id="box">
+        <div class="show">头条</div>
+        <div>体育</div>
+        <div>新闻</div>
+    </section>
+    <script>
+        const btns = document.querySelectorAll('button');
+        const box = document.getElementById('box');
+        const divs = box.getElementsByTagName('div');
+
+        for (var i = 0, len = btns.length; i < len; i++) {
+            btns[i].index = i; //添加自定义属性
+            btns[i].onclick = function () {
+
+                //清空当前按钮的样式
+                for (var j = 0, len = btns.length; j < len; j++) {
+                    btns[j].className = '';
+                    divs[j].className = '';
+                }
+                
+                //添加当前按钮样式   添加选项卡对应的div内容
+                this.className = 'active';
+                divs[this.index].className = 'show';
+
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>

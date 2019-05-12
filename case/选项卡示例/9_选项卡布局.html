@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 50px;
+            border: 1px solid #000;
+        }
+
+        .box div {
+            display: none;
+        }
+
+        .box div.show {
+            display: block;
+        }
+
+        .active {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class='one'>
+        <button class="active">按钮1</button>
+        <button>按钮2</button>
+        <button>按钮3</button>
+
+        <section class="box">
+            <div class="show">头条</div>
+            <div>体育</div>
+            <div>新闻</div>
+        </section>
+    </div>
+
+    <div class='two'>
+        <button class="active">按钮1</button>
+        <button>按钮2</button>
+        <button>按钮3</button>
+
+        <section class="box">
+            <div class="show">头条</div>
+            <div>体育</div>
+            <div>新闻</div>
+        </section>
+    </div>
+
+
+
+    <script>
+        function Fn(a) {
+            this.name = document.querySelector(a);
+            this.btns = this.name.getElementsByTagName('button');
+            this.divs = this.name.querySelectorAll('div');
+        }
+        //发生点击事件
+        Fn.prototype.event = function () {
+            let opt = this;//实例化对象的this赋值给opt
+            //循环找到每个按钮
+            for (let i = 0; i < this.btns.length; i++) {
+                this.btns[i].onclick = function () {
+                    opt.change(i); //只有实例化对象才能使用构造函数的方法
+                }
+            }
+        }
+
+        //定时进行切换
+        Fn.prototype.play = function () {
+            let n = 0;         
+            setInterval(() => {
+                n++;
+                if (n > this.btns.length - 1) {
+                    //console.log(this); //Fn{} 箭头函数的this找父级所在的作用域
+                    n = 0;
+                }
+                this.change(n);
+            },500)
+        }
+        //按钮循环清楚每个按钮和div的样式，然后在把当前按钮和div样式添加上
+        Fn.prototype.change = function (index) {
+            for (let j = 0; j < this.btns.length; j++) {
+                this.btns[j].className = '';
+                this.divs[j].className = '';
+            }
+            this.btns[index].className = 'active';
+            this.divs[index].className = 'show';
+        }
+
+        let f1 = new Fn('.one');
+        let f2 = new Fn('.two');
+        f1.event();
+        f2.play();
+    </script>
+</body>
+
+</html>

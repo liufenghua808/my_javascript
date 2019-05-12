@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let str = `<ul>
+        <li>北京大学<span>13456元</span></li>
+        <li>清华大学<span>1677元</span></li>
+        <li>华北大学<span>1222元</span></li>
+        <li>天津大学<span>23333元</span></li>
+        <li>湖南大学<span>10000元</span></li>
+        <li>山东大学<span>20000元</span></li>
+        <li>武汉大学<span>30000元</span></li>
+        </ul>`
+        let reg = /<[^>]+>/g;
+        //匹配出符合规则的字符
+        console.log(str.match(reg));
+
+        //用空字符串替换掉匹配规则的字符(清空标签)
+        let s = str.replace(reg, '');
+        console.log(s);
+
+        let ary = [];
+        let arr = s.replace(/(\d+)([\u4e00-\u9fa5])/g, ($0, $1, $2) => {
+            console.log($1+$2);
+            ary.push($1 * 1);
+        });
+        //把匹配出来的数字获取到放到一个数组中
+        console.log(ary);
+        //最大值
+        console.log('最大值：' + Math.max(...ary));
+
+        let num = 0;
+        ary.forEach(item => {
+            //每个数字进行相加
+            num += item;
+        })
+        console.log(num);
+
+        //最大值
+        console.log('平均值：' + num / ary.length);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+     github
+            https://github.com/
+            程序员交友网站、进行代码托管、去加入一些知名项目的开发、自己静态的页面...
+
+
+        git 与 github进行关联
+
+        设置秘钥:
+            1.进入github
+            2.找到你的头像，点击选择settings
+            
+            3.在最左边有SSH and GPG keys
+
+
+
+        生成秘钥:
+            https://blog.csdn.net/lqlqlq007/article/details/78983879
+        
+        点击鼠标右键，选择git Bash here
+            
+            输入:
+                ssh-keygen -t rsa -C "这里换上你的邮箱"
+
+                此处无脑回车，会出现方框
+
+            git config --global  user.name "这里换上你的用户名"
+            git config --global user.email "这里换上你的邮箱"
+
+
+        输入:
+            ssh -T git@github.com 
+
+            只要出现Hi ....就说明绑定成功
+
+        git ：
+            是个版本控制工具
+            新建控制项目：
+                1、git init
+                2、到github网站中新建项目（推荐使用）
+
+    
+                步骤:
+                        
+                        1.点击头像旁边的 +号 选择 New repository
+                        2.填写项目名称、描述、勾选readme、点击创建按钮
+                        3.找到clone按钮，点击复制
+                        4.在你想管理的文件夹下打开git工具，输入git clone 刚才复制的地址
+                        可以使用ctrl+v, shift+insert,点击鼠标右键,选择粘贴
+
+            命令：
+            cd ..  返回上一级 
+
+            ls 查看当前文件夹下有多少文件
+
+            git  status  查看当前版本状态
+
+            git add 文件名 工作区到存储区（暂存区）
+
+            git commit -m "注释" :暂存区到版本区
+
+            git reset --hard 最新的master编号
+
+            git diff 工作区查看暂存区
+            
+            git diff --cached 暂存区查看版本区
+
+            git diff master  工作区查看版本区
+
+            git log  查看版本信息（q键退出）
+
+            git push origin master 把形成版本的代码提交到远程仓库
+
+            git reflog 查看操作过的版本
+
+            git reset --hard 还原版本
+
+            git pull   拉取、更新
+
+            git config --global credential.helper store
+
+            当代码已经形成版本之后，想把代码提交到远程仓库(github、gitlab、码云...)
+            可以使用：
+            git push origin master
+
+            永久免密上传:
+            git config --global credential.helper store
+
+
+
+       
+
+    */    
+</script>
+</body>
+</html>

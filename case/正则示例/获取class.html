@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li class="li">1</li>
+        <li>2</li>
+        <li class="li li1">3</li>
+        <li>4</li>
+        <li class="li">5</li>
+    </ul>
+    <script>
+        let str = '  li li12'
+        //let re1 = /\b/g;
+        //let re2 = new RegExp(/\b/,'g');
+        let re3 = new RegExp('\\b', 'g');
+        //let re4 = new RegExp('2','g');
+        // let re5 = new RegExp(/2/,'g');
+        // let re6 = new RegExp('\b','g');//错误示例   切记转义字符使用的时候要再加\转义字符
+        console.log(str.replace(re3, '|'));
+
+
+        //获取li 的class
+        function ClassN(sClass) {
+            //获取所有标签元素
+            let eLem = document.getElementsByTagName('*');
+            let arr = [];
+            //循环每一个标签元素
+            for (let i = 0; i < eLem.length; i++) {
+                let re = new RegExp('\\b' + sClass + '\\b');  
+                //判断循环出的元素标签是否匹配正则
+                if (re.test(eLem[i].className)) {
+                    arr.push(eLem[i]);
+                }
+            }
+            //console.log(arr);
+            return arr;
+        }
+        let lis = new ClassN('li');
+        console.log(lis);
+
+        //获取到的每个li上添加样式
+        for (let i = 0; i < lis.length; i++) {
+            lis[i].style.background = 'green'
+        }
+    </script>
+</body>
+
+</html>

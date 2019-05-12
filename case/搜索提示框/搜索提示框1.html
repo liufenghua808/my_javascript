@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        input {
+            width: 100%;
+            height: 30px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            display: none;
+        }
+
+        li {
+            list-style: none;
+            background-color: #009999;
+            margin-top: 3px;
+            line-height: 30px;
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            display: block;
+            width: 100%;
+        }
+
+        a:hover,
+        .hover {
+            background-color: #00FF99;
+        }
+
+        #box {
+            width: 500px;
+            margin: 100px auto 0;
+        }
+
+        .select {
+            background-color: #60625b;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="box">
+        <input type="text" id="s" />
+        <ul id="list">
+            <li><a href="javascript:;">《第七个读者》</a></li>
+            <li><a href="javascript:;">《 心理罪 画像》</a></li>
+            <li><a href="javascript:;">《 心理罪 教化场》</a></li>
+            <li><a href="javascript:;">《 心理罪 暗河》</a></li>
+            <li><a href="javascript:;">《 心理罪 城市之光》</a></li>
+            <li><a href="javascript:;">《地球往事》</a></li>
+            <li><a href="javascript:;">《黑暗森林》</a></li>
+            <li><a href="javascript:;">《死神永生》</a></li>
+            <li><a href="javascript:;">《乡村教师》</a></li>
+            <li><a href="javascript:;">《地球大炮》</a></li>
+        </ul>
+    </div>
+    <script>
+        s.onclick = function (ev) {
+            //鼠标单击输入框时样式和索引进行初始化
+            if (num > -1) {
+                as[num].style.background = '';
+                num = -1;
+            }
+            list.style.display = 'block';
+            ev.stopPropagation();
+        }
+
+        document.onclick = function (ev) {
+            list.style.display = 'none';
+
+        }
+
+        let as = document.getElementsByTagName('a');
+
+        let num = -1; 
+
+        //配合鼠标点击触发事件
+        for (let i = 0; i < as.length; i++) {
+            as[i].onclick = function (ev) {
+                ev.cancelBubble = true;
+                if (ev.ctrlKey) {//按住ctrl同时点击批量添加
+                    let index = s.value.indexOf(as[i].innerHTML);
+                    if (index === -1) {
+                        s.value += as[i].innerHTML;//没有就添加
+                    } else {
+                        s.value = s.value.replace(as[i].innerHTML, '');//有就删除
+                    }
+                } else { //单击添加一条
+                    s.value = as[i].innerHTML;
+                    list.style.display = 'none';//回车添加后，ul隐藏
+                }
+
+                if (num > -1) {
+                    as[num].style.background = '';//回车添加后，被添加的内容对应a标签样式清空
+                    num = -1;////鼠标单击添加后，初始化索引，用于下次按键从索引为0的位置开始
+                }
+            }
+        }
+
+
+
+        // 配合上下键按下触发事件（上下翻）
+        document.onkeydown = function (ev) {
+            //按向下箭
+            if (ev.keyCode === 40) {
+                //每次按下方向箭先清空所有，再给被选中的添加样式
+                for (let i = 0; i < as.length; i++) {
+                    as[i].style.background = '';
+                }
+                num++;
+                //如果翻到大于最后一条，继续翻返回第一条
+                if (num > as.length - 1) { num = 0; }
+                as[num].style.background = '#00FF99';
+
+            }
+
+            //按向上箭
+            if (ev.keyCode === 38) {
+                //每次按上方向箭先清空所有，再给被选中的添加样式
+                for (let i = 0; i < as.length; i++) {
+                    as[i].style.background = '';
+                }
+                num--;
+                //如果上翻到小于第一条，继续翻返回最后一条
+                if (num < 0) { num = as.length - 1; }
+                as[num].style.background = '#00FF99';
+            }
+        }
+
+        //回车按键抬起添加（一条/批量）内容
+        document.onkeyup = function (ev) {
+            //添加前判断是否有选中的内容，没有则不执行
+            if (num < 0) {
+                return;
+            }
+            if (ev.ctrlKey && ev.keyCode === 13) {//按住ctrl同时回车批量添加
+                let index = s.value.indexOf(as[num].innerHTML);
+                if (index === -1) {
+                    s.value += as[num].innerHTML;//没有就添加
+                } else {
+                    s.value = s.value.replace(as[num].innerHTML, '');//有就删除
+                }
+
+            } else { //回车添加一条
+                if (ev.keyCode === 13) {
+                    s.value = as[num].innerHTML;
+                    as[num].style.background = ''; //回车添加后，被添加的内容对应a标签样式清空
+                    num = -1; //回车添加后，初始化索引，用于下次按键从索引为0的位置开始
+                    list.style.display = 'none'; //回车添加后，ul隐藏
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        // document.onclick = function () {
+        //     list.style.display = 'none';
+        // }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box"></div>
+<script>
+    /*
+        通过下面的对象，生成对应的样式。
+    //循环对象
+    */
+    let obj = {
+        width:'100px',
+        height:'200px',
+        background:'skyblue',
+        border:'1px solid #000'
+    }
+    for(let attr in obj){
+        console.log(attr); //打印四个属性名
+        console.log(obj[attr]); //打印四个属性值
+        let box = document.getElementById('box');
+        box.style[attr] = obj[attr];   //属性值赋值给属性名
+        
+    }
+
+
+
+
+
+
+
+    
+
+</script>
+</body>
+</html>

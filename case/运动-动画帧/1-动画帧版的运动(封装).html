@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 50px;
+            height: 50px;
+            background: sandybrown;
+            position: absolute;
+            left: 100px;
+            top: 0;
+
+            /* transition:1s; */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">字体变化</div>
+    <script src="./tween.js"></script>
+    <script>
+        /*
+            tween
+    
+            ActionScript  -> AS
+            JavaScript ->  JS
+    
+            ECMAscript
+    
+            速度版运动
+    
+            时间版运动
+                t : time 已过时间
+                b : begin 起始值
+                c : count 总的运动值
+                d : duration 持续时间
+    
+            动画帧:
+                requestAnimationFrame(函数)
+                返回值为number（编号）
+    
+            关闭动画帧
+                cancelAnimationFrame(编号)
+        
+            匀速运动:
+                b + c * (t/d)  
+    
+            思考:
+                1.参数为对象怎么办?
+                2.透明度不加单位又怎么办?
+                3.多方位运动
+        */
+
+        box.onclick = function () {
+            // startMove(box, 'left', 400, 500, function () {console.log('left')}, 'bounceOut');
+            // startMove(box, 'top', 400, 500, '', 'bounceOut');
+            // startMove(box, 'opacity', 0.3, 500, '', 'bounceOut');
+            // startMove(box, 'fontSize', 30, 500, '', 'bounceOut');
+            // startMove(box, 'width', 100, 500, '', 'bounceOut');
+            // startMove(box, 'height', 100, 500, '', 'bounceOut');
+
+            startMove(box, {
+                left: 400,
+                top: 400,
+                opacity: 0.3,
+                fontSize: 30,
+                width: 100,
+                height: 100
+            }, 500, '', 'bounceOut')
+
+        }
+
+        // function startMove(obj, attr, count, duration, cb, fx) {
+        //     let d = duration;//总时间
+        //     let c = count;
+        //     let t = 0; //运动实际时间
+        //     let b = parseFloat(getComputedStyle(obj)[attr]);
+        //     c = c - b;//目标点-初始距离 = 实际运动的距离
+
+        function startMove(obj, json, duration, cb, fx) {
+            let d = duration;//总时间
+            // let c = count;
+            let t = 0;
+            //let b = parseFloat(getComputedStyle(obj)[attr]);
+            // c = c - b;//目标点-初始距离 = 实际运动的距离
+
+            let j = {};
+            for (let attr in json) {
+                if (json.hasOwnProperty) {
+                    let b = parseFloat(getComputedStyle(obj)[attr]); //初始值
+                    let c = json[attr];//目标点
+                    c = c - b;//目标点-初始距离 = 实际运动的距离
+                    j[attr] = {
+                        b,
+                        c
+                    }
+
+                }
+            }
+            console.log(j);
+            // j = {
+            //     fontSize: { b: 16, c: 14 }
+            //     height: { b: 50, c: 50 }
+            //     left: { b: 100, c: 300 }
+            //     opacity: { b: 1, c: -0.7 }
+            //     top: { b: 0, c: 400 }
+            //     width: { b: 50, c: 50 }
+            // }
+
+
+
+                (function move() {
+                    obj.timer = requestAnimationFrame(move);//动画帧
+                    t += 16.7;//浏览器每刷新一次，我们默认为16.7ms(并不代表浏览器刷新就是16.7ms)
+                    if (t >= d) t = d;
+
+                    for (let attr in j) {
+                        if (attr == 'opacity') {//如果是透明度，值没有单位
+                            obj.style[attr] = Tween[fx](t, j[attr].b, j[attr].c, d);
+                        } else {
+                            obj.style[attr] = Tween[fx](t, j[attr].b, j[attr].c, d) + 'px';
+                        }
+                        //如果运动实际时间已经到达总时间，关闭动画帧
+                        if (t === d) {
+                            cancelAnimationFrame(obj.timer);
+
+                            //如果cb是函数就调用，没有就不调用
+                            cb && cb();
+                        }
+                    }
+                })();
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

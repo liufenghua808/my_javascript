@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //qq:号
+        let reg = /^[1-9]\d{4,10}$/g;
+        
+        console.log(reg.exec('6663456789'));
+        //console.log(reg.test('664352815'));
+        console.log(('664352815').match(reg));
+
+        //身份证号：区号6位 年：4位  月日：4位  后四位（会出现最后一位是X） 出生于1900-2019年的身份证号
+        let re = /^([0-9]\d{5})((19[0-9][0-9])|(20[0-1][0-9]))((0[1-9])|(1[0-2]))(([1-2][0-9])|(3[0-1]))\d{3}(\d|x?)$/g;
+        let s = '372925199001306929';
+        console.log(s.match(re));
+
+        
+        //手机号
+        let reg1 = /^1[356789]\d{9}$/img;
+        let tel = '15811457508';
+        console.log(tel.match(reg1));
+
+    </script>
+</body>
+
+</html>

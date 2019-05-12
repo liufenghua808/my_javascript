@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 50px;
+            border: 1px solid #000;
+        }
+
+        .box div {
+            display: none;
+        }
+
+        .box div.show {
+            display: block;
+        }
+
+        .active {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class='warp1'>
+        <button class="active">按钮1</button>
+        <button>按钮2</button>
+        <button>按钮3</button>
+
+        <section class="box">
+            <div class="show">头条</div>
+            <div>体育</div>
+            <div>新闻</div>
+        </section>
+    </div>
+
+    <div class='warp2'>
+        <button class="active">按钮1</button>
+        <button>按钮2</button>
+        <button>按钮3</button>
+
+        <section class="box">
+            <div class="show">头条</div>
+            <div>体育</div>
+            <div>新闻</div>
+        </section>
+    </div>
+    <button class="start">开始</button>
+    <button class="stop">停止</button>
+
+
+    <body>
+        <script>
+
+
+            function Fn(id) {
+                this.warp = document.getElementsByClassName(id)[0];
+                this.btns = this.warp.getElementsByTagName('button');
+                this.divs = this.warp.getElementsByTagName('div');
+                this.num = 0;
+                this.timer = null;
+                
+
+            }
+            //点击/移入事件
+            Fn.prototype.events = function (action) {
+                let that = this;////如果使用普通函数，事件中的this需要改成实例化对象的this
+                for (let i = 0; i < this.btns.length; i++) {
+                    this.btns[i][action] = function () {////事件中this默认指向当前事件
+                        that.change(i);
+                    }
+                }
+            }
+            //切换
+            Fn.prototype.change = function (index) {
+                for (let j = 0; j < this.btns.length; j++) {
+                    this.btns[j].className = '';
+                    this.divs[j].className = '';
+                }
+                this.btns[index].className = 'active';
+                this.divs[index].className = 'show';
+            }
+            //正向自动切换
+            Fn.prototype.play = function () {
+                let that = this; //如果使用普通函数，事件中的this需要改成实例化对象的this
+                that.timer = setInterval(function () { //定时器中this默认的window
+                    that.num++;
+                    // if (this.num > this.btns.length - 1) {
+                    //     this.num = 0;
+                    // }
+                    that.num %= that.btns.length;
+                    //console.log(this.num)
+                    that.change(that.num);
+
+
+                }, 1000);
+            }
+            //反向自动切换
+            Fn.prototype.unplay = function () {
+                this.timer = setInterval( ()=> {//如果使用箭头，定时器中的this指向它所在作用域的this
+                    this.num--;
+                    if (this.num < 0) {
+                        this.num = this.btns.length - 1;
+                    }
+                    // this.num %= this.btns.length ;
+                    console.log(this.num)
+                    this.change(this.num);
+
+
+                }, 1000);
+            }
+            //停止自动切换
+            Fn.prototype.stop_play = function () {
+                clearInterval(this.timer);
+                this.timer = null;
+            }
+
+
+
+
+            let f1 = new Fn('warp1');
+            let f2 = new Fn('warp2');
+            f1.events('onclick');
+            f2.events('onmouseover');
+
+            let start = document.querySelector('.start');
+            let stop = document.querySelector('.stop');
+
+            start.onclick = function () {
+                f1.play();
+                f2.unplay();
+            }
+
+            stop.onclick = function () {
+                f1.stop_play();
+                f2.stop_play();
+            }
+
+        </script>
+    </body>
+
+</html>

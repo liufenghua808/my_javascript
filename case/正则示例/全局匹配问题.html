@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+
+            先看一道JavaScript题目，据说是国内某知名互联网企业的JavaScript笔试题，如果对正则的全局匹配模式不了解的话可能会对下面的输出结果感到疑惑。
+
+            var str = "123#abc";
+            var re = /abc/ig;
+            console.log(re.test(str)); //输出ture
+            console.log(re.test(str)); //输出false
+            console.log(re.test(str)); //输出ture
+            console.log(re.test(str)); //输出false
+
+            在创建正则表达式对象时如果使用了“g”标识符或者设置它了的﻿global属性值为ture时，那么新创建的正则表达式对象将使用模式对要将要匹配的字 符串进行全局匹配。在全局匹配模式下可以对指定要查找的字符串执行多次匹配。每次匹配使用当前正则对象的lastIndex属性的值作为在目标字符串中开 始查找的起始位置。lastIndex属性的初始值为0，找到匹配的项后lastIndex的值被重置为匹配内容的下一个字符在字符串中的位置索引，用来 标识下次执行匹配时开始查找的位置。如果找不到匹配的项lastIndex的值会被设置为0。当没有设置正则对象的全局匹配标志时lastIndex属性的值始终为0，每次执行匹配仅查找字符串中第一个匹配的项。可以通下面的代码来查看在执行匹配相应的lastIndex 属性的值。
+
+
+            var str = "123#abc";
+            var re = /abc/ig;
+            console.log(re.test(str)); //输出ture
+            console.log(re.lastIndex); //输出7
+            console.log(re.test(str)); //输出false
+            console.log(re.lastIndex); //输出0
+            console.log(re.test(str)); //输出ture
+            console.log(re.lastIndex); //输出7
+            console.log(re.test(str)); //输出false
+            console.log(re.lastIndex); //输出0
+
+            关于RegExp.prototype.exec(str)方法和String.prototype.math(rgExp)方法
+
+            正则对象的test方法返回值为true或flase，在仅需要检测目标字符串与指定模式是否匹配，但不需要获取匹配内容时这个方法非常有用。当需要获取 匹配结果时就需要用RegExp类型的exec(str)方法或String类型的match(rgExp)方法。
+
+            RegExp.prototype.exec(str)方法返回NULL或返会一个数组，在数组的第0个元素存放的是在字符串str中查找到的匹配内容，1到n个元素返回的是在模式中使用括号"（）"指定的子匹配项的内容。
+
+            在没有使用全局标志时String.prototype.math(rgExp)方法和RegExp.prototype.exec(str)的行为类 似。当设置了全局匹配标志时String.prototype.math(rgExp)方法返回的数组项元素0到n中包含了所有匹配到的项不包含子匹配 项。这时可以使用RegExp.$1..$9获取9个子匹配。
+
+
+        */
+
+    </script>
+</body>
+
+</html>

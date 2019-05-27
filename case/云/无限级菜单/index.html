@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<style>
+		html {
+
+			width: 100%;
+			height: 100%;
+		}
+
+		body {
+			margin: 0px;
+			width: 100%;
+			height: 100%;
+		}
+
+		.main {
+			width: 100%;
+			height: 100%;
+			background: url(./image/bg.png) no-repeat;
+			background-size: 100% 100%;
+			overflow: hidden;
+		}
+
+		.logo {
+			display: block;
+			width: 200px;
+			height: 55px;
+			background: url(./image/logo.png) no-repeat;
+			margin: 20px auto;
+		}
+
+		.tree {
+			height: 100%;
+			overflow: auto;
+		}
+
+		ul {
+			list-style: none;
+			font-size: 22px;
+			color: #8c949c;
+			font-weight: bold;
+			width: 100%;
+			/* height:100%; */
+		}
+
+		ul li {
+			position: relative;
+			padding-left: 10px;
+			/* height:32px; */
+			/* overflow: hidden; */
+		}
+
+		ul li:hover {
+			cursor: pointer;
+		}
+
+		ul li div {
+			height: 98%;
+			/* width: 1px; */
+			border-left: 1px dotted #ccc;
+			/* position: absolute; */
+			/* left: 34px; */
+			/* top: 18px; */
+			/* margin-left :4px; */
+			line-height: 32px;
+		}
+
+		ul ul {
+			display: none;
+		}
+
+		ul li span {
+			display: block;
+			line-height: 32px;
+			padding-left: 15px;
+			background: url(./image/icon.png) no-repeat left 500px;
+			width: 20px;
+			height: 20px;
+			float: left;
+		}
+
+		ul li span.add {
+			background-position: 0px -32px;
+		}
+
+		ul li span.line {
+			background-position: 0px 11px;
+		}
+
+
+		.tree {
+			margin-left: 300px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="main">
+		<a href="#" class="logo"></a>
+		<div class="tree">
+			<ul id="oUl"></ul>
+		</div>
+
+	</div>
+</body>
+<script>
+	fetch('./data.json')
+		.then(e => e.json())
+		.then(data => {
+			//console.log(data)
+			//console.log(typeof data);
+
+			function digui(data) {
+				let html = '';
+				data.forEach(ele => {
+					let arr = ele.child || [];//如果有child就找到，没有默认为空
+
+					//console.log(arr)
+					html += `<li> <span class='${arr.length > 0 ? 'add' : ''}'></span>	<div>${ele.title}</div><ul>${arr.length > 0 ? digui(ele.child) : ''}</ul></li>`;
+
+				});
+				console.log(html);
+				return html;
+			}
+
+			oUl.innerHTML = digui(data);
+
+			// let divs = oUl.querySelectorAll('div');
+			// let span = document.querySelectorAll('.add');
+
+			// //展开：点击层级，如果层级下有内容就展开，且+变为—
+			// //收缩：点击层级，如果层级已经时被展开的内容就收缩，且-变+
+			// for (let i = 0; i < span.length; i++) {
+			// 	divs[i].onclick = function () { //点击层级标题触发事件
+			// 		if (span[i].className == 'add') {
+			// 			span[i].classList.replace('add', 'line');
+			// 			divs[i].nextElementSibling.style.display = 'block';
+			// 			//打开当前的元素，把其他的兄弟元素都收回去
+
+			// 		} else {
+			// 			span[i].classList.replace('line', 'add');
+			// 			divs[i].nextElementSibling.style.display = 'none';
+			// 		}
+
+			// 	}
+			// }
+
+			oUl.onclick = function (ev) {
+				if (ev.target.tagName === 'DIV') {
+					let next = ev.target.nextElementSibling;
+					let prev = ev.target.previousElementSibling;
+					//如果有child执行
+					if (next) {
+						//如果是+则展开变为-
+						if (prev.classList.contains('add')) {
+							prev.classList.replace('add', 'line');;
+							next.style.display = 'block';
+							/*
+								点击的时候把隔壁的li中的ul关闭
+								通过当前的div找到li的父级ul
+								通过ul的children找到了包括
+								父级在内的li们
+		
+								然后把div的父级(li)排除，
+								只剩下兄弟级的li
+							*/
+
+							//div的父级li
+							let parent = ev.target.parentNode;
+							//li的父级ul
+							let ul = ev.target.parentNode.parentNode;
+							//ul下面所有li
+							let lis = ul.children;
+
+							for (let i = 0; i < lis.length; i++) {
+								if (lis[i] != parent) {
+									//把父级排除，就是兄弟级，关闭兄弟级li里面的child
+									let uls = lis[i].getElementsByTagName('ul');
+									for (let j = 0; j < uls.length; j++) {
+										uls[j].parentNode.children[0].className = 'add';
+										uls[j].style.display = 'none';
+									}
+
+								}
+							}
+
+
+
+
+
+
+						} else {
+							prev.classList.replace('line', 'add');;
+							next.style.display = 'none';
+						}
+					}
+				}
+			}
+
+
+
+
+
+
+		})
+
+</script>
+
+</html>

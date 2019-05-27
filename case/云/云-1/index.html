@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/css.css" />
+</head>
+
+<body>
+    <div id="box">
+        <!--页面header部分-->
+        <header id="head">
+            <!--头部-->
+            <div id="top">
+                <!--左上角元盘图标-->
+                <h1 class="title">
+                    <a href="" title="妙味云盘"><img src="./img/mouse.png" alt=""> </a>
+                </h1>
+
+                <!--又上角用户|设置-->
+                <div class="right">
+                    <div class="user">
+                        <span><img src="img/user-ico.jpg" alt="" /></span>
+                        <i></i>
+                    </div>
+                    <div class="gap"></div>
+                    <div class="set"></div>
+                </div>
+            </div>
+
+            <!--导航-->
+            <div id="nav">
+                <!--左半部导航按钮-->
+                <ul class="nav_left" onselectstart="return false;">
+                    <li><i></i>下载</li>
+                    <li><i></i>分享</li>
+                    <li id="remove"><i></i>移动到</li>
+                    <li id="rename"><i></i>重命名</li>
+                    <li id="del"><i></i>删除</li>
+                    <li id="create"><i></i>新建文件夹</li>
+                    <li><i></i></li>
+                </ul>
+
+                <!--右半部排序-->
+                <div class="nav_right">
+                    <div class="show_mode"></div>
+                    <div class="sort_mode">
+                        <i></i>
+                        <div class="cover"></div>
+                        <ul>
+                            <li>按时间排列</li>
+                            <li>按字母排列</li>
+                            <li>显示缩略图</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!--页面内容-->
+        <section id="section">
+            <!--左部分树状菜单-->
+            <div class="tree-menu" class="fix" onselectstart="return false;">
+                <ul id="oUl">
+                    <!--li>
+                        <div class="tree-title tree-ico open">
+                            <span><i></i>微云</span>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="tree-title tree-ico close">
+                                    <span><i></i>我的文档</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tree-title tree-ico close">
+                                    <span><i></i>我的音乐</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="tree-title tree-ico-none ">
+                                    <span><i></i>123</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="tree-title tree-ico open">
+                            <span><i></i>微云</span>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="tree-title tree-ico open">
+                                    <span><i></i>我的文档</span>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div class="tree-title tree-ico-none">
+                                            <span><i></i>js程序设计</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tree-title tree-ico-none">
+                                            <span><i></i>js权威指南</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="tree-title tree-ico open">
+                                    <span><i></i>我的音乐</span>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div class="tree-title tree-ico open">
+                                            <span><i></i>周杰伦</span>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <div class="tree-title tree-ico-none">
+                                                    <span><i></i>发如雪</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="tree-title tree-ico-none">
+                                                    <span><i></i>夜曲</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="tree-title tree-ico-none">
+                                                    <span><i></i>稻香</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="tree-title tree-ico">
+                                            <span><i></i>王杰</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tree-title tree-ico">
+                                            <span><i></i>张国荣</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="tree-title tree-ico-none ">
+                                    <span><i></i>123</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li-->
+                </ul>
+            </div>
+
+            <!--右边部分内容-->
+            <div class="folder-content">
+                <!--头部-->
+                <div class="breadmenu">
+                    <!--头部全部选中-->
+                    <div class="checkall">
+                        <i id="checkedAll"></i>
+                    </div>
+                    <!--当前页面文件对应路径-->
+                    <div class="bread-nav" onselectstart="return false;">
+                        <!-- 这个是操作的东西 -->
+                        <!--a href="javascript">微云</a>
+                        <span>我的文档</span-->
+                    </div>
+                </div>
+
+                <!--暂无文件，提示上传-->
+                <div class="f-empty"></div>
+
+                <!--鼠标右键页面内默认菜单-->
+                <div id="yj-list">
+                    <span class="dl">下载</span>
+                    <span class="mv">移动到</span>
+                    <span class="de">删除</span>
+                    <span class="rn">重命名</span>
+                    <span class="sh">分享</span>
+                </div>
+
+                <!--页面操作区域-->
+                <div id="fBox">
+                    <div class="folders">
+                        <!-- 这个是操作的东西 -->
+                        <!-- <div class="file-item active">
+                            <img src="img/folder-b.png" alt="" />
+                            <span class="folder-name">JS基础课程</span>
+                            <input type="text" class="editor" />
+                            <i class="checked"></i>
+                        </div>-->
+                    </div>
+                    <!--选中框-->
+                    <div class="kuang"></div>
+                </div>
+            </div>
+        </section>
+
+        <!--选择存储位置 默认隐藏状态-->
+        <div class="modal-tree">
+            <h2>选择存储位置</h2>
+            <p class="folderName">我的文档</p>
+            <div class="content">
+
+            </div>
+            <div class="footer">
+                <input type="button" name="" class="cancel" value="取消">
+                <input type="button" name="" class="ok" value="确定">
+                <p class="tip"></p>
+            </div>
+            <i class="icon_close"></i>
+        </div>
+
+        <!-- 删除文件弹框确认 -->
+        <div id="tanbox">
+            <div class="conf">
+                <i class="close-ico">X</i>
+                <h3 class="conf-title">删除文件</h3>
+                <div class="conf-content">
+                    确定要删除文件吗？
+                </div>
+                <div class="conf-btn">
+                    <a href="javascript:;">确定</a>
+                    <a href="javascript:;">取消</a>
+                </div>
+            </div>
+        </div>
+        <!--新建文件夹成功提示-->
+        <div class="full-tip-box">
+            <span class="full-tip">
+                <span class="inner">
+                    <!-- <i class="ico"></i> -->
+                    <span class="tip-text">新建文件夹成功</span>
+                </span>
+            </span>
+        </div>
+    </div>
+
+
+    <script src="./js/sql/data.js"></script>
+    <script>
+        class cloudDisk {
+            constructor() {
+                this.obj = {};
+                this.oUl = document.getElementById('oUl');
+            }
+
+
+
+            //子集pid对应父级的id、
+            /*
+             * data: 全部数据
+             * father_id:父级的id
+            //  */
+            digui(data, father_id) {
+
+                let obj1 = {}; //用于放子集
+                //每次循环出所有数据
+                for (let key in data) {
+
+                    if (data.hasOwnProperty(key)) {
+                        //通过父级的id===子集的pid 找到子集
+                        if (data[key].pid === father_id) {
+                            //继续找子集的子集直到找不到为止
+                            //data[key].child = this.digui(data, data[key].id);
+
+                            //如果pid===-1,说明此条数据应该放在第一层级
+                            //否则均放到第一层级的子集里
+                            if (data[key].pid === -1) {
+                                this.obj[key] = data[key];
+                            } else {
+                                obj1[key] = data[key];
+                            }
+
+                        }
+
+                    }
+                }
+
+                return obj1
+
+            }
+
+
+            //渲染数据
+            render(data) {
+
+                console.log(data);
+                let html = '';
+
+                for (let key in data) {
+
+                    let element = data[key];
+                    console.log(element);
+
+                    // // //对象中的每项是否有child
+                     let ischild = element.child ? true : false;
+                    // // //如果有child，span的类名就为add否则''
+
+                    html += `<li>
+                    <div class="tree-title tree-ico close}">
+                        <span><i></i>${element.title}</span>
+                    </div>`;
+
+                    if (element.checked) {
+                        //如果有child，就又写ul，ul下生成一堆li
+                        //把子级数组传到render中
+                        html += `<ul>
+                                    ${this.render(element.child)}
+                                </ul>`;
+                    }
+                    html += `</li>`;
+
+
+
+                }
+
+                return this.oUl.innerHTML = html;
+
+            }
+
+
+
+
+
+
+
+
+            //点击div
+            oncilck() {
+                this.oUl.onclick = function (ev) {
+                    if (ev.target.tagName === 'DIV') {
+                        let next = ev.target.nextElementSibling;
+                        if (next) {
+                            //如果close是true就变open，否则close
+                            if (ev.target.classList.contains('tree-title tree-ico close')) {
+                                next.style.display = 'block';
+                                ev.target.classList.replace('tree-title tree-ico close', 'tree-title tree-ico open');
+                                let parent = ev.target.parentNode;//li
+                                let ul = ev.target.parentNode.parentNode;//通过div父级父级找到ul
+                                let lis = ul.children;	//包括父级在内的所有li
+                                for (let i = 0; i < lis.length; i++) {//循环包括父级在内的所有li
+
+                                    if (lis[i] != parent) {	//把父级排除，就是兄弟级
+                                        //关闭兄弟级下的ul
+                                        let uls = lis[i].getElementsByTagName('ul');
+                                        for (let j = 0; j < uls.length; j++) {
+                                            uls[j].style.display = 'none';
+                                            uls[j].parentNode.children[0].className = 'tree-title tree-ico close';
+                                        }
+                                    }
+                                }
+                                //打开当前，收起兄弟
+
+                            } else {
+                                next.style.display = 'none';
+                                ev.target.classList.replace('tree-title tree-ico open', 'tree-title tree-ico close');
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+
+        }
+
+
+
+
+
+        let cloud1 = new cloudDisk();
+        cloud1.digui(data, -1);
+        cloud1.render(cloud1.obj);
+
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>

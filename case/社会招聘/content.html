@@ -47,7 +47,7 @@
 			border-radius: 10px;
 			border: 1px solid #30343f;
 			margin: auto;
-			background: url(img/logo.png) no-repeat 25px 25px #252934;
+			background: #252934;
 			box-sizing: border-box;
 			padding: 84px 25px 0px;
 			position: relative;
@@ -171,30 +171,50 @@
 			return obj;
 		}
 		let obj = getHash();
-		//console.log(obj);
+		console.log(obj);
 
-		let shlist = data[obj.type].text[obj.name];//获取对应的一条数据
-		//console.log(shlist);
+		let list = data[obj.type].text[obj.name];//获取对应的一条数据
+		console.log(list);
 
 		//渲染title
 		let title = document.getElementById('title');
-		title.innerHTML = `<p>${shlist.zw}</p>
-							<div class="simple">薪资：${shlist.dy}<span>/</span>地点：${shlist.dd}<span>/</span>经验：${shlist.jy}<span>/</span>学历：${shlist.xl}<span>/</span>人数：${shlist.rs}名
-							<time>${shlist.sj.join('-')}</time></div>`;
+		if (list) {
+			title.innerHTML = `<p>${list.zw}</p>
+							<div class="simple">薪资：${list.dy}<span>/</span>地点：${list.dd}<span>/</span>经验：${list.jy}<span>/</span>学历：${list.xl}<span>/</span>人数：${list.rs}名
+							<time>${list.sj.join('-')}</time></div>`;
 
 
-		//渲染bottom
-		let bottom = document.getElementById('bottom');
-		let llist = '';
-		//动态添加岗位要求
-		shlist.info[0].l.forEach(function (item) {
-			llist += `<dd>${item}</dd>`;
-		})
-		//console.log(llist);
-		bottom.innerHTML = `<dl>
-								<dt>${shlist.info[0].t}</dt>
+			//渲染bottom
+			let bottom = document.getElementById('bottom');
+
+			/*
+			 * i:list.info每一项的下标	
+			*/
+			function render(i) {
+				let llist = '';
+				let blist = '';
+				//动态添加岗位要求
+				list.info[i].l.forEach(function (item) {
+					llist += `<dd>${item}</dd>`;
+				})
+
+				blist = `<dl>
+								<dt>${list.info[i].t}</dt>
 								${llist}
 							</dl>`
+
+				return blist;
+			}
+
+			let h = '';
+			list.info.forEach((ele, i) => {
+				h += render(i);
+			})
+
+			bottom.innerHTML = h;
+
+		}
+
 
 
 

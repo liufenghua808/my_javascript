@@ -261,8 +261,7 @@
 			return obj;
 		}
 		let obj = getHash();
-		console.log(obj);
-
+		//console.log(obj);
 
 		//社会招聘数据渲染
 		function rendersh(start, stop) {
@@ -273,7 +272,7 @@
 							<span class="num">${i + 1}</span>
 							<div class="list">
 								<a href="content.html#type=sh&name=${i}&page=${obj.page}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
-								<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="content.html">查看详情>></a></p>
+								<p><span class="text">岗位要求：${item.info[0].l.join('')}</span><a href="content.html">查看详情>></a></p>
 							</div>
 						</li>`
 
@@ -290,7 +289,7 @@
 							<span class="num">${i + 1}</span>
 							<div class="list">
 								<a href="content.html#type=xy&name=${i}&page=${obj.page}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
-								<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="content.html">查看详情>></a></p>
+								<p><span class="text">岗位要求：${item.info[0].l.join('')}</span><a href="content.html">查看详情>></a></p>
 							</div>
 						</li>`
 
@@ -343,6 +342,7 @@
 
 
 		}
+		
 		//hash发生变化触发事件
 		function change() {
 			obj = getHash();
@@ -362,6 +362,7 @@
 
 		}
 		change()
+		
 		//切换
 		list1.forEach(function (item, i) {
 			item.onclick = function () {

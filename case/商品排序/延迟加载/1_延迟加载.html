@@ -54,9 +54,10 @@
        //渲染页面
         let html = '';
         data.forEach(item=>{
+            //先把真实的图片存储到自定义的属性中
             html += `
                 <li>
-                    <img pic="./${item.img}" alt="">
+                    <img pic="./${item.img}" alt="">   
                     <span>${item.title}</span>
                     <span>${item.time}</span>
                     <span>${item.id}</span>

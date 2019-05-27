@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            如何映射一个事件？
+
+            {
+                点击：[]/[fn]
+            }
+        */
+
+        let obj = {};
+        class FBDY {
+            //绑定
+            addEvent(obj, evName, fn) {
+                //判断ele.bindEvent是不是一个对象，不是就定义为{}
+                obj.bindEvent = obj.bindEvent || {};
+                //判断ele.bindEvent[evName]有没有evName属性，没有就定义且属性值为[]
+                obj.bindEvent[evName] = obj.bindEvent[evName] || [];
+
+                //如果fn是一个函数，并且ele.bindEvent[evName]中没有，则把事件函数添加进去
+                // !ele.bindEvent[evName].includes(fn); //数组中不包含fn才push
+                if (typeof fn === 'function' && !obj.bindEvent[evName].some(e => e === fn)) {
+                    obj.bindEvent[evName].push(fn);
+                }
+            }
+
+            //解绑
+            removeEvent(obj, evName, fn) {
+                if (obj.bindEvent && !obj.bindEvent[evName]) return;
+
+                if (typeof fn === 'function' && obj.bindEvent[evName].some(e => e === fn)) {
+                    //ele.bindEvent是对象但没有evName事件名，直接不执行
+                    //if(!ele.bindEvent[evName])  如果直接判断是否有属性，在对象为undefined情况下会报错
+                    obj.bindEvent[evName] = obj.bindEvent[evName].filter(f => f !== fn);
+                }
+
+            }
+            //发布
+            dispatchEvent(obj, evName) {
+                if (obj.bindEvent && !obj.bindEvent[evName]) return;
+                obj.bindEvent[evName].forEach(fn => {
+                    fn.call(obj);
+                });
+            }
+
+        }
+
+
+        let o = new FBDY;
+
+        o.addEvent(document, '点击', fn1);
+        o.addEvent(document, '点击', fn1);
+        function fn1() {
+            alert(111111);
+           o.removeEvent(this, '点击', fn1);//解绑点击事件的fn1
+        }
+
+
+        document.onclick = function () {
+            o.dispatchEvent(this, '点击');
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

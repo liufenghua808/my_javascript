@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            如何映射一个事件？
+
+            {
+                点击：[]/[fn]
+            }
+        */
+
+        function addEvent(ele, evName, fn) {
+            //判断ele.bindEvent是不是一个对象，不是就定义为{}
+            ele.bindEvent = ele.bindEvent || {};
+            //判断ele.bindEvent[evName]有没有evName属性，没有就定义且属性值为[]
+            ele.bindEvent[evName] = ele.bindEvent[evName] || [];
+
+            //如果fn是一个函数，并且ele.bindEvent[evName]中没有，则把事件函数添加进去
+            // !ele.bindEvent[evName].includes(fn); //数组中不包含fn才push
+            if (typeof fn === 'function' && !ele.bindEvent[evName].some(e => e === fn)) {
+                ele.bindEvent[evName].push(fn);
+            }
+
+        }
+
+        //订阅
+        //绑定事件  不解绑的情况下 alert(111)  alert(222)都执行
+        addEvent(document, '点击', function () {
+            alert(111);
+        });
+        addEvent(document, '点击', fn1);
+
+        function fn1() {
+            alert(222);
+            removeEvent(document, '点击', fn1);//解绑点击事件的fn1
+        }
+
+        //解绑事件
+        function removeEvent(ele, evName, fn) {
+            //ele.bindEvent是对象但没有evName事件名，直接不执行
+            //if(!ele.bindEvent[evName])  如果直接判断是否有属性，在对象为undefined情况下会报错
+            if (ele.bindEvent && !ele.bindEvent[evName]) return;
+
+            //如果有evName事件名,则事件名对应的事件函数数组不包含fn
+            ele.bindEvent[evName] = ele.bindEvent[evName].filter(f => f !== fn);
+
+        }
+
+        //发布
+        function dispatchEvent(ele, evName) {
+            if (ele.bindEvent&&!ele.bindEvent[evName]) return;
+            ele.bindEvent[evName].forEach(fn => {
+                fn.call(ele);
+            });
+        }
+
+        document.onclick = function () {
+            dispatchEvent(document, '点击');
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

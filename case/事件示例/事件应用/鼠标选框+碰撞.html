@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: rgba(0, 255, 255, .3);
+            /* rgba(#00FFFF ); */
+            border: 1px dashed blue;
+        }
+
+        #box1 {
+            width: 100px;
+            height: 100px;
+            background: green;
+            position: absolute;
+            left: 300px;
+            top: 300px;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <div id="box1"></div>
+    <script src='./tools_2.0.js'></script>
+    <script>
+        /*
+            在mousedown的时候把创建元素的位置求出来
+            这个位置就是鼠标的位置
+        */
+        document.onmousedown = function (ev) {
+            //每次点击页面的时候就把方块颜色初始化
+            box1.style.background = 'green';
+            let box = document.createElement('div');
+            box.id = 'box';
+            //存了一个按下的坐标
+            let l = ev.pageX;
+            let t = ev.pageY;
+
+            box.style.cssText = 'left:' + l + 'px;top:' + t + 'px';//批量添加样式
+            body.append(box);
+            document.onmousemove = function (ev) {
+                /*
+                    move的时候去计算移动了多少距离
+    
+                    move的坐标 - 按下的坐标 = 移动的距离
+                    
+                    105 - 100 = 5px 
+                         
+                    90 - 100 = -10    0px
+                */
+
+                box.style.width = Math.abs(ev.pageX - l) + 'px';
+                box.style.height = Math.abs(ev.pageY - t) + 'px';
+
+                //向右，pageX会一直变大，物体的left一直不会发生变化，所以取小
+                //向左，pageX会一直变小，物体的left会变小，所以也是取变小之后的left值
+                //上下同理
+                box.style.left = Math.min(l, ev.pageX) + 'px';
+                box.style.top = Math.min(t, ev.pageY) + 'px';
+
+                if (tools.duang(box, box1)) {
+                    box1.style.background = 'red';
+                } else {
+                    box1.style.background = 'green';
+                }
+
+
+            }
+
+            document.onmouseup = function () {
+                box.remove();
+                //清除父级闭包环境的变量
+                box = l = t = document.onmousemove = document.onmouseup = null;
+            }
+
+            return false;// 阻止页面默认事件
+        }
+    </script>
+</body>
+
+</html>

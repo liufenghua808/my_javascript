@@ -57,6 +57,7 @@ create.onclick = function(){
 
         console.log('全局那个'+globalId)
         render(globalId);
+        renderTree(0);
         fullbox ('新建文件夹成功');
     }
 

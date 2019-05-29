@@ -433,9 +433,9 @@
                     "checked": false
                 }
             }
-            renderRight(parentid * 1);
-            oUl.innerHTML = renderLeft(parentid);
-            onCl(oUl.children);
+            // renderRight(parentid * 1);
+            // oUl.innerHTML = renderLeft(parentid);
+            // onCl(oUl.children);
         }
 
         //新建文件夹(重命名)
@@ -507,7 +507,7 @@
                 }
                 renderRight(parentid * 1);
                 document.querySelectorAll('#oUl li').forEach(item => {
-                    if (item.getAttribute('data-id') == ev.target.getAttribute('data-aid')) {
+                    if (item.getAttribute('data-id') == parentid) {
                         //先进行清除原有的子集再进行添加
                         item.lastElementChild.remove();
                         let ul = document.createElement('ul');
@@ -516,7 +516,7 @@
                         ul.innerHTML = renderLeft(item.getAttribute('data-id') * 1);
                         onCl(ul.children)
                     }
-                })
+                })  
 
             }
 

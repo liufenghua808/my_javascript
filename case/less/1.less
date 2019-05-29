@@ -1,0 +1,53 @@
+@width: width;
+@height    : height;
+@background: background;
+
+@b3: {
+    border: 5px solid pink;
+}
+
+; //此处分号;一定要记得加
+@w    : 100px;
+@h    : 100px;
+@bg   : red;
+@box  : #box; //使用时候用@{box}  box为变量名
+@warp : warp; //使用时候用 .@{变量名}或者#@{变量名}
+@url  : 'img'; //路径用字符串
+@img  : .img;
+
+@box1: #box1;
+
+.@{warp} {
+    border: 1px solid #000;
+}
+
+#@{warp} {
+    margin-top   : 10px;
+    font-size    : 20px;
+    color        : aqua;
+    @{width}     : @w*2;
+    @{height}    : @h*2;
+    @{background}: @bg;
+    @b3(); //直接调用即可
+}
+
+@{box} {
+    @{width}     : @w;
+    @{height}    : @h;
+    @{background}: @bg;
+
+    @{box1} {
+        @{width}     : 50px;
+        @{height}    : 50px;
+        @{background}:green;
+    }
+
+
+}
+
+@{img} {
+    @b3();
+    @{width}     : @w*4;
+    @{height}    : @h*4;
+    @{background}:url('@{url}/2.jpg') no-repeat;
+};

@@ -455,9 +455,11 @@ let tools = (function(){
         }
     }
 
-    function duang(obj,obj2){
-        let l1 = obj.offsetLeft;
-        let t1 = obj.offsetTop;
+    function duang(obj,obj2,scrollT,scrollL){
+        scrollT = scrollT || 0;
+        scrollL = scrollL || 0;
+        let l1 = obj.offsetLeft + scrollL;
+        let t1 = obj.offsetTop + scrollT;
         let r1 = l1 + obj.offsetWidth;
         let b1 = t1 + obj.offsetHeight;
 
@@ -465,6 +467,9 @@ let tools = (function(){
         let t2 = obj2.offsetTop;
         let r2 = l2 + obj2.offsetWidth;
         let b2 = t2 + obj2.offsetHeight;
+
+        //+ folders.scrollTop
+        // console.log(t1)
 
         //只要碰到就返回true，否则false
         if(r1 < l2 || b1 < t2 || l1 > r2 || t1 > b2){

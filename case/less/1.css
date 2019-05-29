@@ -1,0 +1,28 @@
+.warp {
+  border: 1px solid #000;
+}
+#warp {
+  margin-top: 10px;
+  font-size: 20px;
+  color: aqua;
+  width: 200px;
+  height: 200px;
+  background: red;
+  border: 5px solid pink;
+}
+#box {
+  width: 100px;
+  height: 100px;
+  background: red;
+}
+#box #box1 {
+  width: 50px;
+  height: 50px;
+  background: green;
+}
+.img {
+  border: 5px solid pink;
+  width: 400px;
+  height: 400px;
+  background: url('img/2.jpg') no-repeat;
+}

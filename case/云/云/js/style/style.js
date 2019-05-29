@@ -9,7 +9,7 @@ const fullTipBox = document.querySelector('.full-tip-box');
 
 const breadNav = document.querySelector('.bread-nav');
 
-let {startMove} = tools;
+let {startMove,getChild} = tools;
 function fullbox (val){
     fullTipBox.innerHTML = val;
     /*

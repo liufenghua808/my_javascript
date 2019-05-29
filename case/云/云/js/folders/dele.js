@@ -20,6 +20,7 @@ del.onclick = function(){
             }
         });
         render(globalId);
+        renderTree(0);
         tanbox.style.display = 'none';
     }
     a[1].onclick = x.onclick = function(){

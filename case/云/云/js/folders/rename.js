@@ -5,8 +5,9 @@ rename.onclick = function(){
     if(len!==1){
         fullbox('请选择一个文件');
     }else{
-        let is = document.querySelector('i[class="checked"]');
+        let is = folders.querySelector('i[class="checked"]');
         let input = is.previousElementSibling;
+        // console.log(is);
         let span = input.previousElementSibling;
 
         input.style.display = 'block';
@@ -47,6 +48,7 @@ rename.onclick = function(){
             }
             // console.log('全局那个'+globalId)
             render(globalId);
+            renderTree(0);
             fullbox ('重命名成功');
         }
         // console.log(is);

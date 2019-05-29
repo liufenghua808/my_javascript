@@ -1,6 +1,5 @@
 console.log(data);
 
-
  //创建一个装DOM节点的容器，html.appendChild(要插入的DOM节点)
  // let html = document.createDocumentFragment();
 
@@ -9,18 +8,17 @@ const  fempty = document.querySelector('.f-empty');
 
 let globalId = 0; //存储id的
 
- let {getChild} = tools;  //tools.getChild()
-
 function render(id){
     globalId = id*1;
     folders.innerHTML = '';
     //如果有子级，就渲染
     let ary = getChild(globalId);
     // console.log(ary,globalId);
-    if(ary){
+    if(ary && ary.length){
         fempty.style.display = 'none';
         // console.time('计时器');
         // let html = document.createDocumentFragment();
+        // console.log(ary)
         checkedAll.className = ary.every(e=>e.checked)?'checked':'';
         ary.forEach((ele,i)=>{
            
@@ -46,7 +44,7 @@ function render(id){
                     fempty.style.display = 'block';
                     globalId = ele.id;
                     folders.innerHTML = '';
-                    console.log(ele.id);
+                    // console.log(ele.id);
                 }
 
                 //双击文件的时候清除全选
@@ -76,21 +74,12 @@ function render(id){
             div.append(span);
             div.append(input);
             div.append(is);
-
-            // html.appendChild(div);
             folders.appendChild(div);
-            span.onblur = function(){
-                console.log(123)
-            }
-            // span.onfocus = function(){
-            //     console.log(321);
-            // }
         });
-
-
-        // folders.appendChild(html);
-        // console.timeEnd('计时器');
-        
+    }else{
+        console.log('jin');
+        fempty.style.display = 'block';
+        checkedAll.className = '';
     }
 }
 

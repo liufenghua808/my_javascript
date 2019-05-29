@@ -14,10 +14,11 @@ fBox.onmousedown = function(ev){
     render(globalId);
 
 
+    console.log(folders.scrollTop)
 
     let disX = ev.pageX - fBox.offsetLeft;
     let {top} = po(fBox);
-    let disY = ev.pageY - top; //+ floders.scrollTop;//一会再解释
+    let disY = ev.pageY - top;//一会再解释
     // console.log(ev.pageY);
 
     kuang.style.display = 'block';
@@ -39,7 +40,8 @@ fBox.onmousedown = function(ev){
         let fileItem = document.querySelectorAll('.file-item');
 
         fileItem.forEach((ele,i)=>{
-            if(duang(kuang,ele)){
+             //当创建元素很多之后，会出现滚动条，所以加上了folders滚动条的高度
+            if(duang(kuang,ele,folders.scrollTop)){
                data[ele.dataset.id].checked = true;
                checkedNum ++;
             }else{
@@ -56,7 +58,7 @@ fBox.onmousedown = function(ev){
         }
 
         render(globalId);
-        console.log('move');
+        // console.log('move');
         return false;
     }
     document.onmouseup = function(){

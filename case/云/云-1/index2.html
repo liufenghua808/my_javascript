@@ -516,7 +516,7 @@
                         ul.innerHTML = renderLeft(item.getAttribute('data-id') * 1);
                         onCl(ul.children)
                     }
-                })  
+                })
 
             }
 
@@ -761,19 +761,27 @@
 
         //移动到==========================================
         remove.onclick = function () {
+            let modal_tree = document.querySelector('.modal-tree');
+            let content = modal_tree.querySelector('.content');
+            let icon_close = document.querySelector('.icon_close');
+            let cancel = document.querySelector('.cancel');
+           
             let ary = getChild(parentid);
             if (ary.every(item => item.checked === false)) {
                 alert('请先选中需要移动的文件!');
             } else {
-                let modal_tree = document.querySelector('.modal-tree');
-                let content = modal_tree.querySelector('.content');
+
                 modal_tree.style.display = "block";
                 content.innerHTML += renderLeft(parentid);
                 onCl(content.children);
-                       
-                    
-                
 
+            }
+
+            icon_close.onclick = function () {
+                modal_tree.style.display = "none";
+            }
+            cancel.onclick = function () {
+                modal_tree.style.display = "none";
             }
         }
 

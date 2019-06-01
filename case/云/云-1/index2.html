@@ -611,7 +611,7 @@
                     }
                     renderRight(parentid * 1);
                     document.querySelectorAll('#oUl li').forEach(item => {
-                        if (item.getAttribute('data-id') == ev.target.getAttribute('data-aid')) {
+                        if (item.getAttribute('data-id') == parentid) {
                             //先进行清除原有的子集再进行添加
                             item.lastElementChild.remove();
                             let ul = document.createElement('ul');
@@ -627,6 +627,122 @@
 
             }
         }
+
+        //移动到==========================================
+        remove.onclick = function () {
+            let modal_tree = document.querySelector('.modal-tree');
+            let content = modal_tree.querySelector('.content');
+            let icon_close = document.querySelector('.icon_close');
+            let cancel = document.querySelector('.cancel');
+            let ok = document.querySelector('.ok');
+
+            let ary = getChild(parentid);
+
+            if (ary.every(item => item.checked === false)) {
+                alert('请先选中需要移动的文件!');
+            } else if (ary.every(item => (item.pid === -1))) {
+                alert('您选中的文件目前已经是根目录，无需移动!');
+                return;
+            } else {
+
+                modal_tree.style.display = "block";
+                //微云渲染
+                content.innerHTML = renderLeft(-1);
+
+                onCl(content.children);
+                //点击事件触发左右页面child展开，关闭
+                function onCl(lis) {
+                    let li = Array.from(lis);
+                    //console.log(li);
+                    //循环出每一项li
+                    li.forEach((item) => {
+                        let onoff = true;
+                        let div = item.querySelector('div');
+                        //点击每项li，展开子集
+                        item.onclick = function (ev) {
+                            let divs = content.querySelectorAll('div');
+                            divs.forEach(function (e) {
+                                e.style.background = '';
+                            })
+
+                            div.style.background = 'skyblue';
+                            ev.cancelBubble = true;//阻止冒泡
+                            let ids = this.getAttribute("data-id");
+                            //展开li（父级）
+                            if (this.querySelectorAll("ul").length < 1) {
+                                let divs = this.firstElementChild;
+                                divs.className = 'tree-title tree-ico open';
+                                //添加child
+                                let ul = document.createElement('ul');
+                                this.append(ul);
+                                //左侧树状菜单下把li下的child渲染出来
+                                ul.innerHTML = renderLeft(ids * 1);
+                                //再循环child下面的所有li，进行展开，关闭
+                                onCl(ul.children);
+
+                            } else {  //关闭li（父级）
+                                //关闭左侧菜单把child移出
+                                (this.lastElementChild).remove();
+                                let divs = this.firstElementChild;
+                                divs.className = 'tree-title tree-ico close';
+                            }
+
+                            //筛选出被选中移动的数据
+                            let arr = ary.filter(item => item.checked === true)
+                            console.log(arr);
+                            console.log(this);
+                            let that = this;
+                            //保存当前li的id
+                            parentid = ids;
+                            //点击确定，把需要被移动的数据的pid改为被移动到的文件夹的id相等，实现数据移动
+                            ok.onclick = function () {
+                                modal_tree.style.display = "none";
+                                
+                                arr.forEach(item => {
+                                    item.pid = that.getAttribute('data-id') * 1;
+                                    item.checked = false;
+                                })
+                                console.log(arr);
+
+                                renderBreadNav();
+                                document.querySelectorAll('#oUl li').forEach(item => {
+                                    if (item.getAttribute('data-id') == that.getAttribute('data-id') * 1) {
+                                        //先进行清除原有的子集再进行添加
+                                        if(item.querySelector('ul')){
+                                            item.querySelector('ul').remove();
+                                        }
+                                      
+                                        let ul = document.createElement('ul');
+                                        item.append(ul);
+                                        //左侧树状菜单下把li下的child渲染出来
+                                        ul.innerHTML = renderLeft(item.getAttribute('data-id') * 1);
+                                        onCl(ul.children)
+                                    }
+                                })
+                                checkedAll.classList.remove('checked');
+                                renderRight(parentid * 1);
+
+                            }
+                            onoff = !onoff;
+                        }
+                    });
+
+                };
+
+
+            }
+
+
+            icon_close.onclick = function () {
+                modal_tree.style.display = "none";
+            }
+            cancel.onclick = function () {
+                modal_tree.style.display = "none";
+            }
+        }
+
+
+
 
         //面包屑============================================
         //1、点击面包屑的时候，把对应的id获取出来,赋值parentid
@@ -728,14 +844,14 @@
                     if (duang(kuang, item, folders.scrollTop)) {
                         data[item.dataset.id].checked = true;
                         kuangnum++;
-                        console.log('碰到');
+                       // console.log('碰到');
                     } else {
                         data[item.dataset.id].checked = false;
                     }
 
                 });
                 if (kuangnum === filss.length) {
-                    console.log('全选');
+                   // console.log('全选');
                     checkedAll.classList.add('checked');
                 } else {
                     checkedAll.classList.remove('checked');
@@ -758,33 +874,6 @@
             }
 
         }
-
-        //移动到==========================================
-        remove.onclick = function () {
-            let modal_tree = document.querySelector('.modal-tree');
-            let content = modal_tree.querySelector('.content');
-            let icon_close = document.querySelector('.icon_close');
-            let cancel = document.querySelector('.cancel');
-           
-            let ary = getChild(parentid);
-            if (ary.every(item => item.checked === false)) {
-                alert('请先选中需要移动的文件!');
-            } else {
-
-                modal_tree.style.display = "block";
-                content.innerHTML += renderLeft(parentid);
-                onCl(content.children);
-
-            }
-
-            icon_close.onclick = function () {
-                modal_tree.style.display = "none";
-            }
-            cancel.onclick = function () {
-                modal_tree.style.display = "none";
-            }
-        }
-
 
 
 

@@ -289,6 +289,9 @@ html,body{
 .tree-menu ul ul{
 	padding-left: 10px;
 }
+.content ul{
+	padding-left: 10px;
+}
 .tree-title{
 	position: relative;
 	margin-bottom:1px;

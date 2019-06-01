@@ -233,6 +233,9 @@
 	</div>
 	<script src="js/data.js"></script>
 	<script>
+
+		//看看有没有hash值，如果没有默认设置为type=sh
+
 		class SHZP {
 			constructor() {
 				this.leftList = document.getElementById('leftList');
@@ -240,163 +243,177 @@
 				this.rightList = document.getElementById('rightList');
 				this.start = 0; //初始首页开始条数
 				this.stop = 4; //初始化首页结束条数
-				this.hash = window.location.hash; //打开页面的时候获取hash值
-				
-				
+				//this.hash = window.location.hash; //打开页面的时候获取hash值
+				if (!window.location.hash) {
+					window.location.hash = 'type=sh&page=1';
+				}
+
+
+
 			}
-				//获取hash,进行分割，存储
-		getHash() {
-			//获取hash值（字符串），字符串分割成数组		
-			let.arr1 = (window.location.hash).substring(1).split('&');
-			let obj = {};
-			//this.obj = {};
-			arr1.forEach(item => {
-				let ary = item.split('='); //循环获取arr1每一项字符串，每一项用‘=’分割成数组
-				this.obj[ary[0]] = ary[1];
-				//console.log(obj);
+			//获取hash,进行分割，存储
+			getHash() {
+				//获取hash值（字符串），字符串分割成数组		
+				let arr1 = window.location.hash.substring(1).split('&');
+				let obj = {};
+				//this.obj = {};
+				arr1.forEach(item => {
+					let ary = item.split('='); //循环获取arr1每一项字符串，每一项用‘=’分割成数组
+					obj[ary[0]] = ary[1];
+					//console.log(obj);
 
-			});
-			return obj;
-		}
+				});
+				return obj;
+			}
 
-		//let obj = getHash();
-		
-
-		}
-
-
-
-		// let leftList = document.getElementById('leftList');
-		// let list1 = leftList.querySelectorAll('li');
-		// let rightList = document.getElementById('rightList');
-
-
-		// let start = 0; //初始首页开始条数
-		// let stop = 4; //初始化首页结束条数
-		// let hash = window.location.hash; //打开页面的时候获取hash值
-
-		//看看有没有hash值，如果没有默认设置为type=sh
-		if (!hash) {
-			window.location.hash = 'type=sh&page=1';
-		}
-
-
-
-		//社会招聘数据渲染
-		function rendersh(start, stop) {
-			let str = ''
-			for (let i = start; i < stop; i++) {
-				let item = data.sh.text[i];
-				str += `<li>
+			//社会招聘数据渲染
+			rendersh(start, stop) {
+				let str = ''
+				for (let i = start; i < stop; i++) {
+					let item = data.sh.text[i];
+					str += `<li>
 							<span class="num">${i + 1}</span>
 							<div class="list">
-								<a href="content.html#type=sh&name=${i}&page=${obj.page}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
+								<a href="content.html#type=sh&name=${i}&page=${this.getHash().page}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
 								<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="content.html">查看详情>></a></p>
 							</div>
 						</li>`
 
+				}
+				this.rightList.innerHTML = str;
 			}
-			rightList.innerHTML = str;
-		}
 
-		//校园招聘数据渲染
-		function renderxy(start, stop) {
-			let str = '';
-			for (let i = start; i < stop; i++) {
-				let item = data.xy.text[i];
-				str += `<li>
+
+			//校园招聘数据渲染
+			renderxy(start, stop) {
+				let str = '';
+				for (let i = start; i < stop; i++) {
+					let item = data.xy.text[i];
+					str += `<li>
 							<span class="num">${i + 1}</span>
 							<div class="list">
-								<a href="content.html#type=xy&name=${i}&page=${obj.page}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
+								<a href="content.html#type=xy&name=${i}&page=${this.getHash().page}"><span class="job">职位需求：${item.zw}</span><span>需求人数：${item.rs}名</span><time>${item.sj.join('-')}</time></a>
 								<p><span class="text">岗位要求：${item.info[0].l.join(',')}</span><a href="content.html">查看详情>></a></p>
 							</div>
 						</li>`
 
-			}
-			rightList.innerHTML = str;
-		}
-
-		//分页
-		function Page(type) {
-			let nav = document.getElementById('nav');
-			let page = Math.ceil(data[type].text.length / 4);//根据总条数获得总页数
-			let page_con = '';
-			//console.log(page);
-			for (let i = 0; i < page; i++) {
-				//动态添加页码标签（不含翻页箭头）
-				page_con += `<a class="active" href="javascript:;">${i + 1}</a>`;
+				}
+				this.rightList.innerHTML = str;
 			}
 
-			//动态添加页码
-			nav.innerHTML = `<a href="javascript:;">&lt;</a>
+			//分页
+			Page(type) {
+				let nav = document.getElementById('nav');
+				let page = Math.ceil(data[type].text.length / 4);//根据总条数获得总页数
+				let page_con = '';
+				//console.log(page);
+				for (let i = 0; i < page; i++) {
+					//动态添加页码标签（不含翻页箭头）
+					page_con += `<a class="active" href="javascript:;">${i + 1}</a>`;
+				}
+
+				//动态添加页码
+				nav.innerHTML = `<a href="javascript:;">&lt;</a>
 							${page_con}
 							 <a href="javascript:;">&gt;</a>`;
 
-			let pagenum = nav.querySelectorAll('a');
+				let pagenum = nav.querySelectorAll('a');
 
-			//点击页码事件
-			for (let i = 1; i < pagenum.length - 1; i++) {
-				i == obj.page ? pagenum[i].className = 'active' : pagenum[i].className = '';
-				pagenum[i].onclick = function () {
-					pagenum.forEach(item => {
-						item.className = '';
-					})
-					this.className = 'active';
-					let page = this.innerHTML;
-					window.location.hash = `type=${type}&page=${page}`;
+				//点击页码事件
+				for (let i = 1; i < pagenum.length - 1; i++) {
+					i == this.getHash().page ? pagenum[i].className = 'active' : pagenum[i].className = '';
+					pagenum[i].onclick = function () {
+						pagenum.forEach(item => {
+							item.className = '';
+						})
+						this.className = 'active';
+						let page = this.innerHTML;
+						window.location.hash = `type=${type}&page=${page}`;
 
+					}
 				}
+
+				let that = this;
+				//点击上一页
+				pagenum[0].onclick = function () {
+					let obj = that.getHash();
+					window.location.hash = `type=${type}&page=${obj.page - 1 < 1 ? 1 : obj.page - 1}`;
+				}
+				//点击下一页
+				pagenum[pagenum.length - 1].onclick = function () {
+					let obj = that.getHash();
+					window.location.hash = `type=${type}&page=${obj.page * 1 + 1 > page ? page : obj.page * 1 + 1}`;
+				}
+
+
 			}
 
-			//点击上一页
-			pagenum[0].onclick = function () {
-				obj = getHash();
-				window.location.hash = `type=${type}&page=${obj.page - 1 < 1 ? 1 : obj.page - 1}`;
-			}
-			//点击下一页
-			pagenum[pagenum.length - 1].onclick = function () {
-				obj = getHash();
-				window.location.hash = `type=${type}&page=${obj.page * 1 + 1 > page ? page : obj.page * 1 + 1}`;
-			}
-
-
-		}
-		//hash发生变化触发事件
-		function change() {
-			obj = getHash();
-			if (obj.page) {
-				start = 4 * obj.page - 4;//当前页条数开始索引
-				stop = (4 * obj.page) > data[obj.type].text.length ? data[obj.type].text.length : (4 * obj.page);
-			}
-			if (obj.type == 'sh') {
-				//当前页条数结束索引
-				rendersh(start, stop);
-				Page(obj.type);
-			} else {
-				renderxy(start, stop);
-				Page(obj.type);
-			}
-
-
-		}
-		change()
-		//切换
-		list1.forEach(function (item, i) {
-			item.onclick = function () {
-				//清除样式
-				list1[0].className = '';
-				list1[1].className = '';
-				this.className = 'active';//给当前点击元素增加样式
-
-				if (i === 0) {
-					window.location.hash = 'type=sh&page=1';
+			//hash发生变化触发事件
+			change() {
+				//console.log('1111');
+				let obj = this.getHash();
+				if (obj.page) {
+					this.start = 4 * obj.page - 4;//当前页条数开始索引
+					this.stop = (4 * obj.page) > data[obj.type].text.length ? data[obj.type].text.length : (4 * obj.page);
+				}
+				console.log(obj)
+				if (obj.type == 'sh') {
+					//alert('sh');
+					//当前页条数结束索引
+					this.rendersh(this.start, this.stop);
+					this.Page(obj.type);
 				} else {
-					window.location.hash = 'type=xy&page=1';
+					this.renderxy(this.start, this.stop);
+					this.Page(obj.type);
 				}
+
+
 			}
-		})
-		//hash值改变时对应当前页面数据发生变化
-		window.onhashchange = change;
+
+
+			oncl() {
+				let that = this;
+				this.list1.forEach(function (item, i) {
+					item.onclick = function () {
+						//清除样式
+						that.list1[0].className = '';
+						that.list1[1].className = '';
+						this.className = 'active';//给当前点击元素增加样式
+
+						if (i === 0) {
+							window.location.hash = 'type=sh&page=1';
+						} else {
+							window.location.hash = 'type=xy&page=1';
+						}
+					}
+				})
+				//hash值改变时对应当前页面数据发生变化
+				let changes=this.change.bind(this)
+				window.onhashchange = changes;
+
+			}
+
+		}
+
+
+		let o = new SHZP();
+		o.change();
+		o.oncl();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

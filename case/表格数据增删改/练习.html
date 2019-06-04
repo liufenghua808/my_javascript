@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="txt"><button id='btn'>添加</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>上移动</th>
+                <th>下移动</th>
+                <th>删除</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <!-- <tr>
+                <td>0</td>
+                <td>wowo</td>
+                <td><button class="top">上移</button></td>
+                <td><button class="bom">下移</button></td>
+                <td><button class="del">删除</button></td>
+            </tr> -->
+        </tbody>
+    </table>
+
+    <script>
+        const txt = document.getElementById('txt');
+        const btn = document.getElementById('btn');
+        const tbody = document.getElementById('tbody');
+
+
+
+
+
+
+        let arr = [
+            {
+                id: 1,
+                name: 'ni'
+            },
+            {
+                id: 2,
+                name: 'ta'
+            }
+        ];
+
+        function fn(arr) {
+            let html = "";
+            arr.forEach(function (item) {
+                html += `<tr>
+                <td>${item.id}</td>
+                <td>${item.name}</td>
+                <td><button class="top">上移</button></td>
+                <td><button class="bom">下移</button></td>
+                <td><button class="del">删除</button></td>
+            </tr>`
+            });
+            tbody.innerHTML = html;
+
+
+            const del = document.querySelectorAll('.del');
+            const tp = document.querySelectorAll('.top');
+            const bom = document.querySelectorAll('.bom');
+            //删除
+            for (let i = 0; i < del.length; i++) {
+                del[i].ins = arr[i].id;
+                del[i].onclick = function () {
+                    for (let j = 0; j < arr.length; j++) {
+                        if (arr[i].id === this.ins) {
+                            arr.splice(j, 1);
+                            // console.log(j);
+                            fn(arr);
+
+                        }
+                    }
+                }
+                //上移
+                tp[i].onclick = function () {
+                    if (i == 0) {
+                        alert('封顶');
+                    } else {
+                        arr.splice(i - 1, 0, arr[i]);
+                        arr.splice(i + 1, 1);
+                        // console.log(arr);
+                        fn(arr);
+                    }
+
+                }
+
+                // 下移
+                bom[i].onclick = function () {
+                    if (i == arr.length - 1) {
+                        alert('封底');
+                    } else {
+                        arr.splice(i + 2, 0, arr[i]);
+                        arr.splice(i, 1);
+                        fn(arr);
+                    }
+
+                }
+
+
+            }
+
+        }
+        fn(arr);
+
+        //点击添加按钮添加内容
+        btn.onclick = function () {
+            arr.splice(arr.length, 0, {
+                id: +new Date,
+                name: txt.value
+            });
+            // console.log(arr);
+            fn(arr);
+        }
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

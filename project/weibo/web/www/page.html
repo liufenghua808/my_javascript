@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='page'></div>
+
+    <script>
+        /*
+        */
+        let obj = {
+            count: 8,
+            num: 0,
+            len: 5
+        }
+        obj.len = obj.count < obj.len ? obj.count : obj.len;
+        for (let i = 0; i < obj.len; i++) {
+            let a = document.createElement('a');
+            a.href = 'javascript:;';
+            a.innerHTML = '[' + (i + 1) + ']';
+            if (i === obj.num) {
+                a.className = 'active';
+            }
+            page.appendChild(a);
+        }
+
+
+    </script>
+</body>
+
+</html>

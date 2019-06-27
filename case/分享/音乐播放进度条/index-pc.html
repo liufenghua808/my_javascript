@@ -3,63 +3,55 @@
 
 <head>
     <title>Document</title>
-    <!--rem自适应布局公式-->
-    <script>
-        var desW = 750; //设计图宽度
-        function refreshRem() {
-            let doc = document.documentElement;
-            let winW = doc.clientWidth;//可视区宽度
-            let radio = desW / winW;
-            doc.style.fontSize = 100 / radio + 'px';
-        }
-        refreshRem();           
-        window.addEventListener('resize', refreshRem);
-    </script>
 
     <style>
         * {
-            margin: 0rem;
-            padding: 0rem;
+            margin: 0;
+            padding: 0;
             list-style: none;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: "宋体";
+
 
         }
 
         body {
+            position: relative;
             background: url('timg.gif');
         }
 
         .warp {
-            font-size: .24rem;
             margin: 0 auto;
             width: 100%;
             overflow: hidden;
             color: #ffffff;
             position: relative;
+            /* width: 300px; */
+            height: 600px;
         }
 
-        p {
-            height: 1.2rem;
-            font-size: 0.4rem;
+        header {
+            width: 100%;
+            height: 100px;
+            font-size: 40px;
+            letter-spacing: 10px;
+            line-height: 100px;
             text-align: center;
-            line-height: 1.2rem;
             background-color: #000000;
-            position: relative;
+            position: fixed;
             z-index: 999;
-            box-shadow: 0 140px 140px #000000; 
+            box-shadow: 0 140px 140px #000000;
 
         }
 
         #up {
             width: 100%;
-            height: 12%;
-            _opacity: .5;
+            height: 20%;
             background: #000000;
             position: absolute;
             top: 0;
             left: 0;
             z-index: 9;
-            box-shadow: 0 140px 140px #000000; 
+            _box-shadow: 0 140px 140px #000000;
         }
 
         #down {
@@ -67,24 +59,24 @@
             height: 20%;
             background: #000000;
             position: absolute;
-            bottom: 10%;
+            bottom: 1%;
             left: 0;
             z-index: 9;
-            box-shadow: 0 -140px 140px #000000; 
+            box-shadow: 0 -140px 140px #000000;
         }
 
 
 
         #lyric {
             width: 100%;
-            padding-top: 1.2rem;
-            line-height: 0.4rem;
-            letter-spacing: 0.06rem;
+            padding-top: 120px;
+            line-height: 40px;
+            letter-spacing: 6px;
             transition-duration: 600ms;
             text-align: center;
-            height: 11rem;
-            overflow: hidden;
-            font-size: .3rem;
+            height: 600px;
+            _overflow: hidden;
+            font-size: 30px;
             color: #999;
             position: relative;
             z-index: 1;
@@ -93,16 +85,16 @@
         #lyric .lineHigh {
             /*高亮行*/
             color: #ffffff;
-            font-size: .34rem;
-            transition: 1s;
+            font-size: 34px;
+            transition: 200ms;
         }
 
         #audio {
-            width: 3rem;
-            border-radius: 10%;
             position: absolute;
-            bottom: 20%;
+            left: 50%;
+            margin-left: -150px;
             z-index: 999;
+            box-shadow: 0 -50px 40px #000000;
         }
     </style>
 </head>
@@ -110,21 +102,15 @@
 <body>
     <section class="warp">
         <header>
-            <p>儿时</p>
+            儿时
         </header>
         <div id='up'></div>
         <!-- 歌词 -->
-
         <ul id="lyric"></ul>
 
-        <div id='down'></div>
         <!-- LRC歌词 -->
         <textarea id="lrc_content" cols="30" style="display: none">
-            [ti:儿时]
-            [ar:刘昊霖]
-            [al:儿时]
-            [by:0]
-            [offset:0]
+
             [00:00.60]刘昊霖 - 儿时
             [00:01.60]词：唐映枫
             [00:02.60]曲：刘昊霖
@@ -169,29 +155,37 @@
             [04:07.31]小小诗不敢递给她
         </textarea>
 
-        <!-- 播放器 -->
-        <!-- <audio id="audio" loop="loop" src="./刘昊霖 - 儿时.mp3" controls preload="auto"></audio> -->
-        <audio id="audio" controls preload="auto">
-            <source src="./刘昊霖 - 儿时.mp3" type="audio/mpeg">
-          </audio>
-    
     </section>
+    <!-- <div id='down'></div> -->
+    <!-- 播放器 -->
+    <audio id="audio" controls preload="auto">
+        <source src="./刘昊霖 - 儿时.mp3" type="audio/mpeg">
+    </audio>
 
 
 
 
     <script>
-        var lrc = document.getElementById("lrc_content").innerHTML;
-        console.log(lrc);
+        /**
+         * 1、lrc格式歌词解析成对象   
+         *      [00:16.40]铁道旁赤脚追晚霞=> ms[{t: "16.400", c: "铁道旁赤脚追晚霞"}]
+         * 
+         * 2、把js对象的歌词部分渲染到页面  <li>铁道旁赤脚追晚霞</li>
+         *      
+         * 3、监听播放器audio的timeupdate事件，播放器在播放时会持续触发监听事件执行（大概200到300毫秒）
+         *      获取播放器当前时间（audio.currentTime）
+         *    监听事件：实现文字与音频同步滚动播放，并且当前歌词文字高亮显示
+         * 
+         * 4、监听播放器的ended事件，播放结束时回滚歌词
+         *         
+        */
+
         //把lrc解析为js对象
         var oLRC = {
-            ti: "", //歌曲名
-            ar: "", //演唱者
-            al: "", //专辑名
-            by: "", //歌词制作人
-            offset: 0, //时间补偿值，单位毫秒，用于调整歌词整体位置
             ms: [] //歌词数组{t:时间,c:歌词}
         };
+        var lrc = document.getElementById("lrc_content").innerHTML;
+        console.log(lrc);
 
         function createLrcObj(lrc) {
             if (lrc.length == 0) return;
@@ -204,53 +198,37 @@
                 console.log(t);  //00:00.60
                 var s = t.split(":"); //分离:前后文字
                 console.log(s); //["00", "01.60"]
+                var arr = lrcs[i].match(/\[(\d+:.+?)\]/g); //提取时间字段，可能有多个
+                console.log(arr);//["[00:00.60]"]
+                var start = 0;
+                for (var k in arr) {
+                    start += arr[k].length; //计算歌词开始位置
+                }
+                console.log(start);//10
 
-                if (isNaN(parseInt(s[0]))) { //不是数值
-                    for (var i in oLRC) {
-                        if (i != "ms" && i == s[0].toLowerCase()) {
-                            oLRC[i] = s[1];
-                        }
-                    }
-                } else { //是数值
-                    var arr = lrcs[i].match(/\[(\d+:.+?)\]/g); //提取时间字段，可能有多个
-                    console.log(arr);//["[00:00.60]"]
-                    var start = 0;
-                    for (var k in arr) {
-                        start += arr[k].length; //计算歌词开始位置
-                    }
-                    console.log(start);//10
+                var content = lrcs[i].substring(start); //获取歌词内容  [00:00.60]刘昊霖 - 儿时  从第10位开始截取
+                console.log(content); //刘昊霖 - 儿时
+                console.log(arr);
+                for (var k in arr) {
+                    var t = arr[k].substring(1, arr[k].length - 1); //取[]间的内容
+                    console.log(t); //00:00.60
+                    var s = t.split(":"); //分离:前后文字
+                    console.log(s);//["00", "00.60"]
+                    console.log(s[0], s[1]) //00 00.60
+                    oLRC.ms.push({ //对象{t:时间,c:歌词}加入ms数组
+                        //toFixed() 方法可把 Number 四舍五入为指定小数位数的数字
+                        t: (parseFloat(s[0]) * 60 + parseFloat(s[1])).toFixed(3),
+                        c: content
+                    });//{t: "34.480", c: "铁门前篮筐银杏花"}
 
-                    var content = lrcs[i].substring(start); //获取歌词内容  [00:00.60]刘昊霖 - 儿时  从第10位开始截取
-                    console.log(content); //刘昊霖 - 儿时
-                    console.log(arr);
-                    for (var k in arr) {
-
-                        var t = arr[k].substring(1, arr[k].length - 1); //取[]间的内容
-                        console.log(t); //00:00.60
-                        var s = t.split(":"); //分离:前后文字
-                        console.log(s);//["00", "00.60"]
-                        console.log(s[0], s[1]) //00 00.60
-                        oLRC.ms.push({ //对象{t:时间,c:歌词}加入ms数组
-                            //toFixed() 方法可把 Number 四舍五入为指定小数位数的数字
-                            t: (parseFloat(s[0]) * 60 + parseFloat(s[1])).toFixed(3),
-                            c: content
-                        });
-                    }
                 }
             }
-
-            console.log(oLRC);
             oLRC.ms.sort(function (a, b) { //按时间顺序排序
                 return a.t - b.t;
             });
             console.log(oLRC);
-            // for (var i in oLRC) { //查看解析结果
-            //     console.log(i, ":", oLRC[i]);
-            // }
         }
-
         createLrcObj(lrc);
-
 
         //渲染歌词
         function showLRC() {
@@ -264,9 +242,9 @@
 
 
 
-        let lineNo = 0, //当前行
+        var lineNo = 0, //当前行
             c_pos = 6, //C位
-            offset = -40; //滚动距离（应等于行高）
+            offset = -40; //滚动距离（等于行高）
         audio = document.getElementById("audio"), //播放器
             ul = document.getElementById("lyric"); //歌词容器列表
 
@@ -284,24 +262,26 @@
             }
         }
 
-        //滚回到开头，用于播放结束时
-        function goback() {
-            document.querySelector("#lyric .lineHigh").removeAttribute("class");
-            ul.style.transform = "translateY(0)";
-            lineNo = 0;
-        }
+
 
         //监听播放器的timeupdate事件，实现文字与音频播放同步
         audio.ontimeupdate = function () {
             if (lineNo == oLRC.ms.length)
                 return;
             var curTime = audio.currentTime; //播放器时间
+           
             if (parseFloat(oLRC.ms[lineNo].t) <= curTime) {
                 lineHigh(); //高亮当前行
                 lineNo++;
             }
         };
 
+        //滚回到开头，用于播放结束时
+        function goback() {
+            document.querySelector("#lyric .lineHigh").removeAttribute("class");
+            ul.style.transform = "translateY(0)";
+            lineNo = 0;
+        }
         //监听播放器的ended事件，播放结束时回滚歌词
         audio.onended = function () {
             goback(); //回滚歌词
